@@ -14,7 +14,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema coagent
 -- -----------------------------------------------------
-
 DROP DATABASE IF EXISTS `coagent`;
 CREATE SCHEMA IF NOT EXISTS `coagent` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `coagent` ;
@@ -29,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`agent` (
   `Agent_Email` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Agent_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`clients` (
   `Clients_Email` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Clients_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -62,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`authors` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -90,43 +92,46 @@ CREATE TABLE IF NOT EXISTS `coagent`.`books` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `coagent`.`genre`
+-- Table `coagent`.`themes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`genre` (
-  `Genre_Id` INT NOT NULL AUTO_INCREMENT,
-  `Genre` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`Genre_Id`))
+CREATE TABLE IF NOT EXISTS `coagent`.`themes` (
+  `Theme_Id` INT NOT NULL AUTO_INCREMENT,
+  `Theme` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Theme_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `coagent`.`book_has_genre`
+-- Table `coagent`.`book_has_theme`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`book_has_genre` (
-  `Books_Has_Genre_Id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `coagent`.`book_has_theme` (
+  `Books_Has_Theme_Id` INT NOT NULL AUTO_INCREMENT,
   `Books_Id` INT NOT NULL,
-  `Genre_Id` INT NOT NULL,
-  PRIMARY KEY (`Books_Has_Genre_Id`),
-  INDEX `Genre_Id_idx` (`Genre_Id` ASC) VISIBLE,
+  `Theme_Id` INT NOT NULL,
+  PRIMARY KEY (`Books_Has_Theme_Id`),
+  INDEX `Genre_Id_idx` (`Theme_Id` ASC) VISIBLE,
   INDEX `Books_Id_idx` (`Books_Id` ASC) VISIBLE,
   CONSTRAINT `Books_Id`
     FOREIGN KEY (`Books_Id`)
     REFERENCES `coagent`.`books` (`Books_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `Genre_Id`
-    FOREIGN KEY (`Genre_Id`)
-    REFERENCES `coagent`.`genre` (`Genre_Id`)
+  CONSTRAINT `Theme_Id`
+    FOREIGN KEY (`Theme_Id`)
+    REFERENCES `coagent`.`themes` (`Theme_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -140,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`publisher` (
   `Publisher_Contact` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Publisher_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -161,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`editor` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -194,6 +201,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`contract` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -205,6 +213,8 @@ CREATE TABLE IF NOT EXISTS `coagent`.`submissions` (
   `Submissions_Id` INT NOT NULL AUTO_INCREMENT,
   `Books_Books_Id` INT NOT NULL,
   `Editor_Editor_Id` INT NOT NULL,
+  `Reply` VARCHAR(255) NULL,
+  `Reply_Grade` INT NULL,
   PRIMARY KEY (`Submissions_Id`, `Books_Books_Id`, `Editor_Editor_Id`),
   INDEX `fk_Books_has_Publisher_Books1_idx` (`Books_Books_Id` ASC) VISIBLE,
   INDEX `fk_Submissions_Editor1_idx` (`Editor_Editor_Id` ASC) VISIBLE,
