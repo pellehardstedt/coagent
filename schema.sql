@@ -14,14 +14,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema coagent
 -- -----------------------------------------------------
-DROP DATABASE IF EXISTS `coagent`;
+DROP DATABASE `coagent`;
 CREATE SCHEMA IF NOT EXISTS `coagent` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `coagent` ;
 
 -- -----------------------------------------------------
--- Table `coagent`.`agent`
+-- Table `coagent`.`agents`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`agent` (
+CREATE TABLE IF NOT EXISTS `coagent`.`agents` (
   `Agent_Id` INT NOT NULL AUTO_INCREMENT,
   `Agent_Username` VARCHAR(45) NULL DEFAULT NULL,
   `Agent_Password` VARCHAR(45) NULL DEFAULT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`books` (
   INDEX `fk_Books_Authors1_idx` (`Authors_Authors_Id` ASC) VISIBLE,
   CONSTRAINT `fk_Books_Agent1`
     FOREIGN KEY (`Agent_Agent_Id`)
-    REFERENCES `coagent`.`agent` (`Agent_Id`)
+    REFERENCES `coagent`.`agents` (`Agent_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Books_Authors1`
@@ -137,9 +137,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `coagent`.`publisher`
+-- Table `coagent`.`publishers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`publisher` (
+CREATE TABLE IF NOT EXISTS `coagent`.`publishers` (
   `Publisher_Id` INT NOT NULL AUTO_INCREMENT,
   `Publisher_Name` VARCHAR(45) NULL DEFAULT NULL,
   `Publisher_Contact` VARCHAR(45) NULL DEFAULT NULL,
@@ -151,9 +151,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `coagent`.`editor`
+-- Table `coagent`.`editors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`editor` (
+CREATE TABLE IF NOT EXISTS `coagent`.`editors` (
   `Editor_Id` INT NOT NULL AUTO_INCREMENT,
   `Editor_Name` VARCHAR(45) NULL DEFAULT NULL,
   `Editor_Contact` VARCHAR(45) NULL DEFAULT NULL,
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`editor` (
   INDEX `fk_Editor_Publisher1_idx` (`Publisher_Publisher_Id` ASC) VISIBLE,
   CONSTRAINT `fk_Editor_Publisher1`
     FOREIGN KEY (`Publisher_Publisher_Id`)
-    REFERENCES `coagent`.`publisher` (`Publisher_Id`)
+    REFERENCES `coagent`.`publishers` (`Publisher_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -173,9 +173,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `coagent`.`contract`
+-- Table `coagent`.`contracts`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`contract` (
+CREATE TABLE IF NOT EXISTS `coagent`.`contracts` (
   `Contract_Id` INT NOT NULL AUTO_INCREMENT,
   `Books_Books_Id` INT NOT NULL,
   `Publisher_Publisher_Id` INT NOT NULL,
@@ -192,12 +192,12 @@ CREATE TABLE IF NOT EXISTS `coagent`.`contract` (
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Contract_Editor1`
     FOREIGN KEY (`Editor_Editor_Id`)
-    REFERENCES `coagent`.`editor` (`Editor_Id`)
+    REFERENCES `coagent`.`editors` (`Editor_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Contract_Publisher1`
     FOREIGN KEY (`Publisher_Publisher_Id`)
-    REFERENCES `coagent`.`publisher` (`Publisher_Id`)
+    REFERENCES `coagent`.`publishers` (`Publisher_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`submissions` (
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_Submissions_Editor1`
     FOREIGN KEY (`Editor_Editor_Id`)
-    REFERENCES `coagent`.`editor` (`Editor_Id`)
+    REFERENCES `coagent`.`editors` (`Editor_Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
