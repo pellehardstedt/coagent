@@ -111,13 +111,10 @@ INNER JOIN themes ON book_has_theme.Theme_Id = themes.Theme_Id);
 
 SELECT * FROM theme_search WHERE Theme = "Crime";
 
-DELIMITER $$
 CREATE PROCEDURE `Update_Submission` (`reply` varchar(255), `id` int)
 BEGIN
 UPDATE submissions
 SET reply = @reply
 WHERE Submissions_Id = @id
-END$$
-DELIMITER ;
-
+END;
 EXEC Update_Submission @reply = 'this is great', @id = '12'; 
