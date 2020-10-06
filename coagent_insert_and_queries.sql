@@ -1,20 +1,20 @@
-INSERT INTO agent(Agent_Username) VALUES("Anna");
-INSERT INTO agent(Agent_Username) VALUES("Björn");
-INSERT INTO agent(Agent_Username) VALUES("Cecilia");
-INSERT INTO agent(Agent_Username) VALUES("Daniel");
-INSERT INTO agent(Agent_Username) VALUES("Erik");
+INSERT INTO agents(Agent_Username) VALUES("Anna");
+INSERT INTO agents(Agent_Username) VALUES("Björn");
+INSERT INTO agents(Agent_Username) VALUES("Cecilia");
+INSERT INTO agents(Agent_Username) VALUES("Daniel");
+INSERT INTO agents(Agent_Username) VALUES("Erik");
 
-INSERT INTO publisher(Publisher_Name) VALUES("Artimus");
-INSERT INTO publisher(Publisher_Name) VALUES("Bonnier");
-INSERT INTO publisher(Publisher_Name) VALUES("Climax Writers");
-INSERT INTO publisher(Publisher_Name) VALUES("Diamond Digital");
-INSERT INTO publisher(Publisher_Name) VALUES("Egmont");
+INSERT INTO publishers(Publisher_Name) VALUES("Artimus");
+INSERT INTO publishers(Publisher_Name) VALUES("Bonnier");
+INSERT INTO publishers(Publisher_Name) VALUES("Climax Writers");
+INSERT INTO publishers(Publisher_Name) VALUES("Diamond Digital");
+INSERT INTO publishers(Publisher_Name) VALUES("Egmont");
 
-INSERT INTO editor(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Adam", "Mystery", 1);
-INSERT INTO editor(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Beatrice", "Thriller", 2);
-INSERT INTO editor(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Carl", "Autobiography", 3);
-INSERT INTO editor(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("David", "Horror", 4);
-INSERT INTO editor(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Efraim", "Crime", 5);
+INSERT INTO editors(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Adam", "Mystery", 1);
+INSERT INTO editors(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Beatrice", "Thriller", 2);
+INSERT INTO editors(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Carl", "Autobiography", 3);
+INSERT INTO editors(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("David", "Horror", 4);
+INSERT INTO editors(Editor_Name, Editor_Interested_In, Publisher_Publisher_Id) VALUES("Efraim", "Crime", 5);
 
 INSERT INTO clients(Clients_Name) VALUES("Artsy Writers");
 INSERT INTO clients(Clients_Name) VALUES("Bewildered Books");
@@ -84,37 +84,51 @@ INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(10, 3);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(4, 3);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(6, 3);
 
-INSERT INTO contract(Books_Books_Id, Publisher_Publisher_Id, Editor_Editor_Id) VALUES(8, 3, 3);
-INSERT INTO contract(Books_Books_Id, Publisher_Publisher_Id, Editor_Editor_Id) VALUES(1, 2, 2);
-INSERT INTO contract(Books_Books_Id, Publisher_Publisher_Id, Editor_Editor_Id) VALUES(6, 3, 3);
+INSERT INTO contracts(Books_Books_Id, Publisher_Publisher_Id, Editor_Editor_Id) VALUES(8, 3, 3);
+INSERT INTO contracts(Books_Books_Id, Publisher_Publisher_Id, Editor_Editor_Id) VALUES(1, 2, 2);
+INSERT INTO contracts(Books_Books_Id, Publisher_Publisher_Id, Editor_Editor_Id) VALUES(6, 3, 3);
 
-SELECT * FROM contract;
-
+#A view to view all important info in all contracts, not just IDs
+#Super nice to query for all contracts that an author, editor, publisher etc have signed
 CREATE VIEW contract_all_info AS
-SELECT books.Books_Title, authors.Authors_Name, clients.Clients_Name, editor.Editor_Name, publisher.Publisher_Name, agent.Agent_Username
-FROM ((((((contract
-INNER JOIN books ON contract.Books_Books_Id=books.Books_Id)
+SELECT books.Books_Title, authors.Authors_Name, clients.Clients_Name, editors.Editor_Name, publishers.Publisher_Name, agents.Agent_Username
+FROM ((((((contracts
+INNER JOIN books ON contracts.Books_Books_Id=books.Books_Id)
 INNER JOIN authors ON books.Authors_Authors_Id = authors.Authors_Id)
 INNER JOIN clients ON authors.Clients_Clients_Id = clients.Clients_Id)
-INNER JOIN editor ON contract.Editor_Editor_Id = editor.Editor_Id)
-INNER JOIN publisher ON editor.Publisher_Publisher_Id = publisher.Publisher_Id)
-INNER JOIN agent ON books.Agent_Agent_Id = agent.Agent_Id);
+INNER JOIN editors ON contracts.Editor_Editor_Id = editors.Editor_Id)
+INNER JOIN publishers ON editors.Publisher_Publisher_Id = publishers.Publisher_Id)
+INNER JOIN agents ON books.Agent_Agent_Id = agents.Agent_Id);
 
+#Example query; search for the contract of the book 'murder on the nile'
 SELECT * FROM contract_all_info WHERE Books_Title LIKE "murder%";
 
+#View to view all themes assigned to a book in a pretty fashion
+#Super nice to query for all books with a theme, or every theme a book has
 CREATE VIEW theme_search AS
 SELECT books.Books_Title, themes.Theme
 FROM ((books
 INNER JOIN book_has_theme ON books.Books_Id=book_has_theme.Books_Id)
 INNER JOIN themes ON book_has_theme.Theme_Id = themes.Theme_Id);
 
-
+#Select all books with theme Crime in the view theme_search
 SELECT * FROM theme_search WHERE Theme = "Crime";
 
-CREATE PROCEDURE `Update_Submission` (`reply` varchar(255), `id` int)
+# Stored procedure to update Submission when a editor replys
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `Update_Submission`$$
+CREATE PROCEDURE `Update_Submission`(
+	`reply` varchar(255),
+	`id` int,
+    `reply_grade` varchar(255))
 BEGIN
-UPDATE submissions
-SET reply = @reply
-WHERE Submissions_Id = @id
-END;
-EXEC Update_Submission @reply = 'this is great', @id = '12'; 
+	UPDATE submissions
+	SET reply = `reply`, Reply_Grade = `reply_grade`
+	WHERE Submissions_Id = `id`;
+
+END $$
+DELIMITER ;
+#Use the stored procedure to update the submission with Id 1
+CALL Update_Submission('this is great', 2, "6");
+#View the change
+SELECT * FROM Submissions WHERE Submissions_Id = 2;
