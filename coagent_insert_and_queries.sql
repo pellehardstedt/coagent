@@ -67,9 +67,9 @@ INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (8,7);
 INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (8,3);
 
 INSERT INTO themes(Theme) VALUES("music");
-INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (9,9);
+INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (9,7);
 INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (9,3);
-INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (10,9);
+INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (10,7);
 INSERT INTO book_has_theme(Books_Id, Theme_Id) VALUES (10,3);
 
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(8, 3);
