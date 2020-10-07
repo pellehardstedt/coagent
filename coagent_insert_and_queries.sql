@@ -110,25 +110,51 @@ SELECT books.Books_Title, themes.Theme
 FROM ((books
 INNER JOIN book_has_theme ON books.Books_Id=book_has_theme.Books_Id)
 INNER JOIN themes ON book_has_theme.Theme_Id = themes.Theme_Id);
-
 #Select all books with theme Crime in the view theme_search
 SELECT * FROM theme_search WHERE Theme = "Crime";
 
 # Stored procedure to update Submission when a editor replys
 DELIMITER $$
-DROP PROCEDURE IF EXISTS `Update_Submission`$$
-CREATE PROCEDURE `Update_Submission`(
-	`reply` varchar(255),
+DROP PROCEDURE IF EXISTS `Update_Submission_Reply`$$
+CREATE PROCEDURE `Update_Submission_Reply`(
 	`id` int,
-    `reply_grade` varchar(255))
+	`reply` varchar(255))
 BEGIN
 	UPDATE submissions
-	SET reply = `reply`, Reply_Grade = `reply_grade`
+	SET reply = `reply`
 	WHERE Submissions_Id = `id`;
 
 END $$
 DELIMITER ;
 #Use the stored procedure to update the submission with Id 1
-CALL Update_Submission('this is great', 2, "6");
+CALL Update_Submission_Reply(2, "this is great");
 #View the change
 SELECT * FROM Submissions WHERE Submissions_Id = 2;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `Update_Submission_Reply_Grade`$$
+CREATE PROCEDURE `Update_Submission_Reply_Grade`(
+	`id` int,
+    `reply_grade` int)
+BEGIN
+	UPDATE submissions
+	SET Reply_Grade = `reply_grade`
+	WHERE Submissions_Id = `id`;
+
+END $$
+DELIMITER ;
+#Use the stored procedure to update the submission with Id 1
+CALL Update_Submission_Reply_Grade(3, 6);
+#View the change
+SELECT * FROM Submissions WHERE Submissions_Id = 3;
+
+#A view with contract_all_info but with book themes
+#Created to search for an editor to see what themes they might be interesed in
+CREATE VIEW search_for_book_theme_editor AS
+SELECT books.Books_Title, contract_all_info.Authors_Name, themes.Theme, contract_all_info.Editor_Name
+FROM (((contract_all_info
+INNER JOIN books ON contract_all_info.Books_Title=books.Books_Title)
+INNER JOIN book_has_theme ON books.Books_Id=book_has_theme.Books_Id)
+INNER JOIN themes ON book_has_theme.Theme_Id = themes.Theme_Id);
+#Search the view to see what books/themes Beatrice have signed
+SELECT * FROM search_for_book_theme_editor WHERE Editor_Name LIKE "Beatrice%";
