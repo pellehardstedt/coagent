@@ -78,7 +78,6 @@ INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(2, 5);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(1, 2);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(2, 2);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(1, 1);
-INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(1, 2);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(9, 3);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(10, 3);
 INSERT INTO submissions(Books_Books_Id, Editor_Editor_Id) VALUES(4, 3);
@@ -101,6 +100,7 @@ INNER JOIN publishers ON editors.Publisher_Publisher_Id = publishers.Publisher_I
 INNER JOIN agents ON books.Agent_Agent_Id = agents.Agent_Id);
 
 #Example query; search for the contract of the book 'murder on the nile'
+SELECT * FROM contract_all_info;
 SELECT * FROM contract_all_info WHERE Books_Title LIKE "murder%";
 
 #View to view all themes assigned to a book in a pretty fashion
@@ -113,41 +113,6 @@ INNER JOIN themes ON book_has_theme.Theme_Id = themes.Theme_Id);
 #Select all books with theme Crime in the view theme_search
 SELECT * FROM theme_search WHERE Theme = "Crime";
 
-# Stored procedure to update Submission when a editor replys
-DELIMITER $$
-DROP PROCEDURE IF EXISTS `Update_Submission_Reply`$$
-CREATE PROCEDURE `Update_Submission_Reply`(
-	`id` int,
-	`reply` varchar(255))
-BEGIN
-	UPDATE submissions
-	SET reply = `reply`
-	WHERE Submissions_Id = `id`;
-
-END $$
-DELIMITER ;
-#Use the stored procedure to update the submission with Id 1
-CALL Update_Submission_Reply(2, "this is great");
-#View the change
-SELECT * FROM Submissions WHERE Submissions_Id = 2;
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS `Update_Submission_Reply_Grade`$$
-CREATE PROCEDURE `Update_Submission_Reply_Grade`(
-	`id` int,
-    `reply_grade` int)
-BEGIN
-	UPDATE submissions
-	SET Reply_Grade = `reply_grade`
-	WHERE Submissions_Id = `id`;
-
-END $$
-DELIMITER ;
-#Use the stored procedure to update the submission with Id 1
-CALL Update_Submission_Reply_Grade(3, 6);
-#View the change
-SELECT * FROM Submissions WHERE Submissions_Id = 3;
-
 #A view with contract_all_info but with book themes
 #Created to search for an editor to see what themes they might be interesed in
 CREATE VIEW search_for_book_theme_editor AS
@@ -158,3 +123,36 @@ INNER JOIN book_has_theme ON books.Books_Id=book_has_theme.Books_Id)
 INNER JOIN themes ON book_has_theme.Theme_Id = themes.Theme_Id);
 #Search the view to see what books/themes Beatrice have signed
 SELECT * FROM search_for_book_theme_editor WHERE Editor_Name LIKE "Beatrice%";
+
+
+# Stored procedure to update Submission when a editor replys
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `Update_Submission_Reply`$$
+CREATE PROCEDURE `Update_Submission_Reply`(
+	`book_id` int,
+    `editor_id` int,
+	`reply` varchar(255))
+BEGIN
+	UPDATE submissions
+	SET reply = `reply`
+	WHERE Editor_Editor_Id = `editor_id` AND Books_Books_Id = `book_id`;
+END $$
+DELIMITER ;
+
+#Use the stored procedure to update the submission with Id 1
+CALL Update_Submission_Reply(2, 2, "this is great");
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `Update_Submission_Reply_Grade`$$
+CREATE PROCEDURE `Update_Submission_Reply_Grade`(
+	`book_id` int,
+    `editor_id` int,
+    `reply_grade` int)
+BEGIN
+	UPDATE submissions
+	SET Reply_Grade = `reply_grade`
+	WHERE Editor_Editor_Id = `editor_id` AND Books_Books_Id = `book_id`;
+END $$
+DELIMITER ;
+#Use the stored procedure to update the submission with Id 1
+CALL Update_Submission_Reply_Grade(3, 3, 6);

@@ -1,3 +1,4 @@
+DROP DATABASE coagent;
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -14,7 +15,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema coagent
 -- -----------------------------------------------------
-DROP DATABASE `coagent`;
 CREATE SCHEMA IF NOT EXISTS `coagent` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `coagent` ;
 
@@ -115,10 +115,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `coagent`.`book_has_theme`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `coagent`.`book_has_theme` (
-  `Books_Has_Theme_Id` INT NOT NULL AUTO_INCREMENT,
   `Books_Id` INT NOT NULL,
   `Theme_Id` INT NOT NULL,
-  PRIMARY KEY (`Books_Has_Theme_Id`),
+  PRIMARY KEY (`Books_Id`, `Theme_Id`),
   INDEX `Genre_Id_idx` (`Theme_Id` ASC) VISIBLE,
   INDEX `Books_Id_idx` (`Books_Id` ASC) VISIBLE,
   CONSTRAINT `Books_Id`
@@ -211,12 +210,11 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `coagent`.`submissions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `coagent`.`submissions` (
-  `Submissions_Id` INT NOT NULL AUTO_INCREMENT,
   `Books_Books_Id` INT NOT NULL,
   `Editor_Editor_Id` INT NOT NULL,
-  `Reply` VARCHAR(255) NULL,
-  `Reply_Grade` INT NULL,
-  PRIMARY KEY (`Submissions_Id`, `Books_Books_Id`, `Editor_Editor_Id`),
+  `Reply` VARCHAR(255) NULL DEFAULT NULL,
+  `Reply_Grade` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`Books_Books_Id`, `Editor_Editor_Id`),
   INDEX `fk_Books_has_Publisher_Books1_idx` (`Books_Books_Id` ASC) VISIBLE,
   INDEX `fk_Submissions_Editor1_idx` (`Editor_Editor_Id` ASC) VISIBLE,
   CONSTRAINT `fk_Books_has_Publisher_Books1`
@@ -230,9 +228,84 @@ CREATE TABLE IF NOT EXISTS `coagent`.`submissions` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+USE `coagent` ;
+
+-- -----------------------------------------------------
+-- Placeholder table for view `coagent`.`contract_all_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `coagent`.`contract_all_info` (`Books_Title` INT, `Authors_Name` INT, `Clients_Name` INT, `Editor_Name` INT, `Publisher_Name` INT, `Agent_Username` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `coagent`.`search_for_book_theme_editor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `coagent`.`search_for_book_theme_editor` (`Books_Title` INT, `Authors_Name` INT, `Theme` INT, `Editor_Name` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `coagent`.`theme_search`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `coagent`.`theme_search` (`Books_Title` INT, `Theme` INT);
+
+-- -----------------------------------------------------
+-- procedure Update_Submission_Reply
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `coagent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Submission_Reply`(
+	`book_id` int,
+    `editor_id` int,
+	`reply` varchar(255))
+BEGIN
+	UPDATE submissions
+	SET reply = `reply`
+	WHERE Editor_Editor_Id = `editor_id` AND Books_Books_Id = `book_id`;
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure Update_Submission_Reply_Grade
+-- -----------------------------------------------------
+
+DELIMITER $$
+USE `coagent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Submission_Reply_Grade`(
+	`book_id` int,
+    `editor_id` int,
+    `reply_grade` int)
+BEGIN
+	UPDATE submissions
+	SET Reply_Grade = `reply_grade`
+	WHERE Editor_Editor_Id = `editor_id` AND Books_Books_Id = `book_id`;
+
+END$$
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- View `coagent`.`contract_all_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `coagent`.`contract_all_info`;
+USE `coagent`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `coagent`.`contract_all_info` AS select `coagent`.`books`.`Books_Title` AS `Books_Title`,`coagent`.`authors`.`Authors_Name` AS `Authors_Name`,`coagent`.`clients`.`Clients_Name` AS `Clients_Name`,`coagent`.`editors`.`Editor_Name` AS `Editor_Name`,`coagent`.`publishers`.`Publisher_Name` AS `Publisher_Name`,`coagent`.`agents`.`Agent_Username` AS `Agent_Username` from ((((((`coagent`.`contracts` join `coagent`.`books` on((`coagent`.`contracts`.`Books_Books_Id` = `coagent`.`books`.`Books_Id`))) join `coagent`.`authors` on((`coagent`.`books`.`Authors_Authors_Id` = `coagent`.`authors`.`Authors_Id`))) join `coagent`.`clients` on((`coagent`.`authors`.`Clients_Clients_Id` = `coagent`.`clients`.`Clients_Id`))) join `coagent`.`editors` on((`coagent`.`contracts`.`Editor_Editor_Id` = `coagent`.`editors`.`Editor_Id`))) join `coagent`.`publishers` on((`coagent`.`editors`.`Publisher_Publisher_Id` = `coagent`.`publishers`.`Publisher_Id`))) join `coagent`.`agents` on((`coagent`.`books`.`Agent_Agent_Id` = `coagent`.`agents`.`Agent_Id`)));
+
+-- -----------------------------------------------------
+-- View `coagent`.`search_for_book_theme_editor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `coagent`.`search_for_book_theme_editor`;
+USE `coagent`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `coagent`.`search_for_book_theme_editor` AS select `coagent`.`books`.`Books_Title` AS `Books_Title`,`contract_all_info`.`Authors_Name` AS `Authors_Name`,`coagent`.`themes`.`Theme` AS `Theme`,`contract_all_info`.`Editor_Name` AS `Editor_Name` from (((`coagent`.`contract_all_info` join `coagent`.`books` on((`contract_all_info`.`Books_Title` = `coagent`.`books`.`Books_Title`))) join `coagent`.`book_has_theme` on((`coagent`.`books`.`Books_Id` = `coagent`.`book_has_theme`.`Books_Id`))) join `coagent`.`themes` on((`coagent`.`book_has_theme`.`Theme_Id` = `coagent`.`themes`.`Theme_Id`)));
+
+-- -----------------------------------------------------
+-- View `coagent`.`theme_search`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `coagent`.`theme_search`;
+USE `coagent`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `coagent`.`theme_search` AS select `coagent`.`books`.`Books_Title` AS `Books_Title`,`coagent`.`themes`.`Theme` AS `Theme` from ((`coagent`.`books` join `coagent`.`book_has_theme` on((`coagent`.`books`.`Books_Id` = `coagent`.`book_has_theme`.`Books_Id`))) join `coagent`.`themes` on((`coagent`.`book_has_theme`.`Theme_Id` = `coagent`.`themes`.`Theme_Id`)));
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
