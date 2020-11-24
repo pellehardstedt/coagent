@@ -5,6 +5,9 @@
  */
 package coagent;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  *
  * @author lenovo
@@ -14,8 +17,20 @@ public class Coagent {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws Exception {
+        getConnection();
     }
-    
+        public static Connection getConnection() throws Exception {
+        try {
+            String driver = "com.mysql.cj.jdbc.Driver";
+            String url = "jdbc:mysql://localhost:3306/coagent";
+            String username = "root";
+            String password = keys.dbPassword;
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected!");
+            return conn;
+        } catch(Exception e){System.out.println(e);}
+        return null;
+    }
 }
