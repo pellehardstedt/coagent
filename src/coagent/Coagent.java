@@ -18,7 +18,10 @@ public class Coagent {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        getConnection();
+        //getConnection();
+        javax.swing.JFrame gui = new gui();
+        gui.setVisible(true);
+        gui.setResizable(true);
     }
         public static Connection getConnection() throws Exception {
         try {
