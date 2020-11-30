@@ -5,6 +5,7 @@
  */
 package coagent;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,9 +23,10 @@ public class gui extends javax.swing.JFrame {
     CardLayout cardLayout;
     public gui() {
         initComponents();
-        
+        ContractPanel contract = new ContractPanel();
+        contract.setVisible(true);
+        card6.add(contract, BorderLayout.CENTER);
         cardLayout = (CardLayout)(jPanel2Cards.getLayout());
-        System.out.println(cardLayout);
     }
 
     /**
@@ -59,7 +61,6 @@ public class gui extends javax.swing.JFrame {
         card5 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
         card6 = new javax.swing.JPanel();
-        jTextField6 = new javax.swing.JTextField();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -180,7 +181,7 @@ public class gui extends javax.swing.JFrame {
                 .addContainerGap(384, Short.MAX_VALUE))
         );
 
-        jPanel2Cards.add(card1, "card4");
+        jPanel2Cards.add(card1, "card1");
 
         card2.setBackground(new java.awt.Color(0, 200, 200));
 
@@ -208,7 +209,7 @@ public class gui extends javax.swing.JFrame {
                 .addContainerGap(384, Short.MAX_VALUE))
         );
 
-        jPanel2Cards.add(card2, "card3");
+        jPanel2Cards.add(card2, "card2");
 
         card3.setBackground(new java.awt.Color(200, 200, 0));
 
@@ -231,7 +232,7 @@ public class gui extends javax.swing.JFrame {
                 .addContainerGap(384, Short.MAX_VALUE))
         );
 
-        jPanel2Cards.add(card3, "card2");
+        jPanel2Cards.add(card3, "card3");
 
         card4.setBackground(new java.awt.Color(100, 100, 100));
 
@@ -255,7 +256,7 @@ public class gui extends javax.swing.JFrame {
                 .addContainerGap(384, Short.MAX_VALUE))
         );
 
-        jPanel2Cards.add(card4, "card5");
+        jPanel2Cards.add(card4, "card4");
 
         jTextField5.setText("Search 5");
 
@@ -276,27 +277,10 @@ public class gui extends javax.swing.JFrame {
                 .addContainerGap(384, Short.MAX_VALUE))
         );
 
-        jPanel2Cards.add(card5, "card6");
+        jPanel2Cards.add(card5, "card5");
 
-        jTextField6.setText("Search 6");
-
-        javax.swing.GroupLayout card6Layout = new javax.swing.GroupLayout(card6);
-        card6.setLayout(card6Layout);
-        card6Layout.setHorizontalGroup(
-            card6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card6Layout.createSequentialGroup()
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 309, Short.MAX_VALUE))
-        );
-        card6Layout.setVerticalGroup(
-            card6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
-        );
-
-        jPanel2Cards.add(card6, "card7");
+        card6.setLayout(new java.awt.BorderLayout());
+        jPanel2Cards.add(card6, "card6");
 
         jSplitPane1.setRightComponent(jPanel2Cards);
 
@@ -316,7 +300,7 @@ public class gui extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //cardLayout.show(jPanel2Cards, "card1");
-        cardLayout.next(jPanel2Cards);
+        cardLayout.show(jPanel2Cards, "card1");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -415,6 +399,5 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
