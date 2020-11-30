@@ -5,6 +5,11 @@
  */
 package coagent;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author lenovo
@@ -16,7 +21,6 @@ public class ContractPanel extends javax.swing.JPanel {
      */
     public ContractPanel() {
         initComponents();
-        System.out.println("panel init");
     }
 
     /**
@@ -28,30 +32,129 @@ public class ContractPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableContracts1 = new javax.swing.JTable();
+        jTextFieldContractSearch1 = new javax.swing.JTextField();
+        jButtonSearchContracts1 = new javax.swing.JButton();
 
-        jTextField1.setText("jTextField1");
+        jTableContracts1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title", "Author", "Client", "Editor", "Publisher", "Agent"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableContracts1);
+
+        jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldContractSearch1ActionPerformed(evt);
+            }
+        });
+
+        jButtonSearchContracts1.setText("Search");
+        jButtonSearchContracts1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchContracts1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSearchContracts1)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchContracts1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextFieldContractSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldContractSearch1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldContractSearch1ActionPerformed
+
+    private void jButtonSearchContracts1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchContracts1ActionPerformed
+        String searchString = jTextFieldContractSearch1.getText();
+        String queryString;
+        if(searchString.equals("")){
+            queryString = "SELECT * FROM contract_all_info;";
+        } else {
+                queryString = "SELECT * FROM contract_all_info "
+                + "WHERE (Books_Title LIKE '" + searchString + "%'"
+                + " OR "
+                + "Authors_Name LIKE '" + searchString + "%'"
+                + " OR "
+                + "Clients_Name LIKE '" + searchString + "%'"
+                + " OR "
+                + "Editor_Name LIKE '" + searchString + "%'"
+                + " OR "
+                + "Publisher_Name LIKE '" + searchString + "%'"
+                + " OR "
+                + "Agent_Username LIKE '" + searchString + "%'"
+                + ");";
+        }
+        
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(queryString);
+            ResultSet result = query.executeQuery();
+
+            // Removing Previous Data
+            while (jTableContracts1.getRowCount() > 0) {
+                ((DefaultTableModel) jTableContracts1.getModel()).removeRow(0);
+            }
+
+            //Creating Object []rowData for jTable's Table Model
+            int columns = result.getMetaData().getColumnCount();
+            while (result.next())
+            {
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {
+                    row[i - 1] = result.getObject(i); // 1
+                }
+                ((DefaultTableModel) jTableContracts1.getModel()).insertRow(result.getRow() - 1,row);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_jButtonSearchContracts1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jButtonSearchContracts1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableContracts1;
+    private javax.swing.JTextField jTextFieldContractSearch1;
     // End of variables declaration//GEN-END:variables
 }

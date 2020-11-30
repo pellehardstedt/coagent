@@ -23,15 +23,6 @@ public class Coagent {
         gui.setVisible(true);
         gui.setResizable(true);
         
-        //javax.swing.JFrame contract = new Contract();
-        //contract.setVisible(true);
-        //contract.setResizable(true);
-        
-        //javax.swing.JFrame frame = new javax.swing.JFrame();
-        //frame.add(contract);
-        //frame.setVisible(true);
- 
-
     }
         public static Connection getConnection() throws Exception {
         try {
