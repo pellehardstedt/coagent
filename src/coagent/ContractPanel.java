@@ -105,6 +105,7 @@ public class ContractPanel extends javax.swing.JPanel {
     private void jButtonSearchContracts1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchContracts1ActionPerformed
         String searchString = jTextFieldContractSearch1.getText();
         String queryString;
+        //if search is empty, query all contracts
         if(searchString.equals("")){
             queryString = "SELECT * FROM contract_all_info;";
         } else {

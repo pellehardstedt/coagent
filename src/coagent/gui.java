@@ -152,19 +152,7 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards.setBackground(new java.awt.Color(0, 150, 240));
         jPanel2Cards.setLayout(new java.awt.CardLayout());
 
-        card1.setBackground(new java.awt.Color(100, 0, 200));
-
-        javax.swing.GroupLayout card1Layout = new javax.swing.GroupLayout(card1);
-        card1.setLayout(card1Layout);
-        card1Layout.setHorizontalGroup(
-            card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
-        );
-        card1Layout.setVerticalGroup(
-            card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
-        );
-
+        card1.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card1, "card1");
 
         card2.setBackground(new java.awt.Color(0, 200, 200));
