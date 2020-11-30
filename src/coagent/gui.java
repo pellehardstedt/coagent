@@ -23,10 +23,14 @@ public class gui extends javax.swing.JFrame {
     CardLayout cardLayout;
     public gui() {
         initComponents();
-        
         ContractPanel contract = new ContractPanel();
         contract.setVisible(true);
         card6.add(contract, BorderLayout.CENTER);
+
+        randomJPanel random = new randomJPanel();
+        random.setVisible(true);
+        card1.add(random, BorderLayout.CENTER);
+        
         cardLayout = (CardLayout)(jPanel2Cards.getLayout());
     }
 
@@ -51,8 +55,6 @@ public class gui extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jPanel2Cards = new javax.swing.JPanel();
         card1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
         card2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         card3 = new javax.swing.JPanel();
@@ -151,23 +153,21 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards.setLayout(new java.awt.CardLayout());
 
         card1.setBackground(new java.awt.Color(100, 0, 200));
-        card1.setLayout(new java.awt.BorderLayout());
 
-        jTextField1.setText("Search 1");
-        card1.add(jTextField1, java.awt.BorderLayout.CENTER);
-
-        jButton7.setText("Console Search");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        card1.add(jButton7, java.awt.BorderLayout.PAGE_START);
+        javax.swing.GroupLayout card1Layout = new javax.swing.GroupLayout(card1);
+        card1.setLayout(card1Layout);
+        card1Layout.setHorizontalGroup(
+            card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 389, Short.MAX_VALUE)
+        );
+        card1Layout.setVerticalGroup(
+            card1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 472, Short.MAX_VALUE)
+        );
 
         jPanel2Cards.add(card1, "card1");
 
         card2.setBackground(new java.awt.Color(0, 200, 200));
-        card2.setLayout(new java.awt.BorderLayout());
 
         jTextField2.setText("Search 2");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -175,31 +175,91 @@ public class gui extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-        card2.add(jTextField2, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout card2Layout = new javax.swing.GroupLayout(card2);
+        card2.setLayout(card2Layout);
+        card2Layout.setHorizontalGroup(
+            card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(303, Short.MAX_VALUE))
+        );
+        card2Layout.setVerticalGroup(
+            card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
+        );
 
         jPanel2Cards.add(card2, "card2");
 
         card3.setBackground(new java.awt.Color(200, 200, 0));
-        card3.setLayout(new java.awt.BorderLayout());
 
         jTextField3.setText("Search 3");
-        card3.add(jTextField3, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout card3Layout = new javax.swing.GroupLayout(card3);
+        card3.setLayout(card3Layout);
+        card3Layout.setHorizontalGroup(
+            card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(303, Short.MAX_VALUE))
+        );
+        card3Layout.setVerticalGroup(
+            card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
+        );
 
         jPanel2Cards.add(card3, "card3");
 
         card4.setBackground(new java.awt.Color(100, 100, 100));
-        card4.setLayout(new java.awt.BorderLayout());
 
         jTextField4.setText("Search 4");
         jTextField4.setToolTipText("");
-        card4.add(jTextField4, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout card4Layout = new javax.swing.GroupLayout(card4);
+        card4.setLayout(card4Layout);
+        card4Layout.setHorizontalGroup(
+            card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(303, Short.MAX_VALUE))
+        );
+        card4Layout.setVerticalGroup(
+            card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
+        );
 
         jPanel2Cards.add(card4, "card4");
 
-        card5.setLayout(new java.awt.BorderLayout());
-
         jTextField5.setText("Search 5");
-        card5.add(jTextField5, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout card5Layout = new javax.swing.GroupLayout(card5);
+        card5.setLayout(card5Layout);
+        card5Layout.setHorizontalGroup(
+            card5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(303, Short.MAX_VALUE))
+        );
+        card5Layout.setVerticalGroup(
+            card5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(card5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
+        );
 
         jPanel2Cards.add(card5, "card5");
 
@@ -212,7 +272,7 @@ public class gui extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,18 +312,6 @@ public class gui extends javax.swing.JFrame {
         cardLayout.show(jPanel2Cards, "card6");
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        try {
-            Connection con = Coagent.getConnection();
-            PreparedStatement query = con.prepareStatement("SELECT * FROM books;");
-            ResultSet result = query.executeQuery();
-
-            while(result.next()) {
-                System.out.println(result.getString("Books_Title"));
-            }
-        } catch(Exception e) { System.out.println(e);}
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -271,7 +319,7 @@ public class gui extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -312,13 +360,11 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2Cards;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
