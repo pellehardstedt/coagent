@@ -8,6 +8,9 @@ package coagent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +21,25 @@ import javax.swing.table.TableColumn;
  * @author lenovo
  */
 public class ContractPanel extends javax.swing.JPanel {
+    
+        String[] dbTables = {
+            "Books_title",
+            "Authors_Name",
+            "Clients_Name",
+            "Editor_Name",
+            "Publisher_Name",
+            "Agent_Username"
+        };
+        
+        String[] dbColumns = {
+            "books",
+            "authors",
+            "clients",
+            "editors",
+            "publishers",
+            "agents"
+        };
+        
     /**
      * Creates new form ContractPanel
      */
@@ -47,6 +69,7 @@ public class ContractPanel extends javax.swing.JPanel {
         jButtonSearchContracts1 = new javax.swing.JButton();
         jScrollPaneTableAdd = new javax.swing.JScrollPane();
         tableAdd = new javax.swing.JTable();
+        addNewContract = new javax.swing.JButton();
 
         tableSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,6 +120,13 @@ public class ContractPanel extends javax.swing.JPanel {
         });
         jScrollPaneTableAdd.setViewportView(tableAdd);
 
+        addNewContract.setText("Add");
+        addNewContract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewContractActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,8 +139,11 @@ public class ContractPanel extends javax.swing.JPanel {
                         .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonSearchContracts1))
-                    .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addNewContract)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,8 +155,10 @@ public class ContractPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneTableSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addNewContract, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -182,6 +217,30 @@ public class ContractPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButtonSearchContracts1ActionPerformed
+
+    private void addNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewContractActionPerformed
+        ArrayList<String> selected = new ArrayList<String>();
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        for(int i = 0; i < 6; i++){
+            selected.add(String.valueOf(tableAdd.getModel().getValueAt(0, i)));
+            try {
+                Connection con = Coagent.getConnection();
+                PreparedStatement query = con.prepareStatement("SELECT id FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = " + selected.get(i) + ";");
+                ResultSet result = query.executeQuery();
+                ids.add(result.getInt(1));
+            } catch (Exception ex) {
+            }
+        }
+
+            try {
+                Connection con = Coagent.getConnection();
+                PreparedStatement query = con.prepareStatement("");
+                ResultSet result = query.executeQuery();
+            } catch (Exception ex) {
+                Logger.getLogger(ContractPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }//GEN-LAST:event_addNewContractActionPerformed
     private void addComboBoxItems(String title, String table, int columnNumber) throws Exception{
         TableColumn column = tableAdd.getColumnModel().getColumn(columnNumber);
         JComboBox comboBox = new JComboBox();
@@ -197,6 +256,7 @@ public class ContractPanel extends javax.swing.JPanel {
         column.setCellEditor(new DefaultCellEditor(comboBox));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNewContract;
     private javax.swing.JButton jButtonSearchContracts1;
     private javax.swing.JScrollPane jScrollPaneTableAdd;
     private javax.swing.JScrollPane jScrollPaneTableSearch;

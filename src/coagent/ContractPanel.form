@@ -25,9 +25,13 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonSearchContracts1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPaneTableAdd" min="-2" pref="375" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jScrollPaneTableAdd" min="-2" pref="375" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="addNewContract" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="92" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,8 +46,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPaneTableSearch" min="-2" pref="275" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPaneTableAdd" min="-2" pref="275" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="addNewContract" pref="66" max="32767" attributes="0"/>
+                  <Component id="jScrollPaneTableAdd" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace pref="215" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -182,5 +189,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="addNewContract">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewContractActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
