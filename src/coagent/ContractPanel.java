@@ -22,22 +22,21 @@ import javax.swing.table.TableColumn;
  */
 public class ContractPanel extends javax.swing.JPanel {
     
-        String[] dbTables = {
+        String[] dbColumns = {
             "Books_title",
-            "Authors_Name",
-            "Clients_Name",
             "Editor_Name",
             "Publisher_Name",
-            "Agent_Username"
         };
         
-        String[] dbColumns = {
+        String[] dbTables = {
             "books",
-            "authors",
-            "clients",
             "editors",
             "publishers",
-            "agents"
+        };
+        String[] dbIds = {
+            "Books_Id",
+            "Editor_Id",
+            "Publisher_Id",
         };
         
     /**
@@ -46,12 +45,8 @@ public class ContractPanel extends javax.swing.JPanel {
     public ContractPanel() throws Exception {
         initComponents();
         addComboBoxItems("Books_title", "books", 0);
-        addComboBoxItems("Authors_Name", "authors", 1);
-        addComboBoxItems("Clients_Name", "clients", 2);
-        addComboBoxItems("Editor_Name", "editors", 3);
-        addComboBoxItems("Publisher_Name", "publishers", 4);
-        addComboBoxItems("Agent_Username", "agents", 5);
-        
+        addComboBoxItems("Editor_Name", "editors", 1);
+        addComboBoxItems("Publisher_Name", "publishers", 2);      
     }
 
     /**
@@ -88,6 +83,11 @@ public class ContractPanel extends javax.swing.JPanel {
             }
         });
         jScrollPaneTableSearch.setViewportView(tableSearch);
+        if (tableSearch.getColumnModel().getColumnCount() > 0) {
+            tableSearch.getColumnModel().getColumn(1).setHeaderValue("Author");
+            tableSearch.getColumnModel().getColumn(2).setHeaderValue("Client");
+            tableSearch.getColumnModel().getColumn(5).setHeaderValue("Agent");
+        }
 
         jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,14 +104,14 @@ public class ContractPanel extends javax.swing.JPanel {
 
         tableAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null}
             },
             new String [] {
-                "Title", "Author", "Client", "Editor", "Publisher", "Agent"
+                "Book", "Editor", "Publisher"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -221,24 +221,31 @@ public class ContractPanel extends javax.swing.JPanel {
     private void addNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewContractActionPerformed
         ArrayList<String> selected = new ArrayList<String>();
         ArrayList<Integer> ids = new ArrayList<Integer>();
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < 3; i++){
             selected.add(String.valueOf(tableAdd.getModel().getValueAt(0, i)));
             try {
                 Connection con = Coagent.getConnection();
-                PreparedStatement query = con.prepareStatement("SELECT id FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = " + selected.get(i) + ";");
+                System.out.println("SELECT " + dbIds[i] + " FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = '" + selected.get(i) + "';");
+                PreparedStatement query = con.prepareStatement("SELECT " + dbIds[i] + " FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = '" + selected.get(i) + "';" );
                 ResultSet result = query.executeQuery();
+                result.next();
                 ids.add(result.getInt(1));
             } catch (Exception ex) {
+                System.out.println(ex);
             }
         }
 
-            try {
-                Connection con = Coagent.getConnection();
-                PreparedStatement query = con.prepareStatement("");
-                ResultSet result = query.executeQuery();
-            } catch (Exception ex) {
-                Logger.getLogger(ContractPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(
+                "INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");"
+            );
+            int result = query.executeUpdate();
+            System.out.println(result);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
         
     }//GEN-LAST:event_addNewContractActionPerformed
     private void addComboBoxItems(String title, String table, int columnNumber) throws Exception{
