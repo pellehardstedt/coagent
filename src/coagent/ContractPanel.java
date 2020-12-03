@@ -84,11 +84,6 @@ public class ContractPanel extends javax.swing.JPanel {
             }
         });
         jScrollPaneTableSearch.setViewportView(tableSearch);
-        if (tableSearch.getColumnModel().getColumnCount() > 0) {
-            tableSearch.getColumnModel().getColumn(1).setHeaderValue("Author");
-            tableSearch.getColumnModel().getColumn(2).setHeaderValue("Client");
-            tableSearch.getColumnModel().getColumn(5).setHeaderValue("Agent");
-        }
 
         jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

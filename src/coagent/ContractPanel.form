@@ -83,12 +83,12 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Author"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Client"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
@@ -103,7 +103,7 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Agent"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>

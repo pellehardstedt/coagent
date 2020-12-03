@@ -67,7 +67,6 @@ public class gui extends javax.swing.JFrame {
         card3 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         card4 = new javax.swing.JPanel();
-        jTextField4 = new javax.swing.JTextField();
         card5 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
         card6 = new javax.swing.JPanel();
@@ -214,27 +213,7 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards.add(card3, "card3");
 
         card4.setBackground(new java.awt.Color(100, 100, 100));
-
-        jTextField4.setText("Search 4");
-        jTextField4.setToolTipText("");
-
-        javax.swing.GroupLayout card4Layout = new javax.swing.GroupLayout(card4);
-        card4.setLayout(card4Layout);
-        card4Layout.setHorizontalGroup(
-            card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(303, Short.MAX_VALUE))
-        );
-        card4Layout.setVerticalGroup(
-            card4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
-        );
-
+        card4.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card4, "card4");
 
         jTextField5.setText("Search 5");
@@ -366,7 +345,6 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
