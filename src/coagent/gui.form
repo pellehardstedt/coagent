@@ -53,7 +53,7 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="c8" green="64" red="0" type="rgb"/>
+              <Color blue="ae" green="b0" red="89" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -154,7 +154,7 @@
         <Container class="javax.swing.JPanel" name="jPanel2Cards">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="f0" green="96" red="0" type="rgb"/>
+              <Color blue="f9" green="f9" red="fa" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -166,6 +166,11 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="card1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f9" green="f9" red="fa" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card1"/>
@@ -177,7 +182,7 @@
             <Container class="javax.swing.JPanel" name="card2">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="c8" green="c8" red="0" type="rgb"/>
+                  <Color blue="f9" green="f9" red="fa" type="rgb"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -220,7 +225,7 @@
             <Container class="javax.swing.JPanel" name="card3">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="c8" red="c8" type="rgb"/>
+                  <Color blue="f9" green="f9" red="fa" type="rgb"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -260,7 +265,7 @@
             <Container class="javax.swing.JPanel" name="card4">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="64" green="64" red="64" type="rgb"/>
+                  <Color blue="f9" green="f9" red="fa" type="rgb"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -272,6 +277,11 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
             </Container>
             <Container class="javax.swing.JPanel" name="card5">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f9" green="f9" red="fa" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card5"/>
@@ -307,6 +317,11 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="card6">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f9" green="f9" red="fa" type="rgb"/>
+                </Property>
+              </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card6"/>

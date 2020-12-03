@@ -75,7 +75,7 @@ public class gui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 100, 200));
+        jPanel1.setBackground(new java.awt.Color(137, 176, 174));
 
         jButton1.setText("Next Page");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -155,13 +155,14 @@ public class gui extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel1);
 
-        jPanel2Cards.setBackground(new java.awt.Color(0, 150, 240));
+        jPanel2Cards.setBackground(new java.awt.Color(250, 249, 249));
         jPanel2Cards.setLayout(new java.awt.CardLayout());
 
+        card1.setBackground(new java.awt.Color(250, 249, 249));
         card1.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card1, "card1");
 
-        card2.setBackground(new java.awt.Color(0, 200, 200));
+        card2.setBackground(new java.awt.Color(250, 249, 249));
 
         jTextField2.setText("Search 2");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +190,7 @@ public class gui extends javax.swing.JFrame {
 
         jPanel2Cards.add(card2, "card2");
 
-        card3.setBackground(new java.awt.Color(200, 200, 0));
+        card3.setBackground(new java.awt.Color(250, 249, 249));
 
         jTextField3.setText("Search 3");
 
@@ -212,9 +213,11 @@ public class gui extends javax.swing.JFrame {
 
         jPanel2Cards.add(card3, "card3");
 
-        card4.setBackground(new java.awt.Color(100, 100, 100));
+        card4.setBackground(new java.awt.Color(250, 249, 249));
         card4.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card4, "card4");
+
+        card5.setBackground(new java.awt.Color(250, 249, 249));
 
         jTextField5.setText("Search 5");
 
@@ -237,6 +240,7 @@ public class gui extends javax.swing.JFrame {
 
         jPanel2Cards.add(card5, "card5");
 
+        card6.setBackground(new java.awt.Color(250, 249, 249));
         card6.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card6, "card6");
 
