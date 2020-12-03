@@ -16,6 +16,7 @@ public class Coagent {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
         getConnection();
@@ -33,4 +34,7 @@ public class Coagent {
         } catch(Exception e){System.out.println(e);}
         return null;
     }
+        public class keys {
+    public static final String dbPassword = "Balaton123";
+}
 }
