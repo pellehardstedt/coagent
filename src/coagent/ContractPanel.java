@@ -23,18 +23,17 @@ import javax.swing.table.TableModel;
  * @author lenovo
  */
 public class ContractPanel extends javax.swing.JPanel {
-    
-        String[] dbColumns = {
-            "Books_title",
-            "Editor_Name",
-            "Publisher_Name",
-        };
-        
         String[] dbTables = {
             "books",
             "editors",
             "publishers",
         };
+        String[] dbColumns = {
+            "Books_title",
+            "Editor_Name",
+            "Publisher_Name",
+        };
+       
         String[] dbIds = {
             "Books_Id",
             "Editor_Id",
@@ -46,9 +45,9 @@ public class ContractPanel extends javax.swing.JPanel {
      */
     public ContractPanel() throws Exception {
         initComponents();
-        addComboBoxItems("Books_title", "books", 0);
-        addComboBoxItems("Editor_Name", "editors", 1);
-        addComboBoxItems("Publisher_Name", "publishers", 2);      
+        for (int i = 0; i < dbTables.length; i++) { 
+            addComboBoxItems(dbTables[i], dbColumns[i], i);
+        }
     }
 
     /**
@@ -248,13 +247,14 @@ public class ContractPanel extends javax.swing.JPanel {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+        //remove previous selection after INSERT
         TableModel tableAddModel = tableAdd.getModel();
-        tableAddModel.setValueAt("", 0, 0);
-        tableAddModel.setValueAt("", 0, 1);   
-        tableAddModel.setValueAt("", 0, 2); 
+        for(int i = 0; i < 3; i++) {
+            tableAddModel.setValueAt("", 0, i);
+        }
         
     }//GEN-LAST:event_addNewContractActionPerformed
-    private void addComboBoxItems(String title, String table, int columnNumber) throws Exception{
+    private void addComboBoxItems(String table, String title, int columnNumber) throws Exception{
         TableColumn column = tableAdd.getColumnModel().getColumn(columnNumber);
         JComboBox comboBox = new JComboBox();
         Connection con = Coagent.getConnection();
