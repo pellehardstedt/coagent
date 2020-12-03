@@ -14,7 +14,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -246,6 +248,10 @@ public class ContractPanel extends javax.swing.JPanel {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+        TableModel tableAddModel = tableAdd.getModel();
+        tableAddModel.setValueAt("", 0, 0);
+        tableAddModel.setValueAt("", 0, 1);   
+        tableAddModel.setValueAt("", 0, 2); 
         
     }//GEN-LAST:event_addNewContractActionPerformed
     private void addComboBoxItems(String title, String table, int columnNumber) throws Exception{
