@@ -5,22 +5,62 @@
  */
 package coagent;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author lenovo
  */
 public class ContractPanel extends javax.swing.JPanel {
-
+        String[] dbTables = {
+            "books",
+            "editors",
+            "publishers",
+        };
+        String[] dbColumns = {
+            "Books_title",
+            "Editor_Name",
+            "Publisher_Name",
+        };
+       
+        String[] dbIds = {
+            "Books_Id",
+            "Editor_Id",
+            "Publisher_Id",
+        };
+        
     /**
      * Creates new form ContractPanel
      */
-    public ContractPanel() {
+    public ContractPanel() throws Exception {
+        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         initComponents();
+        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
+        for (int i = 0; i < dbTables.length; i++) { 
+            addComboBoxItems(dbTables[i], dbColumns[i], i);
+        }
+        //javax.swing.table.JTableHeader JTableHeader1 = new TableHeaderContracts1();
+        
+        JTableHeader headerAdd = tableAdd.getTableHeader();
+        headerAdd.setBackground( new Color(190, 227, 219) );
+        headerAdd.setForeground( new Color(85, 91, 110) );
+        
+        JTableHeader headerSearch = tableSearch.getTableHeader();
+        headerSearch.setBackground( new Color(190, 227, 219) );
+        headerSearch.setForeground( new Color(85, 91, 110) );
     }
 
     /**
@@ -32,17 +72,21 @@ public class ContractPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableContracts1 = new javax.swing.JTable();
+        jScrollPaneTableSearch = new javax.swing.JScrollPane();
+        tableSearch = new javax.swing.JTable();
         jTextFieldContractSearch1 = new javax.swing.JTextField();
         jButtonSearchContracts1 = new javax.swing.JButton();
+        jScrollPaneTableAdd = new javax.swing.JScrollPane();
+        tableAdd = new javax.swing.JTable();
+        addNewContract = new javax.swing.JButton();
 
-        jTableContracts1.setModel(new javax.swing.table.DefaultTableModel(
+        setBackground(new java.awt.Color(250, 249, 249));
+        setPreferredSize(new java.awt.Dimension(714, 543));
+
+        tableSearch.setBackground(new java.awt.Color(190, 227, 219));
+        tableSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Title", "Author", "Client", "Editor", "Publisher", "Agent"
@@ -56,18 +100,65 @@ public class ContractPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableContracts1);
+        tableSearch.setFocusable(false);
+        tableSearch.setRowHeight(40);
+        jScrollPaneTableSearch.setViewportView(tableSearch);
+        if (tableSearch.getColumnModel().getColumnCount() > 0) {
+            tableSearch.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tableSearch.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tableSearch.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(4).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(5).setPreferredWidth(30);
+        }
 
+        jTextFieldContractSearch1.setBackground(new java.awt.Color(190, 227, 219));
+        jTextFieldContractSearch1.setMargin(new java.awt.Insets(2, 14, 2, 14));
+        jTextFieldContractSearch1.setMinimumSize(new java.awt.Dimension(200, 22));
         jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldContractSearch1ActionPerformed(evt);
             }
         });
 
+        jButtonSearchContracts1.setBackground(new java.awt.Color(190, 227, 219));
         jButtonSearchContracts1.setText("Search");
         jButtonSearchContracts1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSearchContracts1ActionPerformed(evt);
+            }
+        });
+
+        tableAdd.setBackground(new java.awt.Color(190, 227, 219));
+        tableAdd.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Book", "Editor", "Publisher"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableAdd.setToolTipText("");
+        jScrollPaneTableAdd.setViewportView(tableAdd);
+        if (tableAdd.getColumnModel().getColumnCount() > 0) {
+            tableAdd.getColumnModel().getColumn(0).setHeaderValue("Book");
+            tableAdd.getColumnModel().getColumn(1).setHeaderValue("Editor");
+            tableAdd.getColumnModel().getColumn(2).setHeaderValue("Publisher");
+        }
+
+        addNewContract.setBackground(new java.awt.Color(190, 227, 219));
+        addNewContract.setText("Add");
+        addNewContract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewContractActionPerformed(evt);
             }
         });
 
@@ -78,12 +169,17 @@ public class ContractPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneTableSearch)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSearchContracts1)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(jButtonSearchContracts1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addNewContract, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,8 +189,12 @@ public class ContractPanel extends javax.swing.JPanel {
                     .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSearchContracts1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPaneTableSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addNewContract, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -130,8 +230,8 @@ public class ContractPanel extends javax.swing.JPanel {
             ResultSet result = query.executeQuery();
 
             // Removing Previous Data
-            while (jTableContracts1.getRowCount() > 0) {
-                ((DefaultTableModel) jTableContracts1.getModel()).removeRow(0);
+            while (tableSearch.getRowCount() > 0) {
+                ((DefaultTableModel) tableSearch.getModel()).removeRow(0);
             }
 
             //Creating Object []rowData for jTable's Table Model
@@ -143,8 +243,10 @@ public class ContractPanel extends javax.swing.JPanel {
                 {
                     row[i - 1] = result.getObject(i); // 1
                 }
-                ((DefaultTableModel) jTableContracts1.getModel()).insertRow(result.getRow() - 1,row);
+                ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
+            
+            //jTableContracts1.setValueAt("AAA", 0, 0);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -152,10 +254,63 @@ public class ContractPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButtonSearchContracts1ActionPerformed
 
+    private void addNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewContractActionPerformed
+        ArrayList<String> selected = new ArrayList<String>();
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        for(int i = 0; i < 3; i++){
+            selected.add(String.valueOf(tableAdd.getModel().getValueAt(0, i)));
+            try {
+                Connection con = Coagent.getConnection();
+                System.out.println("SELECT " + dbIds[i] + " FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = '" + selected.get(i) + "';");
+                PreparedStatement query = con.prepareStatement("SELECT " + dbIds[i] + " FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = '" + selected.get(i) + "';" );
+                ResultSet result = query.executeQuery();
+                result.next();
+                ids.add(result.getInt(1));
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
+
+        try {
+
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(
+                "INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");"
+            );
+            int result = query.executeUpdate();
+            System.out.println(result);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        //remove previous selection after INSERT
+        TableModel tableAddModel = tableAdd.getModel();
+        for(int i = 0; i < 3; i++) {
+            tableAddModel.setValueAt("", 0, i);
+        }
+        
+    }//GEN-LAST:event_addNewContractActionPerformed
+    @SuppressWarnings("unchecked")
+    private void addComboBoxItems(String table, String title, int columnNumber) throws Exception{
+        TableColumn column = tableAdd.getColumnModel().getColumn(columnNumber);
+        JComboBox comboBox = new JComboBox();
+        Connection con = Coagent.getConnection();
+        PreparedStatement query = con.prepareStatement("SELECT " + title + " FROM " + table + ";");
+        ResultSet result = query.executeQuery();
+
+        
+        while(result.next()){
+            comboBox.addItem(result.getString(1));
+        }
+        
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNewContract;
     private javax.swing.JButton jButtonSearchContracts1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableContracts1;
+    private javax.swing.JScrollPane jScrollPaneTableAdd;
+    private javax.swing.JScrollPane jScrollPaneTableSearch;
     private javax.swing.JTextField jTextFieldContractSearch1;
+    private javax.swing.JTable tableAdd;
+    private javax.swing.JTable tableSearch;
     // End of variables declaration//GEN-END:variables
 }
