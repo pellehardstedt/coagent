@@ -27,10 +27,10 @@ public class gui extends javax.swing.JFrame {
         contract.setVisible(true);
         card6.add(contract, BorderLayout.CENTER);
 
-        randomJPanel random = new randomJPanel();
+        EditorPanel random = new EditorPanel();
         random.setVisible(true);
         card1.add(random, BorderLayout.CENTER);
-        
+
         cardLayout = (CardLayout)(jPanel2Cards.getLayout());
     }
 
