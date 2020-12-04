@@ -26,17 +26,21 @@ public class gui extends javax.swing.JFrame {
     public gui() throws Exception {
         initComponents();
         
+        EditorPanel random = new EditorPanel();
+        random.setVisible(true);
+        card1.add(random, BorderLayout.CENTER);
+        
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
         card4.add(submission, BorderLayout.CENTER);
         
+        PublishersPanel publishersPanel = new PublishersPanel();
+        publishersPanel.setVisible(true);
+        card5.add(publishersPanel, BorderLayout.CENTER);
+        
         ContractPanel contract = new ContractPanel();
         contract.setVisible(true);
         card6.add(contract, BorderLayout.CENTER);
-
-        EditorPanel random = new EditorPanel();
-        random.setVisible(true);
-        card1.add(random, BorderLayout.CENTER);
 
         cardLayout = (CardLayout)(jPanel2Cards.getLayout());
     }
@@ -68,7 +72,6 @@ public class gui extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         card4 = new javax.swing.JPanel();
         card5 = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
         card6 = new javax.swing.JPanel();
 
         jScrollPane1.setViewportView(jEditorPane1);
@@ -219,26 +222,7 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards.add(card4, "card4");
 
         card5.setBackground(new java.awt.Color(250, 249, 249));
-
-        jTextField5.setText("Search 5");
-
-        javax.swing.GroupLayout card5Layout = new javax.swing.GroupLayout(card5);
-        card5.setLayout(card5Layout);
-        card5Layout.setHorizontalGroup(
-            card5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(303, Short.MAX_VALUE))
-        );
-        card5Layout.setVerticalGroup(
-            card5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
-        );
-
+        card5.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card5, "card5");
 
         card6.setBackground(new java.awt.Color(250, 249, 249));
@@ -350,6 +334,5 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
