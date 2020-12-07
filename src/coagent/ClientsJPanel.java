@@ -412,12 +412,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
     public ArrayList<ClientsJPanel.Client> clientList(){
         ArrayList<ClientsJPanel.Client> userList = new ArrayList<>();
         try{
-            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/coagent?serverTimezone=UTC";
-            String username = "root";
-            String password = "";
-            Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = Coagent.getConnection();
             Statement stat = con.createStatement();
             ResultSet rs = stat.executeQuery("SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients");
             ClientsJPanel.Client user;
@@ -456,12 +451,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
         String email = txtEmail.getText();
         
         try{
-            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/coagent?serverTimezone=UTC";
-            String username = "root";
-            String password = "";
-            Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = Coagent.getConnection();
             Statement stm = con.createStatement();
             String sql = "INSERT INTO clients(Clients_Name, Clients_Contact, Clients_Email) VALUES('"+name+"', '"+contact+"', '"+email+"')";
             stm.executeUpdate(sql);
@@ -475,14 +465,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
     // tar bort clients till databasen.
     public void deleteClient(JTable table){
         try{
-            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/coagent?serverTimezone=UTC";
-            String username = "root";
-            String password = "";
-            Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
-            
-            
+            Connection con = Coagent.getConnection();
             int row = table.getSelectedRow();
             String name = table.getValueAt(row, 0).toString();
             String sql = "DELETE FROM clients WHERE Clients_Name = ?";
@@ -502,12 +485,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
         String email = txtEmail.getText();
         try {
             
-            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/coagent?serverTimezone=UTC";
-            String username = "root";
-            String password = "";
-            Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
+            Connection con = Coagent.getConnection();
             Statement stm = con.createStatement();
             
             int row = tblEditCli.getSelectedRow();
