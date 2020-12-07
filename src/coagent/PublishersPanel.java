@@ -5,6 +5,11 @@
  */
 package coagent;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author chi-peilei
@@ -27,25 +32,30 @@ public class PublishersPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        publisherTitlelbl = new javax.swing.JLabel();
+        publisherTitleLbl = new javax.swing.JLabel();
         addPublisherBtn = new javax.swing.JButton();
         showPublishersBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        publisherSearchTable = new javax.swing.JTable();
         searchPublisherBtn = new javax.swing.JButton();
-        searchPublisherComboBox = new javax.swing.JComboBox<>();
         editPublishersBtn = new javax.swing.JButton();
+        publishersSearchTxtFld = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(190, 227, 219));
 
-        publisherTitlelbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        publisherTitlelbl.setText("Publishers");
+        publisherTitleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        publisherTitleLbl.setText("Publishers");
 
         addPublisherBtn.setText("Add");
 
         showPublishersBtn.setText("Show List");
+        showPublishersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPublishersBtnActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        publisherSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,11 +66,14 @@ public class PublishersPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(publisherSearchTable);
 
         searchPublisherBtn.setText("Search");
-
-        searchPublisherComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        searchPublisherBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchPublisherBtnActionPerformed(evt);
+            }
+        });
 
         editPublishersBtn.setText("Edit list");
 
@@ -73,9 +86,9 @@ public class PublishersPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(editPublishersBtn)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(publisherTitlelbl)
+                        .addComponent(publisherTitleLbl)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(searchPublisherComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(publishersSearchTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(searchPublisherBtn)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -83,19 +96,19 @@ public class PublishersPanel extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(showPublishersBtn))
                         .addComponent(jScrollPane1)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(publisherTitlelbl)
+                .addComponent(publisherTitleLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addPublisherBtn)
                     .addComponent(showPublishersBtn)
                     .addComponent(searchPublisherBtn)
-                    .addComponent(searchPublisherComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(publishersSearchTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -104,15 +117,53 @@ public class PublishersPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchPublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPublisherBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_searchPublisherBtnActionPerformed
+
+    private void showPublishersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPublishersBtnActionPerformed
+        // TODO add your handling code here:
+        String queryString;
+        
+        queryString = "SELECT * FROM publishers;";
+
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(queryString);
+            ResultSet result = query.executeQuery();
+
+            // Removing Previous Data
+            while (publisherSearchTable.getRowCount() > 0) {
+                ((DefaultTableModel) publisherSearchTable.getModel()).removeRow(0);
+            }
+
+            //Creating Object []rowData for jTable's Table Model
+            int columns = result.getMetaData().getColumnCount();
+            while (result.next())
+            {
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {
+                    row[i - 1] = result.getObject(i); // 1
+                }
+                ((DefaultTableModel) publisherSearchTable.getModel()).insertRow(result.getRow() - 1,row);
+            }
+            //jTableContracts1.setValueAt("AAA", 0, 0);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_showPublishersBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPublisherBtn;
     private javax.swing.JButton editPublishersBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel publisherTitlelbl;
+    private javax.swing.JTable publisherSearchTable;
+    private javax.swing.JLabel publisherTitleLbl;
+    private javax.swing.JTextField publishersSearchTxtFld;
     private javax.swing.JButton searchPublisherBtn;
-    private javax.swing.JComboBox<String> searchPublisherComboBox;
     private javax.swing.JButton showPublishersBtn;
     // End of variables declaration//GEN-END:variables
 }
