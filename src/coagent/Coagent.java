@@ -16,6 +16,7 @@ public class Coagent {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {
         //getConnection();
@@ -38,3 +39,4 @@ public class Coagent {
         return null;
     }
 }
+

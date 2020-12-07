@@ -11,11 +11,38 @@ package coagent;
  */
 public class SubmissionsPanel extends javax.swing.JPanel {
 
+    String[] dbTables = {
+            "books",
+            "editors",
+            "publishers",
+        };
+        String[] dbColumns = {
+            "Books_title",
+            "Editor_Name",
+            "Publisher_Name",
+        };
+       
+        String[] dbIds = {
+            "Books_Id",
+            "Editor_Id",
+            "Publisher_Id",
+        };
+    
+    
     /**
      * Creates new form Submissions
      */
     public SubmissionsPanel() {
+        
         initComponents();
+        
+        //set card layout
+        setLayout(new java.awt.CardLayout());
+        
+        panelSub.setMinimumSize(new java.awt.Dimension(250, 250));
+        
+          
+        
     }
 
     /**
@@ -27,192 +54,282 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        panelSub = new javax.swing.JPanel();
+        lblBookTitle = new javax.swing.JLabel();
+        lblEditorName = new javax.swing.JLabel();
+        lblReplyGrade = new javax.swing.JLabel();
+        lblReplyOption = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        comboBookTitle = new javax.swing.JComboBox<>();
+        comboReplyReceived = new javax.swing.JComboBox<>();
+        comboEditor = new javax.swing.JComboBox<>();
+        comboDate = new javax.swing.JComboBox<>();
+        comboReplyGrade = new javax.swing.JComboBox<>();
+        lblPublisher = new javax.swing.JLabel();
+        comboPublisher = new javax.swing.JComboBox<>();
+        lblSubmissionHeader = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtfieldSubSearch = new javax.swing.JTextPane();
+        btbSearch = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableSearchSub = new javax.swing.JTable();
+        btnNewSub = new javax.swing.JButton();
+        lblSearchExplain = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(250, 249, 249));
+        setBackground(new java.awt.Color(190, 227, 219));
+        setToolTipText("");
+        setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jLabel2.setText("Book");
+        panelSub.setBackground(new java.awt.Color(250, 249, 249));
 
-        jLabel3.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jLabel3.setText("Editor");
+        lblBookTitle.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblBookTitle.setText("Book");
 
-        jLabel4.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jLabel4.setText("Reply");
+        lblEditorName.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblEditorName.setText("Editor");
 
-        jLabel5.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jLabel5.setText("Reply received ");
+        lblReplyGrade.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblReplyGrade.setText("Reply");
 
-        jLabel6.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jLabel6.setText("Date");
+        lblReplyOption.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblReplyOption.setText("Reply received ");
 
-        jComboBox1.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblDate.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblDate.setText("Date");
 
-        jComboBox2.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBookTitle.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboBookTitle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboReplyReceived.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboReplyReceived.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox4.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboEditor.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboEditor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox5.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboDate.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        comboReplyGrade.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboReplyGrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblPublisher.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblPublisher.setText("Publisher");
+
+        comboPublisher.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboPublisher.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout panelSubLayout = new javax.swing.GroupLayout(panelSub);
+        panelSub.setLayout(panelSubLayout);
+        panelSubLayout.setHorizontalGroup(
+            panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSubLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSubLayout.createSequentialGroup()
+                        .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(panelSubLayout.createSequentialGroup()
+                                .addComponent(lblBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelSubLayout.createSequentialGroup()
+                                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblReplyOption, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPublisher))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboPublisher, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboReplyReceived, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEditorName, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDate))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboEditor, 0, 222, Short.MAX_VALUE)
+                                    .addComponent(comboDate, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(41, Short.MAX_VALUE))
+                    .addGroup(panelSubLayout.createSequentialGroup()
+                        .addComponent(lblReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(54, 54, 54)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+        panelSubLayout.setVerticalGroup(
+            panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSubLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBookTitle)
+                    .addComponent(comboBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboEditor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEditorName)
+                    .addComponent(lblPublisher)
+                    .addComponent(comboPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboReplyReceived, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblReplyOption)
+                    .addComponent(lblDate)
+                    .addComponent(comboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReplyGrade)
+                    .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Avenir Next", 0, 48)); // NOI18N
-        jLabel1.setText("Submissions");
+        lblSubmissionHeader.setFont(new java.awt.Font("Avenir Next", 0, 36)); // NOI18N
+        lblSubmissionHeader.setText("Submissions");
 
-        jScrollPane1.setViewportView(jTextPane1);
+        txtfieldSubSearch.setBackground(new java.awt.Color(249, 250, 250));
+        txtfieldSubSearch.setBorder(null);
+        txtfieldSubSearch.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        txtfieldSubSearch.setOpaque(false);
+        jScrollPane1.setViewportView(txtfieldSubSearch);
 
-        jButton1.setBackground(new java.awt.Color(250, 249, 249));
-        jButton1.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jButton1.setText("Search submissions");
-
-        jButton2.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jButton2.setText("Create new submission");
-
-        jButton3.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        jButton3.setText("Save changes");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btbSearch.setBackground(new java.awt.Color(250, 249, 249));
+        btbSearch.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btbSearch.setText("Search submissions");
+        btbSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btbSearchActionPerformed(evt);
             }
         });
+
+        btnSave.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnSave.setText("Save changes");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setBackground(new java.awt.Color(190, 227, 219));
+        jScrollPane2.setForeground(new java.awt.Color(190, 227, 219));
+        jScrollPane2.setToolTipText("");
+
+        tableSearchSub.setBackground(new java.awt.Color(190, 227, 219));
+        tableSearchSub.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        tableSearchSub.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Date", "Book", "Editor", "Publisher"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableSearchSub.setCellSelectionEnabled(true);
+        tableSearchSub.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        tableSearchSub.setGridColor(new java.awt.Color(250, 249, 249));
+        tableSearchSub.setInheritsPopupMenu(true);
+        tableSearchSub.setSelectionForeground(new java.awt.Color(250, 249, 249));
+        jScrollPane2.setViewportView(tableSearchSub);
+        tableSearchSub.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        btnNewSub.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnNewSub.setText("Create new submission");
+
+        lblSearchExplain.setFont(new java.awt.Font("Avenir Next", 0, 10)); // NOI18N
+        lblSearchExplain.setText("Search in submissions by a book's title or an editor's name.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(505, 505, 505)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(117, 117, 117)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSearchExplain))
+                    .addComponent(panelSub, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnNewSub)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSave))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(60, 60, 60)
+                            .addComponent(btbSearch))))
+                .addGap(64, 107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSearchExplain))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(30, 30, 30)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btbSearch))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(27, 27, 27))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnNewSub)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSave)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btbSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btbSearchActionPerformed
 
 
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btbSearch;
+    private javax.swing.JButton btnNewSub;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> comboBookTitle;
+    private javax.swing.JComboBox<String> comboDate;
+    private javax.swing.JComboBox<String> comboEditor;
+    private javax.swing.JComboBox<String> comboPublisher;
+    private javax.swing.JComboBox<String> comboReplyGrade;
+    private javax.swing.JComboBox<String> comboReplyReceived;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblBookTitle;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblEditorName;
+    private javax.swing.JLabel lblPublisher;
+    private javax.swing.JLabel lblReplyGrade;
+    private javax.swing.JLabel lblReplyOption;
+    private javax.swing.JLabel lblSearchExplain;
+    private javax.swing.JLabel lblSubmissionHeader;
+    private javax.swing.JPanel panelSub;
+    private javax.swing.JTable tableSearchSub;
+    private javax.swing.JTextPane txtfieldSubSearch;
     // End of variables declaration//GEN-END:variables
 }

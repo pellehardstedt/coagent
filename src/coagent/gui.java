@@ -26,17 +26,26 @@ public class gui extends javax.swing.JFrame {
     public gui() throws Exception {
         initComponents();
 
+        EditorPanel editorPanel = new EditorPanel();
+        editorPanel.setVisible(true);
+        card1.add(editorPanel, BorderLayout.CENTER);
+        
+        
+        ClientsJPanel clientPanel = new ClientsJPanel();
+        clientPanel.setVisible(true);
+        card2.add(clientPanel, BorderLayout.CENTER);
+        
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
         card4.add(submission, BorderLayout.CENTER);
-
+        
+        PublishersPanel publishersPanel = new PublishersPanel();
+        publishersPanel.setVisible(true);
+        card5.add(publishersPanel, BorderLayout.CENTER);
+        
         ContractPanel contract = new ContractPanel();
         contract.setVisible(true);
         card6.add(contract, BorderLayout.CENTER);
-
-        EditorPanel random = new EditorPanel();
-        random.setVisible(true);
-        card1.add(random, BorderLayout.CENTER);
 
         cardLayout = (CardLayout)(jPanel2Cards.getLayout());
     }
@@ -63,12 +72,10 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards = new javax.swing.JPanel();
         card1 = new javax.swing.JPanel();
         card2 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
         card3 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         card4 = new javax.swing.JPanel();
         card5 = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
         card6 = new javax.swing.JPanel();
 
         jScrollPane1.setViewportView(jEditorPane1);
@@ -164,53 +171,14 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards.add(card1, "card1");
 
         card2.setBackground(new java.awt.Color(250, 249, 249));
-
-        jTextField2.setText("Search 2");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout card2Layout = new javax.swing.GroupLayout(card2);
-        card2.setLayout(card2Layout);
-        card2Layout.setHorizontalGroup(
-            card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(303, Short.MAX_VALUE))
-        );
-        card2Layout.setVerticalGroup(
-            card2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
-        );
-
+        card2.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card2, "card2");
 
         card3.setBackground(new java.awt.Color(250, 249, 249));
+        card3.setLayout(new java.awt.BorderLayout());
 
         jTextField3.setText("Search 3");
-
-        javax.swing.GroupLayout card3Layout = new javax.swing.GroupLayout(card3);
-        card3.setLayout(card3Layout);
-        card3Layout.setHorizontalGroup(
-            card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(303, Short.MAX_VALUE))
-        );
-        card3Layout.setVerticalGroup(
-            card3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
-        );
+        card3.add(jTextField3, java.awt.BorderLayout.CENTER);
 
         jPanel2Cards.add(card3, "card3");
 
@@ -219,26 +187,7 @@ public class gui extends javax.swing.JFrame {
         jPanel2Cards.add(card4, "card4");
 
         card5.setBackground(new java.awt.Color(250, 249, 249));
-
-        jTextField5.setText("Search 5");
-
-        javax.swing.GroupLayout card5Layout = new javax.swing.GroupLayout(card5);
-        card5.setLayout(card5Layout);
-        card5Layout.setHorizontalGroup(
-            card5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(303, Short.MAX_VALUE))
-        );
-        card5Layout.setVerticalGroup(
-            card5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(card5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
-        );
-
+        card5.setLayout(new java.awt.BorderLayout());
         jPanel2Cards.add(card5, "card5");
 
         card6.setBackground(new java.awt.Color(250, 249, 249));
@@ -278,10 +227,6 @@ public class gui extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         cardLayout.show(jPanel2Cards, "card4");
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         cardLayout.show(jPanel2Cards, "card5");
@@ -348,8 +293,6 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2Cards;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
