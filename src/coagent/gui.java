@@ -25,11 +25,11 @@ public class gui extends javax.swing.JFrame {
     CardLayout cardLayout;
     public gui() throws Exception {
         initComponents();
-        
+
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
         card4.add(submission, BorderLayout.CENTER);
-        
+
         ContractPanel contract = new ContractPanel();
         contract.setVisible(true);
         card6.add(contract, BorderLayout.CENTER);
