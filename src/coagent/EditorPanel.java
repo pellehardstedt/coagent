@@ -39,6 +39,7 @@ public class EditorPanel extends javax.swing.JPanel {
         editorClearFields = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(102, 102, 255));
+        setPreferredSize(new java.awt.Dimension(714, 543));
 
         editorSearchButton.setText("Search");
         editorSearchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -49,16 +50,17 @@ public class EditorPanel extends javax.swing.JPanel {
 
         editorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Editor ID", "Editor Name", "Editor Contact", "Editor interested in", "Publisher Publisher ID?"
+                "Editor Name", "Editor Contact", "Editor interested in", "Publisher name?!"
             }
         ));
+        editorTable.setRowHeight(40);
         jScrollPane1.setViewportView(editorTable);
+        if (editorTable.getColumnModel().getColumnCount() > 0) {
+            editorTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        }
 
         editorSearchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,9 +87,7 @@ public class EditorPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editorClearFields)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 43, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,8 +98,8 @@ public class EditorPanel extends javax.swing.JPanel {
                     .addComponent(editorSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editorClearFields))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -112,9 +112,9 @@ public class EditorPanel extends javax.swing.JPanel {
         String editorQueryString;
 
         if(editorSearchString.equals("")){
-            editorQueryString = "SELECT * FROM editors;";
+            editorQueryString = "SELECT Editor_name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id FROM editors ";
         } else {
-                editorQueryString = "SELECT * FROM editors "
+                editorQueryString = "SELECT Editor_name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id FROM editors "
                 + "WHERE (Editor_Id LIKE '" + editorSearchString + "%'"
                 + " OR "
                 + "Editor_Name LIKE '" + editorSearchString + "%'"

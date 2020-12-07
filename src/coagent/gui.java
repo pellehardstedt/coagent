@@ -25,7 +25,7 @@ public class gui extends javax.swing.JFrame {
     CardLayout cardLayout;
     public gui() throws Exception {
         initComponents();
-        
+
         EditorPanel editorPanel = new EditorPanel();
         editorPanel.setVisible(true);
         card1.add(editorPanel, BorderLayout.CENTER);
