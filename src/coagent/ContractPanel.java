@@ -245,9 +245,7 @@ public class ContractPanel extends javax.swing.JPanel {
                 }
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
-            
             //jTableContracts1.setValueAt("AAA", 0, 0);
-
         } catch (Exception e) {
             System.out.println(e);
         }
