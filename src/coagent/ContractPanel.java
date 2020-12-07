@@ -5,6 +5,7 @@
  */
 package coagent;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -44,10 +46,21 @@ public class ContractPanel extends javax.swing.JPanel {
      * Creates new form ContractPanel
      */
     public ContractPanel() throws Exception {
+        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         initComponents();
+        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         for (int i = 0; i < dbTables.length; i++) { 
             addComboBoxItems(dbTables[i], dbColumns[i], i);
         }
+        //javax.swing.table.JTableHeader JTableHeader1 = new TableHeaderContracts1();
+        
+        JTableHeader headerAdd = tableAdd.getTableHeader();
+        headerAdd.setBackground( new Color(190, 227, 219) );
+        headerAdd.setForeground( new Color(85, 91, 110) );
+        
+        JTableHeader headerSearch = tableSearch.getTableHeader();
+        headerSearch.setBackground( new Color(190, 227, 219) );
+        headerSearch.setForeground( new Color(85, 91, 110) );
     }
 
     /**
@@ -67,6 +80,10 @@ public class ContractPanel extends javax.swing.JPanel {
         tableAdd = new javax.swing.JTable();
         addNewContract = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(250, 249, 249));
+        setPreferredSize(new java.awt.Dimension(714, 543));
+
+        tableSearch.setBackground(new java.awt.Color(190, 227, 219));
         tableSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -83,14 +100,28 @@ public class ContractPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        tableSearch.setFocusable(false);
+        tableSearch.setRowHeight(40);
         jScrollPaneTableSearch.setViewportView(tableSearch);
+        if (tableSearch.getColumnModel().getColumnCount() > 0) {
+            tableSearch.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tableSearch.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tableSearch.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(4).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(5).setPreferredWidth(30);
+        }
 
+        jTextFieldContractSearch1.setBackground(new java.awt.Color(190, 227, 219));
+        jTextFieldContractSearch1.setMargin(new java.awt.Insets(2, 14, 2, 14));
+        jTextFieldContractSearch1.setMinimumSize(new java.awt.Dimension(200, 22));
         jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldContractSearch1ActionPerformed(evt);
             }
         });
 
+        jButtonSearchContracts1.setBackground(new java.awt.Color(190, 227, 219));
         jButtonSearchContracts1.setText("Search");
         jButtonSearchContracts1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +129,7 @@ public class ContractPanel extends javax.swing.JPanel {
             }
         });
 
+        tableAdd.setBackground(new java.awt.Color(190, 227, 219));
         tableAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null}
@@ -114,8 +146,15 @@ public class ContractPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        tableAdd.setToolTipText("");
         jScrollPaneTableAdd.setViewportView(tableAdd);
+        if (tableAdd.getColumnModel().getColumnCount() > 0) {
+            tableAdd.getColumnModel().getColumn(0).setHeaderValue("Book");
+            tableAdd.getColumnModel().getColumn(1).setHeaderValue("Editor");
+            tableAdd.getColumnModel().getColumn(2).setHeaderValue("Publisher");
+        }
 
+        addNewContract.setBackground(new java.awt.Color(190, 227, 219));
         addNewContract.setText("Add");
         addNewContract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,16 +169,17 @@ public class ContractPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneTableSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneTableSearch)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSearchContracts1))
+                        .addComponent(jButtonSearchContracts1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(addNewContract)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                        .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addNewContract, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,6 +289,7 @@ public class ContractPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_addNewContractActionPerformed
+    @SuppressWarnings("unchecked")
     private void addComboBoxItems(String table, String title, int columnNumber) throws Exception{
         TableColumn column = tableAdd.getColumnModel().getColumn(columnNumber);
         JComboBox comboBox = new JComboBox();
