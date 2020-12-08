@@ -36,8 +36,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         
         initComponents();
         
-        //set card layout
-        setLayout(new java.awt.CardLayout());
         
         panelSub.setMinimumSize(new java.awt.Dimension(250, 250));
         
