@@ -68,6 +68,7 @@ public class ContractPanel extends javax.swing.JPanel {
             "Publisher_Id",
         };
         int selectedRowIndex;
+        Boolean editable;
     /**
      * Creates new form ContractPanel
      */
@@ -125,9 +126,16 @@ public class ContractPanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tableSearch.setColumnSelectionAllowed(true);
@@ -312,7 +320,6 @@ public class ContractPanel extends javax.swing.JPanel {
             selected.add(String.valueOf(tableAdd.getModel().getValueAt(0, i)));
             try {
                 Connection con = Coagent.getConnection();
-                System.out.println("SELECT " + dbAddIds[i] + " FROM " + dbAddTables[i] + " WHERE " + dbAddColumns[i] + " = '" + selected.get(i) + "';");
                 PreparedStatement query = con.prepareStatement("SELECT " + dbAddIds[i] + " FROM " + dbAddTables[i] + " WHERE " + dbAddColumns[i] + " = '" + selected.get(i) + "';" );
                 ResultSet result = query.executeQuery();
                 result.next();
@@ -321,13 +328,26 @@ public class ContractPanel extends javax.swing.JPanel {
                 System.out.println(ex);
             }
         }
+        
+        String selectOrUpdate = "SELECT ";
+        if (addNewContract.getText().equals("Save changes")){
+            selectOrUpdate = "UPDATE ";
+        }
 
         try {
-
             Connection con = Coagent.getConnection();
-            PreparedStatement query = con.prepareStatement(
-                "INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");"
-            );
+                PreparedStatement query;
+            if (addNewContract.getText().equals("Save changes")){
+                query = con.prepareStatement(""
+                        + "UPDATE contracts "
+                        + "SET Books_Books_Id = '" + ids.get(0) + "', "
+                        + "Editor_Editor_Id = '" + ids.get(1) + "', "
+                        + "Publisher_Publisher_Id = '" + ids.get(2)+ "' "
+                        + "WHERE Contract_Id = 1");
+            } else {
+                query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
+            }
+
             int result = query.executeUpdate();
             System.out.println(result);
         } catch (Exception ex) {
@@ -342,7 +362,7 @@ public class ContractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addNewContractActionPerformed
 
     private void tableSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchMousePressed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tableSearchMousePressed
     
     @SuppressWarnings("unchecked")
@@ -352,7 +372,15 @@ public class ContractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_tableSearchMouseReleased
 
     private void jButtonEditContractsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditContractsActionPerformed
-        System.out.println(selectedRowIndex);
+        addNewContract.setText("Save changes");
+        //0,3,4
+        Integer[] columnIndexes = {0,3,4};
+        for (int i = 0; i < 3; i++) { 
+            Object value = tableSearch.getModel().getValueAt(selectedRowIndex, columnIndexes[i]);
+            tableAdd.getModel().setValueAt(value, 0, i);
+        }
+
+      
     }//GEN-LAST:event_jButtonEditContractsActionPerformed
     @SuppressWarnings("unchecked")
     private void addComboBoxItems(String table, String title, int columnNumber, javax.swing.JTable tableComponent) throws Exception{
