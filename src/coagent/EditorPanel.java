@@ -8,7 +8,12 @@ package coagent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,11 +21,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EditorPanel extends javax.swing.JPanel {
 
+    String[] dbTables = {
+        "editors",
+        "publishers",};
+    String[] dbColumns = {
+        "Editor_Name",
+        "Publisher_Name",
+        "Editor_Contact",
+        "Editor_Interested_In",};
+
+    String[] dbIds = {};
+
     /**
      * Creates new form randomJPanel
      */
-    public EditorPanel() {
+    public EditorPanel() throws Exception {
         initComponents();
+        addComboBoxItems();
     }
 
     /**
@@ -37,8 +54,12 @@ public class EditorPanel extends javax.swing.JPanel {
         editorTable = new javax.swing.JTable();
         editorSearchField = new javax.swing.JTextField();
         editorClearFields = new javax.swing.JButton();
+        editorEditList = new javax.swing.JButton();
+        editorPanelAddButton = new javax.swing.JButton();
+        editorTableAdd = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(102, 102, 255));
+        setBackground(new java.awt.Color(0, 153, 153));
         setPreferredSize(new java.awt.Dimension(714, 543));
 
         editorSearchButton.setText("Search");
@@ -53,20 +74,15 @@ public class EditorPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Editor Name", "Editor Contact", "Editor interested in", "Publisher name?!"
+                "Editor Name", "Editor Contact", "Editor Interested In", "Publisher Name"
             }
         ));
         editorTable.setRowHeight(40);
+        editorTable.setSelectionForeground(new java.awt.Color(255, 102, 102));
         jScrollPane1.setViewportView(editorTable);
         if (editorTable.getColumnModel().getColumnCount() > 0) {
             editorTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
-
-        editorSearchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editorSearchFieldActionPerformed(evt);
-            }
-        });
 
         editorClearFields.setText("Clear fields");
         editorClearFields.addActionListener(new java.awt.event.ActionListener() {
@@ -75,19 +91,68 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        editorEditList.setText("Edit list");
+        editorEditList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editorEditListActionPerformed(evt);
+            }
+        });
+
+        editorPanelAddButton.setText("Add to list");
+        editorPanelAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editorPanelAddButtonActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Editor Name", "Editor Contact", "Editor Interested In", "Publisher Name"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setPreferredSize(new java.awt.Dimension(245, 0));
+        jTable1.setRowHeight(40);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        editorTableAdd.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(editorSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editorSearchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editorClearFields)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(editorTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(editorSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(editorSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editorClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editorEditList, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 122, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,43 +160,48 @@ public class EditorPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editorSearchButton)
-                    .addComponent(editorSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editorClearFields))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                    .addComponent(editorClearFields)
+                    .addComponent(editorEditList)
+                    .addComponent(editorSearchField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(editorTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(75, 75, 75))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void editorSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorSearchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editorSearchFieldActionPerformed
 
     private void editorSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorSearchButtonActionPerformed
         String editorSearchString = editorSearchField.getText();
         String editorQueryString;
 
-        if(editorSearchString.equals("")){
-            editorQueryString = "SELECT Editor_name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id FROM editors ";
+        String publisherQueryString;
+
+        if (editorSearchString.equals("")) {
+            editorQueryString = "SELECT Editor_name, Editor_Contact, Editor_Interested_In FROM editors"; //union SELECT Publisher_Name FROM publishers";
+            //publisherQueryString = "SELECT Publisher_Name FROM publishers";
+
         } else {
-                editorQueryString = "SELECT Editor_name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id FROM editors "
-                + "WHERE (Editor_Id LIKE '" + editorSearchString + "%'"
-                + " OR "
-                + "Editor_Name LIKE '" + editorSearchString + "%'"
-                + " OR "
-                + "Editor_Contact LIKE '" + editorSearchString + "%'"
-                + " OR "
-                + "Editor_Interested_In LIKE '" + editorSearchString + "%'"
-                + " OR "
-                + "Publisher_Publisher_Id LIKE '" + editorSearchString + "%'"
-                + ");";
+            editorQueryString = "SELECT Editor_name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id FROM editors "
+                    + "WHERE (Editor_Id LIKE '" + editorSearchString + "%'"
+                    + " OR "
+                    + "Editor_Name LIKE '" + editorSearchString + "%'"
+                    + " OR "
+                    + "Editor_Contact LIKE '" + editorSearchString + "%'"
+                    + " OR "
+                    + "Editor_Interested_In LIKE '" + editorSearchString + "%'"
+                    + ");";
         }
 
-            try {
+        try {
             Connection con = Coagent.getConnection();
             PreparedStatement query = con.prepareStatement(editorQueryString);
             ResultSet result = query.executeQuery();
-
 
             while (editorTable.getRowCount() > 0) {
                 ((DefaultTableModel) editorTable.getModel()).removeRow(0);
@@ -139,16 +209,13 @@ public class EditorPanel extends javax.swing.JPanel {
 
             //Creating Object []rowData for jTable's Table Model
             int columns = result.getMetaData().getColumnCount();
-            while (result.next())
-            {
+            while (result.next()) {
                 Object[] row = new Object[columns];
-                for (int i = 1; i <= columns; i++)
-                {
+                for (int i = 1; i <= columns; i++) {
                     row[i - 1] = result.getObject(i); // 1
                 }
-                ((DefaultTableModel) editorTable.getModel()).insertRow(result.getRow() - 1,row);
+                ((DefaultTableModel) editorTable.getModel()).insertRow(result.getRow() - 1, row);
             }
-
 
         } catch (Exception e) {
             System.out.println(e);
@@ -164,12 +231,70 @@ public class EditorPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editorClearFieldsActionPerformed
 
+    private void editorEditListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorEditListActionPerformed
 
+    }//GEN-LAST:event_editorEditListActionPerformed
+
+    private void editorPanelAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPanelAddButtonActionPerformed
+
+        String selected = String.valueOf(jTable1.getModel().getValueAt(0, 2));
+        Integer publisherID = null;
+
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement("SELECT Publisher_Id FROM publishers WHERE Publisher_Name = '" + selected + "';");;
+            ResultSet result = query.executeQuery();
+            result.next();
+            publisherID = result.getInt(1);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        
+
+        try {
+
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(
+                    "INSERT INTO editors(Editor_Name, Publisher_Publisher_Id) VALUES(" + String.valueOf(jTable1.getModel().getValueAt(0, 0)) + ", " + String.valueOf(jTable1.getModel().getValueAt(0, 1)) + ", " + publisherID + ");"
+            );
+            int result = query.executeUpdate();
+            System.out.println(result);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        //remove previous selection after INSERT
+        TableModel tableAddModel = (TableModel) jTable1.getModel();
+        for (int i = 0; i < 3; i++) {
+            tableAddModel.setValueAt("", 0, i);
+        }
+
+
+    }//GEN-LAST:event_editorPanelAddButtonActionPerformed
+    @SuppressWarnings("unchecked")
+    private void addComboBoxItems() throws Exception{
+        TableColumn column = jTable1.getColumnModel().getColumn(2);
+        JComboBox comboBox = new JComboBox();
+        Connection con = Coagent.getConnection();
+        PreparedStatement query = con.prepareStatement("SELECT Publisher_Name FROM publishers;");
+        ResultSet result = query.executeQuery();
+
+        while(result.next()){
+            comboBox.addItem(result.getString(1));
+        }
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+        
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editorClearFields;
+    private javax.swing.JButton editorEditList;
+    private javax.swing.JButton editorPanelAddButton;
     private javax.swing.JButton editorSearchButton;
     private javax.swing.JTextField editorSearchField;
     private javax.swing.JTable editorTable;
+    public javax.swing.JScrollPane editorTableAdd;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

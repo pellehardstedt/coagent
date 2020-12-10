@@ -29,20 +29,20 @@ public class gui extends javax.swing.JFrame {
         EditorPanel editorPanel = new EditorPanel();
         editorPanel.setVisible(true);
         card1.add(editorPanel, BorderLayout.CENTER);
-        
-        
+
+
         ClientsJPanel clientPanel = new ClientsJPanel();
         clientPanel.setVisible(true);
         card2.add(clientPanel, BorderLayout.CENTER);
-        
+
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
         card4.add(submission, BorderLayout.CENTER);
-        
+
         PublishersPanel publishersPanel = new PublishersPanel();
         publishersPanel.setVisible(true);
         card5.add(publishersPanel, BorderLayout.CENTER);
-        
+
         ContractPanel contract = new ContractPanel();
         contract.setVisible(true);
         card6.add(contract, BorderLayout.CENTER);
@@ -81,7 +81,7 @@ public class gui extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(714, 543));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBackground(new java.awt.Color(137, 176, 174));
 

@@ -30,7 +30,7 @@ public class Coagent {
             String driver = "com.mysql.cj.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/coagent?serverTimezone=UTC";
             String username = "root";
-            String password = "Tyronedaman";
+            String password = keys.dbPassword;
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(url, username, password);
             System.out.println("Connected!");
