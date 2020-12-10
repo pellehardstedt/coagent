@@ -37,6 +37,7 @@ public class EditorPanel extends javax.swing.JPanel {
      */
     public EditorPanel() throws Exception {
         initComponents();
+        addComboBoxItems();
     }
 
     /**
@@ -106,15 +107,27 @@ public class EditorPanel extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
                 "Editor Name", "Editor Contact", "Editor Interested In", "Publisher Name"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.setPreferredSize(new java.awt.Dimension(245, 0));
         jTable1.setRowHeight(40);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         editorTableAdd.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -224,29 +237,26 @@ public class EditorPanel extends javax.swing.JPanel {
 
     private void editorPanelAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPanelAddButtonActionPerformed
 
-        ArrayList<String> selected = new ArrayList<String>();
-        ArrayList<Integer> ids = new ArrayList<Integer>();
+        String selected = String.valueOf(jTable1.getModel().getValueAt(0, 2));
+        Integer publisherID = null;
 
-        /*for (int i = 0; i < 3; i++) {
-            selected.add(String.valueOf(jTable1.getModel().getValueAt(0, i)));
-            try {
-                Connection con = Coagent.getConnection();
-                System.out.println("SELECT " + dbIds[i] + " FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = '" + selected.get(i) + "';");
-                PreparedStatement query = con.prepareStatement("SELECT " + dbIds[i] + " FROM " + dbTables[i] + " WHERE " + dbColumns[i] + " = '" + selected.get(i) + "';");
-                ResultSet result = query.executeQuery();
-                result.next();
-                ids.add(result.getInt(1));
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement("SELECT Publisher_Id FROM publishers WHERE Publisher_Name = '" + selected + "';");;
+            ResultSet result = query.executeQuery();
+            result.next();
+            publisherID = result.getInt(1);
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
-        */
+
+        
 
         try {
 
             Connection con = Coagent.getConnection();
             PreparedStatement query = con.prepareStatement(
-                    "INSERT INTO editors(Editor_Name, Publisher_Publisher_Id) VALUES(" + String.valueOf(jTable1.getModel().getValueAt(0, 0)) + ", " + String.valueOf(jTable1.getModel().getValueAt(0, 1)) + ", " + ids.get(2) + ");"
+                    "INSERT INTO editors(Editor_Name, Publisher_Publisher_Id) VALUES(" + String.valueOf(jTable1.getModel().getValueAt(0, 0)) + ", " + String.valueOf(jTable1.getModel().getValueAt(0, 1)) + ", " + publisherID + ");"
             );
             int result = query.executeUpdate();
             System.out.println(result);
@@ -254,14 +264,28 @@ public class EditorPanel extends javax.swing.JPanel {
             System.out.println(ex);
         }
         //remove previous selection after INSERT
-        TableModel tableAddModel = (TableModel) editorPanelAddButton.getModel();
+        TableModel tableAddModel = (TableModel) jTable1.getModel();
         for (int i = 0; i < 3; i++) {
             tableAddModel.setValueAt("", 0, i);
         }
 
 
     }//GEN-LAST:event_editorPanelAddButtonActionPerformed
+    @SuppressWarnings("unchecked")
+    private void addComboBoxItems() throws Exception{
+        TableColumn column = jTable1.getColumnModel().getColumn(2);
+        JComboBox comboBox = new JComboBox();
+        Connection con = Coagent.getConnection();
+        PreparedStatement query = con.prepareStatement("SELECT Publisher_Name FROM publishers;");
+        ResultSet result = query.executeQuery();
 
+        while(result.next()){
+            comboBox.addItem(result.getString(1));
+        }
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+        
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editorClearFields;
     private javax.swing.JButton editorEditList;
