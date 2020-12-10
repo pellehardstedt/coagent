@@ -195,9 +195,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtShowSearchKeyReleased"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnShowBack">
           <Properties>
@@ -470,9 +467,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEditSearchKeyReleased"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSearchEdit">
           <Properties>

@@ -167,11 +167,6 @@ public class ClientsJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblShowCli);
 
         txtShowSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
-        txtShowSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtShowSearchKeyReleased(evt);
-            }
-        });
 
         btnShowBack.setText("Back");
         btnShowBack.addActionListener(new java.awt.event.ActionListener() {
@@ -277,11 +272,6 @@ public class ClientsJPanel extends javax.swing.JPanel {
         });
 
         txtEditSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
-        txtEditSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtEditSearchKeyReleased(evt);
-            }
-        });
 
         btnSearchEdit.setText("Search");
         btnSearchEdit.setMaximumSize(new java.awt.Dimension(91, 52));
@@ -413,26 +403,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
         panelEditCli.setVisible(false);
     }//GEN-LAST:event_btnShowBackActionPerformed
    
-    // kan söka på namn, nr och email. (problem: är känsligt för stor/ liten bokstav)
-    private void txtShowSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtShowSearchKeyReleased
-    /*    DefaultTableModel table = (DefaultTableModel) tblShowCli.getModel();
-        String search = txtShowSearch.getText();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
-        tblShowCli.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(search));
-        */
-    }//GEN-LAST:event_txtShowSearchKeyReleased
-   
-    // kan söka på namn, nr och email. (problem: är känsligt för stor/ liten bokstav)
-    private void txtEditSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEditSearchKeyReleased
-        /*DefaultTableModel table = (DefaultTableModel) tblEditCli.getModel();
-        String search = txtEditSearch.getText();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
-        tblEditCli.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(search));
-        */
-    }//GEN-LAST:event_txtEditSearchKeyReleased
-
+  
     // Om man klickar på en rad i table i edit så fylls textrutorna i. 
     private void tblEditCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditCliMouseClicked
         DefaultTableModel tblModel = (DefaultTableModel) tblEditCli.getModel();
@@ -694,6 +665,14 @@ public class ClientsJPanel extends javax.swing.JPanel {
         }
     }
     
+    // Söker i en table. Sätt keyRelease som event.
+    public void searchTable(JTable table, JTextField text){
+        DefaultTableModel tbl = (DefaultTableModel) table.getModel();
+        String search = text.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbl);
+        table.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }
+    
     */
-
 }
