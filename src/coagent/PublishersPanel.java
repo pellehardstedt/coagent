@@ -216,6 +216,7 @@ public class PublishersPanel extends javax.swing.JPanel {
 
     private void searchPublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPublisherBtnActionPerformed
         // TODO add your handling code here:
+        searchPublisher();
         
     }//GEN-LAST:event_searchPublisherBtnActionPerformed
 
@@ -225,29 +226,7 @@ public class PublishersPanel extends javax.swing.JPanel {
 
     private void publishersSearchTxtFldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_publishersSearchTxtFldKeyReleased
         // TODO add your handling code here:
-         String searchString = publishersSearchTxtFld.getText();
-        String queryString;
-        if(searchString.equals("")){
-            queryString = "SELECT * FROM Publishers";
-        } else {
-                queryString = "SELECT * FROM contract_all_info "
-                + "Publisher_Name LIKE '" + searchString + "%'"
-                + " OR "
-                + "Publisher_Contact LIKE '" + searchString + "%'"
-                + ");";
-        }
-        
-        try {
-            Connection con = Coagent.getConnection();
-            PreparedStatement query = con.prepareStatement(queryString);
-            ResultSet result = query.executeQuery();
-            
-            publisherSearchTable.setModel(DbUtils.resultSetToTableModel(result));
-         
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        searchPublisher();
     }//GEN-LAST:event_publishersSearchTxtFldKeyReleased
 
     private void addPublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPublisherBtnActionPerformed
@@ -323,9 +302,51 @@ public void addPublisher(){
 
 public void editRow(){
     publisherSearchTable.getSelectedRow();
-    
+    //EJ klar
     //query = con.prepareStatement("UPDATE publishers SET  VALUES(?)");
    
 }
 
+public void searchPublisher(){
+
+String searchString = publishersSearchTxtFld.getText();
+        String queryString;
+        //if search is empty, query all contracts
+        if(searchString.equals("")){
+            queryString = "SELECT * FROM publishers;";
+        } else {
+                queryString = "SELECT * FROM publishers "
+                + "WHERE (Publisher_Name LIKE '" + searchString + "%'"
+                + " OR "
+                + "Publisher_Contact LIKE '" + searchString + "%'"
+                + ");";
+        }
+
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(queryString);
+            ResultSet result = query.executeQuery();
+
+            // Removing Previous Data
+            while (publisherSearchTable.getRowCount() > 0) {
+                ((DefaultTableModel) publisherSearchTable.getModel()).removeRow(0);
+            }
+
+            //Creating Object []rowData for jTable's Table Model
+            int columns = result.getMetaData().getColumnCount();
+            while (result.next())
+            {
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {
+                    row[i - 1] = result.getObject(i); // 1
+                }
+                ((DefaultTableModel) publisherSearchTable.getModel()).insertRow(result.getRow() - 1,row);
+            }
+
+            //jTableContracts1.setValueAt("AAA", 0, 0);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+}
 }
