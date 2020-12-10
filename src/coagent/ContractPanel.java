@@ -35,13 +35,13 @@ public class ContractPanel extends javax.swing.JPanel {
             "Editor_Name",
             "Publisher_Name",
         };
-       
+
         String[] dbIds = {
             "Books_Id",
             "Editor_Id",
             "Publisher_Id",
         };
-        
+
     /**
      * Creates new form ContractPanel
      */
@@ -49,15 +49,15 @@ public class ContractPanel extends javax.swing.JPanel {
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         initComponents();
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
-        for (int i = 0; i < dbTables.length; i++) { 
+        for (int i = 0; i < dbTables.length; i++) {
             addComboBoxItems(dbTables[i], dbColumns[i], i);
         }
         //javax.swing.table.JTableHeader JTableHeader1 = new TableHeaderContracts1();
-        
+
         JTableHeader headerAdd = tableAdd.getTableHeader();
         headerAdd.setBackground( new Color(190, 227, 219) );
         headerAdd.setForeground( new Color(85, 91, 110) );
-        
+
         JTableHeader headerSearch = tableSearch.getTableHeader();
         headerSearch.setBackground( new Color(190, 227, 219) );
         headerSearch.setForeground( new Color(85, 91, 110) );
@@ -223,7 +223,7 @@ public class ContractPanel extends javax.swing.JPanel {
                 + "Agent_Username LIKE '" + searchString + "%'"
                 + ");";
         }
-        
+
         try {
             Connection con = Coagent.getConnection();
             PreparedStatement query = con.prepareStatement(queryString);
@@ -245,7 +245,7 @@ public class ContractPanel extends javax.swing.JPanel {
                 }
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
-            
+
             //jTableContracts1.setValueAt("AAA", 0, 0);
 
         } catch (Exception e) {
@@ -287,7 +287,7 @@ public class ContractPanel extends javax.swing.JPanel {
         for(int i = 0; i < 3; i++) {
             tableAddModel.setValueAt("", 0, i);
         }
-        
+
     }//GEN-LAST:event_addNewContractActionPerformed
     @SuppressWarnings("unchecked")
     private void addComboBoxItems(String table, String title, int columnNumber) throws Exception{
@@ -297,11 +297,11 @@ public class ContractPanel extends javax.swing.JPanel {
         PreparedStatement query = con.prepareStatement("SELECT " + title + " FROM " + table + ";");
         ResultSet result = query.executeQuery();
 
-        
+
         while(result.next()){
             comboBox.addItem(result.getString(1));
         }
-        
+
         column.setCellEditor(new DefaultCellEditor(comboBox));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
