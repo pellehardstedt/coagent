@@ -85,7 +85,10 @@ public class gui extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(137, 176, 174));
 
+        jButton1.setBackground(new java.awt.Color(137, 176, 174));
+        jButton1.setForeground(new java.awt.Color(76, 80, 82));
         jButton1.setText("Editors");
+        jButton1.setBorder(null);
         jButton1.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton1.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton1.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -95,8 +98,11 @@ public class gui extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(137, 176, 174));
+        jButton2.setForeground(new java.awt.Color(76, 80, 82));
         jButton2.setText("Clients");
         jButton2.setToolTipText("");
+        jButton2.setBorder(null);
         jButton2.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton2.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton2.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -106,7 +112,10 @@ public class gui extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(137, 176, 174));
+        jButton3.setForeground(new java.awt.Color(76, 80, 82));
         jButton3.setText("Page 3");
+        jButton3.setBorder(null);
         jButton3.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton3.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton3.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -116,14 +125,20 @@ public class gui extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(137, 176, 174));
+        jButton4.setForeground(new java.awt.Color(76, 80, 82));
         jButton4.setText("Submissions");
+        jButton4.setBorder(null);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
+        jButton5.setBackground(new java.awt.Color(137, 176, 174));
+        jButton5.setForeground(new java.awt.Color(76, 80, 82));
         jButton5.setText("Publishers");
+        jButton5.setBorder(null);
         jButton5.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton5.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton5.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -133,7 +148,10 @@ public class gui extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(137, 176, 174));
+        jButton6.setForeground(new java.awt.Color(76, 80, 82));
         jButton6.setText("Contracts");
+        jButton6.setBorder(null);
         jButton6.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton6.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton6.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -173,7 +191,7 @@ public class gui extends javax.swing.JFrame {
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
