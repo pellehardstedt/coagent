@@ -326,25 +326,8 @@ String searchString = publishersSearchTxtFld.getText();
             Connection con = Coagent.getConnection();
             PreparedStatement query = con.prepareStatement(queryString);
             ResultSet result = query.executeQuery();
+            publisherSearchTable.setModel(DbUtils.resultSetToTableModel(result));
 
-            // Removing Previous Data
-            while (publisherSearchTable.getRowCount() > 0) {
-                ((DefaultTableModel) publisherSearchTable.getModel()).removeRow(0);
-            }
-
-            //Creating Object []rowData for jTable's Table Model
-            int columns = result.getMetaData().getColumnCount();
-            while (result.next())
-            {
-                Object[] row = new Object[columns];
-                for (int i = 1; i <= columns; i++)
-                {
-                    row[i - 1] = result.getObject(i); // 1
-                }
-                ((DefaultTableModel) publisherSearchTable.getModel()).insertRow(result.getRow() - 1,row);
-            }
-
-            //jTableContracts1.setValueAt("AAA", 0, 0);
         } catch (Exception e) {
             System.out.println(e);
         }
