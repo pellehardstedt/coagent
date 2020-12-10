@@ -206,16 +206,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         tableSearchSub.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
         tableSearchSub.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Book", "Publisher", "Editor", "Date last changed"
@@ -353,9 +344,9 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     private void AddSubmission() {
         String book = String.valueOf(comboBookTitle.getSelectedItem());
         String editor = String.valueOf(comboEditor.getSelectedItem());
-        String queryString1 = "SELECT books.Books_Id, books.Books_Title FROM books WHERE Books_Title =\"" + book + "\"";
+        String queryString1 = "SELECT books.Books_Id, books.Books_Title FROM books WHERE Books_Title = \"" + book + "\";";
         ResultSet result1;
-        String queryString2 = "SELECT editors.Editor_Id, editors.Editor_Name FROM editors WHERE editors.Editor_Name =\"" + editor + "\"";
+        String queryString2 = "SELECT editors.Editor_Id, editors.Editor_Name FROM editors WHERE editors.Editor_Name = \"" + editor + "\";";
         ResultSet result2;
         Statement stm;
         
@@ -364,13 +355,17 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             //Get Book_ID from database
             PreparedStatement query1 = con.prepareStatement(queryString1);
             result1 = query1.executeQuery();
+            //.next() shifts the cursor to the next (the first) row of the result set
+            result1.next();
             
             //Get Editor_ID from database
             PreparedStatement query2 = con.prepareStatement(queryString2);
             result2 = query2.executeQuery();
+            //.next() shifts the cursor to the next (the first) row of the result set
+            result2.next();
         
             stm = con.createStatement();
-            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id) VALUES ('"+result1+"', '"+result2+"')";
+            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ");";
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to save these changes into the database?", "Warning", dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
@@ -395,9 +390,11 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         String queryString;
         //if search is empty, query all submissions
         if(searchString.equals("")){
-            queryString = "SELECT * FROM submission_all_info;";
+            //SELECT only the columns in the mysql table that's going into the jTable
+            queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Last_Updated FROM submission_all_info;";
         } else {
-                queryString = "SELECT * FROM submission_all_info "
+                //Same SELECT as above
+                queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Last_Updated FROM submission_all_info "
                 + "WHERE (Books_Title LIKE '" + searchString + "%'"
                 + " OR "
                 + "Editor_Name LIKE '" + searchString + "%'"
