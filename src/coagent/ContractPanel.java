@@ -83,10 +83,10 @@ public class ContractPanel extends javax.swing.JPanel {
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         initComponents();
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
-
+        /*
         for (int i = 1; i < dbAddTables.length; i++) {
             addComboBoxItems(dbAddTables[i], dbAddColumns[i], i, tableAdd);
-        }
+        }*/
 
         for (int i = 1; i < dbSearchTables.length; i++) {
             addComboBoxItems(dbSearchTables[i], dbSearchColumns[i], i, tableSearch);
