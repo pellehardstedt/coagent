@@ -5,6 +5,7 @@
  */
 package coagent;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,8 +14,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -29,6 +32,40 @@ public class ClientsJPanel extends javax.swing.JPanel {
      */
     public ClientsJPanel() {
         initComponents();
+        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
+        
+        // ger färg till sidorna
+        JTableHeader headerAdd = tblEditCli.getTableHeader();
+        headerAdd.setBackground( new Color(190, 227, 219) );
+        headerAdd.setForeground( new Color(85, 91, 110) );
+        
+        JTableHeader headerSearch = tblShowCli.getTableHeader();
+        headerSearch.setBackground( new Color(190, 227, 219) );
+        headerSearch.setForeground( new Color(85, 91, 110) );
+        // färgar hempanelen i clients
+        btnShowClient.setBackground(new Color(190, 227, 219));
+        btnShowClient.setOpaque(true);
+        btnEditClient.setBackground(new Color(190, 227, 219));
+        btnEditClient.setOpaque(true);
+        lblHomeCli.setBackground(new Color(190, 227, 219));
+        lblHomeCli.setOpaque(true);
+        // färgar knappar i editpanelen.
+        btnDeleteCli.setBackground(new Color(190, 227, 219));
+        btnDeleteCli.setOpaque(true);
+        btnAddCli.setBackground(new Color(190, 227, 219));
+        btnAddCli.setOpaque(true);
+        btnUpdateCli.setBackground(new Color(190, 227, 219));
+        btnUpdateCli.setOpaque(true);
+        btnSearchEdit.setBackground(new Color(190, 227, 219));
+        btnSearchEdit.setOpaque(true);
+        btnBackEdit.setBackground(new Color(190, 227, 219));
+        btnBackEdit.setOpaque(true);
+        // färgar knappar showpanelen
+        btnShowSearch.setBackground(new Color(190, 227, 219));
+        btnShowSearch.setOpaque(true);
+        btnShowBack.setBackground(new Color(190, 227, 219));
+        btnShowBack.setOpaque(true);
+        txtShowSearch.setOpaque(true);
     }
 
     /**
@@ -43,13 +80,13 @@ public class ClientsJPanel extends javax.swing.JPanel {
         panelHomeCli = new javax.swing.JPanel();
         btnShowClient = new javax.swing.JButton();
         btnEditClient = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        lblHomeCli = new javax.swing.JLabel();
         panelShowCli = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblShowCli = new javax.swing.JTable();
         txtShowSearch = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         btnShowBack = new javax.swing.JButton();
+        btnShowSearch = new javax.swing.JButton();
         panelEditCli = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,10 +99,9 @@ public class ClientsJPanel extends javax.swing.JPanel {
         btnAddCli = new javax.swing.JButton();
         btnUpdateCli = new javax.swing.JButton();
         btnDeleteCli = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnBackEdit = new javax.swing.JButton();
         txtEditSearch = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        btnSearchEdit = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -85,8 +121,8 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel6.setText("Clients options");
+        lblHomeCli.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lblHomeCli.setText("Clients options");
 
         javax.swing.GroupLayout panelHomeCliLayout = new javax.swing.GroupLayout(panelHomeCli);
         panelHomeCli.setLayout(panelHomeCliLayout);
@@ -101,19 +137,19 @@ public class ClientsJPanel extends javax.swing.JPanel {
                             .addComponent(btnEditClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelHomeCliLayout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(jLabel6)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addComponent(lblHomeCli)))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         panelHomeCliLayout.setVerticalGroup(
             panelHomeCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomeCliLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jLabel6)
-                .addGap(50, 50, 50)
-                .addComponent(btnShowClient, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnEditClient, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addComponent(lblHomeCli)
+                .addGap(58, 58, 58)
+                .addComponent(btnShowClient, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnEditClient, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         add(panelHomeCli, "card2");
@@ -130,13 +166,12 @@ public class ClientsJPanel extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblShowCli);
 
+        txtShowSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
         txtShowSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtShowSearchKeyReleased(evt);
             }
         });
-
-        jLabel5.setText("Search:");
 
         btnShowBack.setText("Back");
         btnShowBack.addActionListener(new java.awt.event.ActionListener() {
@@ -145,35 +180,41 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnShowSearch.setText("Search");
+        btnShowSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelShowCliLayout = new javax.swing.GroupLayout(panelShowCli);
         panelShowCli.setLayout(panelShowCliLayout);
         panelShowCliLayout.setHorizontalGroup(
             panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShowCliLayout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnShowBack)
-                    .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(panelShowCliLayout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
+            .addGroup(panelShowCliLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelShowCliLayout.createSequentialGroup()
+                        .addComponent(txtShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnShowBack)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         panelShowCliLayout.setVerticalGroup(
             panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelShowCliLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(47, 47, 47)
                 .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnShowSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnShowBack)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         add(panelShowCli, "card4");
@@ -185,6 +226,12 @@ public class ClientsJPanel extends javax.swing.JPanel {
         jLabel2.setText("Contact:");
 
         jLabel3.setText("Email:");
+
+        txtName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
+
+        txtContact.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
+
+        txtEmail.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
 
         tblEditCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,29 +269,28 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("Back");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnBackEdit.setText("Back");
+        btnBackEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnBackEditActionPerformed(evt);
             }
         });
 
+        txtEditSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
         txtEditSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEditSearchKeyReleased(evt);
             }
         });
 
-        jButton1.setText("Refresh");
-        jButton1.setMaximumSize(new java.awt.Dimension(91, 52));
-        jButton1.setMinimumSize(new java.awt.Dimension(91, 52));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchEdit.setText("Search");
+        btnSearchEdit.setMaximumSize(new java.awt.Dimension(91, 52));
+        btnSearchEdit.setMinimumSize(new java.awt.Dimension(91, 52));
+        btnSearchEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSearchEditActionPerformed(evt);
             }
         });
-
-        jLabel4.setText("Search:");
 
         javax.swing.GroupLayout panelEditCliLayout = new javax.swing.GroupLayout(panelEditCli);
         panelEditCli.setLayout(panelEditCliLayout);
@@ -252,74 +298,69 @@ public class ClientsJPanel extends javax.swing.JPanel {
             panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEditCliLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
-                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelEditCliLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelEditCliLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtContact))
-                            .addGroup(panelEditCliLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtEmail)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAddCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUpdateCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDeleteCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
-                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelEditCliLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEditSearch))
-                            .addGroup(panelEditCliLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBackEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelEditCliLayout.createSequentialGroup()
                         .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
+                                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
+                                .addComponent(txtEditSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearchEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)))
+                        .addGap(39, 39, 39)
+                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDeleteCli, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelEditCliLayout.createSequentialGroup()
+                                .addComponent(btnAddCli, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnUpdateCli)))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         panelEditCliLayout.setVerticalGroup(
             panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEditCliLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddCli))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdateCli))
-                .addGap(18, 18, 18)
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteCli))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEditSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnAddCli, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                        .addComponent(btnUpdateCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelEditCliLayout.createSequentialGroup()
+                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(14, 14, 14))))
+                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEditCliLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtEditSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSearchEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnDeleteCli, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBackEdit)
+                .addGap(39, 39, 39))
         );
 
         add(panelEditCli, "card5");
@@ -330,29 +371,30 @@ public class ClientsJPanel extends javax.swing.JPanel {
         panelHomeCli.setVisible(false);
         panelShowCli.setVisible(true);
         panelEditCli.setVisible(false);
-        show_client(tblShowCli);
+        showClient(tblShowCli); // Detta är dumt om databasen är stor 
     }//GEN-LAST:event_btnShowClientActionPerformed
+
 // gör bara edit panelen synlig fyller i table med clients
     private void btnEditClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditClientActionPerformed
         panelHomeCli.setVisible(false);
         panelShowCli.setVisible(false);
         panelEditCli.setVisible(true);
-        show_client(tblEditCli);
+        // showClient(tblEditCli); //  Detta är dumt om databasen är stor 
     }//GEN-LAST:event_btnEditClientActionPerformed
     
     // gör bara "hemskärmen" synlig.
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnBackEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackEditActionPerformed
         // button back
         panelHomeCli.setVisible(true);
         panelShowCli.setVisible(false);
         panelEditCli.setVisible(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnBackEditActionPerformed
     
     // uppdaterar table i edit
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSearchEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEditActionPerformed
         // button refresh
-        show_client(tblEditCli);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        searchClient(txtEditSearch, tblEditCli);
+    }//GEN-LAST:event_btnSearchEditActionPerformed
     
     // tar bort en vald client i en table. 
     private void btnDeleteCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCliActionPerformed
@@ -370,23 +412,25 @@ public class ClientsJPanel extends javax.swing.JPanel {
         panelShowCli.setVisible(false);
         panelEditCli.setVisible(false);
     }//GEN-LAST:event_btnShowBackActionPerformed
-    
+   
     // kan söka på namn, nr och email. (problem: är känsligt för stor/ liten bokstav)
     private void txtShowSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtShowSearchKeyReleased
-        DefaultTableModel table = (DefaultTableModel) tblShowCli.getModel();
+    /*    DefaultTableModel table = (DefaultTableModel) tblShowCli.getModel();
         String search = txtShowSearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
         tblShowCli.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
+        */
     }//GEN-LAST:event_txtShowSearchKeyReleased
-    
+   
     // kan söka på namn, nr och email. (problem: är känsligt för stor/ liten bokstav)
     private void txtEditSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEditSearchKeyReleased
-        DefaultTableModel table = (DefaultTableModel) tblEditCli.getModel();
+        /*DefaultTableModel table = (DefaultTableModel) tblEditCli.getModel();
         String search = txtEditSearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
         tblEditCli.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
+        */
     }//GEN-LAST:event_txtEditSearchKeyReleased
 
     // Om man klickar på en rad i table i edit så fylls textrutorna i. 
@@ -408,41 +452,10 @@ public class ClientsJPanel extends javax.swing.JPanel {
         updateClient();    
     }//GEN-LAST:event_btnUpdateCliActionPerformed
 
-    // skapar en arraylist som sparar clients namn, contact och emails.  
-    public ArrayList<ClientsJPanel.Client> clientList(){
-        ArrayList<ClientsJPanel.Client> userList = new ArrayList<>();
-        try{
-            Connection con = Coagent.getConnection();
-            Statement stat = con.createStatement();
-            ResultSet rs = stat.executeQuery("SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients");
-            ClientsJPanel.Client user;
-            while (rs.next()){ 
-                user = new ClientsJPanel.Client(rs.getString("clients_Name"), rs.getString("clients_Contact"), rs.getString("clients_Email"));
-                userList.add(user);
-            }
-        } catch (Exception e){JOptionPane.showMessageDialog(null, e);}
-        return userList;
-    }
-    
-    
-    /* visar clients, skriver ut arraylisten ovanför till en table.
-        Har flera tables så har input table, så man vet till vilket table
-        som arraylisten ska skrivas ut till.
-    */
-    public void show_client(JTable table){
-        
-        ArrayList<ClientsJPanel.Client> list = clientList();
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
-        Object[] row = new Object[3];
-        for (int i = 0; i<list.size(); i++){
-            row[0]= list.get(i).getclients_Name();
-            row[1]= list.get(i).getclients_Contact();
-            row[2]= list.get(i).getclients_Email();
-            model.addRow(row);   
-        }
-       
-    }
+    private void btnShowSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowSearchActionPerformed
+        searchClient(txtShowSearch, tblShowCli);    
+    }//GEN-LAST:event_btnShowSearchActionPerformed
+
     
     // Lägger till clients till databasen.
     public void addClient(){
@@ -454,10 +467,15 @@ public class ClientsJPanel extends javax.swing.JPanel {
             Connection con = Coagent.getConnection();
             Statement stm = con.createStatement();
             String sql = "INSERT INTO clients(Clients_Name, Clients_Contact, Clients_Email) VALUES('"+name+"', '"+contact+"', '"+email+"')";
-            stm.executeUpdate(sql);
             
-            JOptionPane.showMessageDialog(null, "Client is added");
-            
+            // vill inte ha ett namn som är en tom sträng
+            if (name.isEmpty()){
+                JOptionPane.showMessageDialog(null, "You need to enter a name");
+            }
+            else{
+                stm.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Client is added");
+            }    
 
         } catch (Exception e){System.out.println("e");}
     }
@@ -492,33 +510,117 @@ public class ClientsJPanel extends javax.swing.JPanel {
             String value = tblEditCli.getModel().getValueAt(row, 0).toString();
             String sql = "UPDATE clients SET Clients_Name = '"+name+"', Clients_Contact = '"+contact+"', Clients_Email = '"+email+"' WHERE Clients_Name = '"+value+"'";
             
-            stm.executeUpdate(sql);
+            if (name.isEmpty()){
+                JOptionPane.showMessageDialog(null, "You need to enter a name");
+            }
             
-
-            JOptionPane.showMessageDialog(null, "Update succesfully");
+            else {
+                stm.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Update succesfully");
+            }
 
             
         }catch (Exception e){System.out.println("e");} 
         
     }
+    // söker direkt i databasen och skriver ut i table.
+    public void searchClient(JTextField text, JTable table){
+        String searchString = text.getText();
+        String queryString;
+        //if search is empty, query all contracts
+        if(searchString.equals("")){
+            queryString = "SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients;";
+        } else {
+                queryString = "SELECT Clients_Name, Clients_Contact, Clients_Email  FROM clients "
+                + "WHERE (Clients_Name LIKE '" + searchString + "%'"
+                + " OR "
+                + "Clients_Contact LIKE '" + searchString + "%'"
+                + " OR "
+                + "Clients_Email LIKE '" + searchString + "%'"
+                + ");";
+        }
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(queryString);
+            ResultSet result = query.executeQuery();
+
+            // Removing Previous Data
+            while (table.getRowCount() > 0) {
+                ((DefaultTableModel) table.getModel()).removeRow(0);
+            }
+
+            //Creating Object []rowData for jTable's Table Model
+            int columns = result.getMetaData().getColumnCount();
+            while (result.next())
+            {
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {
+                    row[i - 1] = result.getObject(i); // 1
+                }
+                ((DefaultTableModel) table.getModel()).insertRow(result.getRow() - 1,row);
+            }
+            
+            //jTableContracts1.setValueAt("AAA", 0, 0);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    /* visar allt i clients i databasen sorterad på namn. Detta är dumt om databasen är stor
+        eftersom det då fylls med lite för mycket data.
+    */
+    public void showClient(JTable table){
+        String showString = "";
+        String queryString;
+        queryString = "SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients ORDER BY Clients_Name ASC;";
+        
+        try {
+            Connection con = Coagent.getConnection();
+            PreparedStatement query = con.prepareStatement(queryString);
+            ResultSet result = query.executeQuery();
+
+            // Removing Previous Data
+            while (table.getRowCount() > 0) {
+                ((DefaultTableModel) table.getModel()).removeRow(0);
+            }
+
+            //Creating Object []rowData for jTable's Table Model
+            int columns = result.getMetaData().getColumnCount();
+            while (result.next())
+            {
+                Object[] row = new Object[columns];
+                for (int i = 1; i <= columns; i++)
+                {
+                    row[i - 1] = result.getObject(i); // 1
+                }
+                ((DefaultTableModel) table.getModel()).insertRow(result.getRow() - 1,row);
+            }
+            
+            //jTableContracts1.setValueAt("AAA", 0, 0);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCli;
+    private javax.swing.JButton btnBackEdit;
     private javax.swing.JButton btnDeleteCli;
     private javax.swing.JButton btnEditClient;
+    private javax.swing.JButton btnSearchEdit;
     private javax.swing.JButton btnShowBack;
     private javax.swing.JButton btnShowClient;
+    private javax.swing.JButton btnShowSearch;
     private javax.swing.JButton btnUpdateCli;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblHomeCli;
     private javax.swing.JPanel panelEditCli;
     private javax.swing.JPanel panelHomeCli;
     private javax.swing.JPanel panelShowCli;
@@ -530,7 +632,50 @@ public class ClientsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtShowSearch;
     // End of variables declaration//GEN-END:variables
-private static class Client {
+    
+    /*
+    om man först vill spara ner som arraylist och sen lägga till i table. istället för
+    att söka och lägga till direkt i table.
+    
+    
+     // skapar en arraylist som sparar clients namn, contact och emails.  
+    public ArrayList<ClientsJPanel.Client> clientList(){
+        ArrayList<ClientsJPanel.Client> userList = new ArrayList<>();
+        try{
+            Connection con = Coagent.getConnection();
+            Statement stat = con.createStatement();
+            ResultSet rs = stat.executeQuery("SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients");
+            ClientsJPanel.Client user;
+            while (rs.next()){ 
+                user = new ClientsJPanel.Client(rs.getString("clients_Name"), rs.getString("clients_Contact"), rs.getString("clients_Email"));
+                userList.add(user);
+            }
+        } catch (Exception e){JOptionPane.showMessageDialog(null, e);}
+        return userList;
+    }
+    
+    
+        Visar clients, skriver ut arraylisten ovanför till en table.
+        Har flera tables så har input table, så man vet till vilket table
+        som arraylisten ska skrivas ut till.
+    
+    public void show_client(JTable table){
+        
+        ArrayList<ClientsJPanel.Client> list = clientList();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[3];
+        for (int i = 0; i<list.size(); i++){
+            row[0]= list.get(i).getclients_Name();
+            row[1]= list.get(i).getclients_Contact();
+            row[2]= list.get(i).getclients_Email();
+            model.addRow(row);   
+        }
+       
+    }
+    
+    
+    private static class Client {
         private String clients_Name, clients_Contact, clients_Email;
         public Client(String clients_Name, String clients_Contact, String clients_Email) {
             
@@ -548,5 +693,7 @@ private static class Client {
             return clients_Email;
         }
     }
+    
+    */
 
 }
