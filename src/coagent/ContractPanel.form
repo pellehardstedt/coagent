@@ -32,12 +32,14 @@
                       <Component id="jTextFieldContractSearch1" min="-2" pref="138" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonSearchContracts1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButtonEditContracts" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPaneTableAdd" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="addNewContract" pref="93" max="32767" attributes="0"/>
+                      <Component id="addNewContract" pref="244" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -51,6 +53,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextFieldContractSearch1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSearchContracts1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonEditContracts" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPaneTableSearch" min="-2" pref="275" max="-2" attributes="0"/>
@@ -59,7 +62,7 @@
                   <Component id="addNewContract" pref="66" max="32767" attributes="0"/>
                   <Component id="jScrollPaneTableAdd" pref="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="215" max="32767" attributes="0"/>
+              <EmptySpace pref="162" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,16 +82,16 @@
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="0">
-                <Column editable="true" title="Title" type="java.lang.String"/>
-                <Column editable="true" title="Author" type="java.lang.String"/>
-                <Column editable="true" title="Client" type="java.lang.String"/>
-                <Column editable="true" title="Editor" type="java.lang.String"/>
-                <Column editable="true" title="Publisher" type="java.lang.String"/>
-                <Column editable="true" title="Agent" type="java.lang.String"/>
+                <Column editable="false" title="Title" type="java.lang.String"/>
+                <Column editable="false" title="Author" type="java.lang.String"/>
+                <Column editable="false" title="Client" type="java.lang.String"/>
+                <Column editable="false" title="Editor" type="java.lang.String"/>
+                <Column editable="false" title="Publisher" type="java.lang.String"/>
+                <Column editable="false" title="Agent" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
+              <TableColumnModel selectionModel="1">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
                   <Title/>
                   <Editor/>
@@ -121,12 +124,17 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="rowHeight" type="int" value="40"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableSearchMousePressed"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableSearchMouseReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -209,6 +217,19 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewContractActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEditContracts">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="db" green="e3" red="be" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Edit"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditContractsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
