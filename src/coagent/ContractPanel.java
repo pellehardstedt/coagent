@@ -26,6 +26,7 @@ import javax.swing.table.TableModel;
  */
 public class ContractPanel extends javax.swing.JPanel {
         String[] dbSearchTables = {
+            "contracts",
             "books",
             "authors",
             "clients",
@@ -34,6 +35,7 @@ public class ContractPanel extends javax.swing.JPanel {
             "agents"
         };
         String[] dbSearchColumns = {
+            "Contract_Id",
             "Books_title",
             "Authors_Name",
             "Clients_Name",
@@ -43,6 +45,7 @@ public class ContractPanel extends javax.swing.JPanel {
         };
        
         String[] dbSearchIds = {
+            "Contract_Id",
             "Books_Id",
             "Authors_Id",
             "Clients_Dd",
@@ -52,20 +55,23 @@ public class ContractPanel extends javax.swing.JPanel {
         };
         
         String[] dbAddTables = {
+            "contracts",
             "books",
             "editors",
-            "publishers",
+            "publishers"
         };
         String[] dbAddColumns = {
+            "Contract_Id",
             "Books_title",
             "Editor_Name",
-            "Publisher_Name",
+            "Publisher_Name"
         };
        
         String[] dbAddIds = {
+            "Contract_Id",
             "Books_Id",
             "Editor_Id",
-            "Publisher_Id",
+            "Publisher_Id"
         };
         int selectedRowIndex;
         Boolean editable;
@@ -76,11 +82,11 @@ public class ContractPanel extends javax.swing.JPanel {
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         initComponents();
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
-        for (int i = 0; i < dbAddTables.length; i++) { 
+        for (int i = 1; i < dbAddTables.length; i++) { 
             addComboBoxItems(dbAddTables[i], dbAddColumns[i], i, tableAdd);
         }
         
-        for (int i = 0; i < dbSearchTables.length; i++) { 
+        for (int i = 1; i < dbSearchTables.length; i++) { 
             addComboBoxItems(dbSearchTables[i], dbSearchColumns[i], i, tableSearch);
         }
         
@@ -91,6 +97,16 @@ public class ContractPanel extends javax.swing.JPanel {
         JTableHeader headerSearch = tableSearch.getTableHeader();
         headerSearch.setBackground( new Color(190, 227, 219) );
         headerSearch.setForeground( new Color(85, 91, 110) );
+        
+        //hide ID columns
+        TableColumn searchIdC = tableSearch.getColumnModel().getColumn(0);
+        searchIdC.setMinWidth(0);
+        searchIdC.setMaxWidth(0);
+        searchIdC.setPreferredWidth(0);
+        TableColumn addIdC = tableAdd.getColumnModel().getColumn(0);
+        addIdC.setMinWidth(0);
+        addIdC.setMaxWidth(0);
+        addIdC.setPreferredWidth(0);
     }
 
     /**
@@ -120,14 +136,14 @@ public class ContractPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Title", "Author", "Client", "Editor", "Publisher", "Agent"
+                "Id", "Title", "Author", "Client", "Editor", "Publisher", "Agent"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -152,12 +168,13 @@ public class ContractPanel extends javax.swing.JPanel {
         jScrollPaneTableSearch.setViewportView(tableSearch);
         tableSearch.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tableSearch.getColumnModel().getColumnCount() > 0) {
-            tableSearch.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tableSearch.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tableSearch.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(0).setResizable(false);
+            tableSearch.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tableSearch.getColumnModel().getColumn(2).setPreferredWidth(40);
             tableSearch.getColumnModel().getColumn(3).setPreferredWidth(30);
             tableSearch.getColumnModel().getColumn(4).setPreferredWidth(30);
             tableSearch.getColumnModel().getColumn(5).setPreferredWidth(30);
+            tableSearch.getColumnModel().getColumn(6).setPreferredWidth(30);
         }
 
         jTextFieldContractSearch1.setBackground(new java.awt.Color(190, 227, 219));
@@ -180,14 +197,14 @@ public class ContractPanel extends javax.swing.JPanel {
         tableAdd.setBackground(new java.awt.Color(190, 227, 219));
         tableAdd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Book", "Editor", "Publisher"
+                "Id", "Book", "Editor", "Publisher"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -196,11 +213,6 @@ public class ContractPanel extends javax.swing.JPanel {
         });
         tableAdd.setToolTipText("");
         jScrollPaneTableAdd.setViewportView(tableAdd);
-        if (tableAdd.getColumnModel().getColumnCount() > 0) {
-            tableAdd.getColumnModel().getColumn(0).setHeaderValue("Book");
-            tableAdd.getColumnModel().getColumn(1).setHeaderValue("Editor");
-            tableAdd.getColumnModel().getColumn(2).setHeaderValue("Publisher");
-        }
 
         addNewContract.setBackground(new java.awt.Color(190, 227, 219));
         addNewContract.setText("Add");
@@ -268,7 +280,7 @@ public class ContractPanel extends javax.swing.JPanel {
         String queryString;
         //if search is empty, query all contracts
         if(searchString.equals("")){
-            queryString = "SELECT * FROM contract_all_info;";
+            queryString = "SELECT * FROM contract_all_info_with_ID;";
         } else {
                 queryString = "SELECT * FROM contract_all_info "
                 + "WHERE (Books_Title LIKE '" + searchString + "%'"
@@ -314,51 +326,59 @@ public class ContractPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonSearchContracts1ActionPerformed
 
     private void addNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewContractActionPerformed
+
         ArrayList<String> selected = new ArrayList<String>();
+        selected.add("empty");
         ArrayList<Integer> ids = new ArrayList<Integer>();
-        for(int i = 0; i < 3; i++){
+        for(int i = 1; i < 4; i++){
+
             selected.add(String.valueOf(tableAdd.getModel().getValueAt(0, i)));
+            System.out.println(selected.get(i));
             try {
                 Connection con = Coagent.getConnection();
                 PreparedStatement query = con.prepareStatement("SELECT " + dbAddIds[i] + " FROM " + dbAddTables[i] + " WHERE " + dbAddColumns[i] + " = '" + selected.get(i) + "';" );
+                System.out.println(query);
                 ResultSet result = query.executeQuery();
-                result.next();
-                ids.add(result.getInt(1));
-            } catch (Exception ex) {
-                System.out.println(ex);
+                System.out.println("before result.next");
+                if(result.next()) {
+                    System.out.println("inside result.next");
+                    System.out.println(result.getInt(1));
+                    ids.add(result.getInt(1));
+                }
+            } catch (Exception e) {
+                System.out.println(e);
             }
         }
-        
-        String selectOrUpdate = "SELECT ";
-        if (addNewContract.getText().equals("Save changes")){
-            selectOrUpdate = "UPDATE ";
-        }
-
+  
         try {
             Connection con = Coagent.getConnection();
-                PreparedStatement query;
+            PreparedStatement query = query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
+
             if (addNewContract.getText().equals("Save changes")){
+                Object id = tableAdd.getModel().getValueAt(0, 0);
                 query = con.prepareStatement(""
                         + "UPDATE contracts "
                         + "SET Books_Books_Id = '" + ids.get(0) + "', "
                         + "Editor_Editor_Id = '" + ids.get(1) + "', "
                         + "Publisher_Publisher_Id = '" + ids.get(2)+ "' "
-                        + "WHERE Contract_Id = 1");
+                        + "WHERE Contract_Id = " + id + ";" );
             } else {
                 query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
             }
-
+            System.out.println(query);
             int result = query.executeUpdate();
             System.out.println(result);
-        } catch (Exception ex) {
-            System.out.println(ex);
+            //remove previous selection after INSERT
+            TableModel tableAddModel = tableAdd.getModel();
+            for(int i = 0; i < 4; i++) {
+                tableAddModel.setValueAt("", 0, i);
+            }
+            if(addNewContract.getText().equals("Save changes")){
+                addNewContract.setText("Add");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        //remove previous selection after INSERT
-        TableModel tableAddModel = tableAdd.getModel();
-        for(int i = 0; i < 3; i++) {
-            tableAddModel.setValueAt("", 0, i);
-        }
-        
     }//GEN-LAST:event_addNewContractActionPerformed
 
     private void tableSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchMousePressed
@@ -373,11 +393,11 @@ public class ContractPanel extends javax.swing.JPanel {
 
     private void jButtonEditContractsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditContractsActionPerformed
         addNewContract.setText("Save changes");
-        //0,3,4
-        Integer[] columnIndexes = {0,3,4};
-        for (int i = 0; i < 3; i++) { 
+        Integer[] columnIndexes = {0,1,4,5};
+        for (int i = 0; i < 4; i++) { 
             Object value = tableSearch.getModel().getValueAt(selectedRowIndex, columnIndexes[i]);
             tableAdd.getModel().setValueAt(value, 0, i);
+            System.out.println(tableAdd.getModel().getValueAt(0, i));
         }
 
       
