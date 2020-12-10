@@ -47,7 +47,6 @@ public class ContractPanel extends javax.swing.JPanel {
 
         String[] dbSearchIds = {
             "Contract_Id",
-
             "Books_Id",
             "Authors_Id",
             "Clients_Dd",
@@ -77,7 +76,6 @@ public class ContractPanel extends javax.swing.JPanel {
         };
         int selectedRowIndex;
         Boolean editable;
->>>>>>> 5f5d0e83247974d6480c7d678a518948051ec892
     /**
      * Creates new form ContractPanel
      */
@@ -85,13 +83,7 @@ public class ContractPanel extends javax.swing.JPanel {
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         initComponents();
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
-<<<<<<< HEAD
-        for (int i = 0; i < dbTables.length; i++) {
-            addComboBoxItems(dbTables[i], dbColumns[i], i);
-        }
-        //javax.swing.table.JTableHeader JTableHeader1 = new TableHeaderContracts1();
 
-=======
         for (int i = 1; i < dbAddTables.length; i++) {
             addComboBoxItems(dbAddTables[i], dbAddColumns[i], i, tableAdd);
         }
@@ -100,7 +92,6 @@ public class ContractPanel extends javax.swing.JPanel {
             addComboBoxItems(dbSearchTables[i], dbSearchColumns[i], i, tableSearch);
         }
 
->>>>>>> 5f5d0e83247974d6480c7d678a518948051ec892
         JTableHeader headerAdd = tableAdd.getTableHeader();
         headerAdd.setBackground( new Color(190, 227, 219) );
         headerAdd.setForeground( new Color(85, 91, 110) );
@@ -329,10 +320,7 @@ public class ContractPanel extends javax.swing.JPanel {
                 }
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
-<<<<<<< HEAD
 
-=======
->>>>>>> 5f5d0e83247974d6480c7d678a518948051ec892
             //jTableContracts1.setValueAt("AAA", 0, 0);
         } catch (Exception e) {
             System.out.println(e);
@@ -394,10 +382,6 @@ public class ContractPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println(e);
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f5d0e83247974d6480c7d678a518948051ec892
     }//GEN-LAST:event_addNewContractActionPerformed
 
     private void tableSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchMousePressed
@@ -429,17 +413,9 @@ public class ContractPanel extends javax.swing.JPanel {
         PreparedStatement query = con.prepareStatement("SELECT " + title + " FROM " + table + ";");
         ResultSet result = query.executeQuery();
 
-<<<<<<< HEAD
-
         while(result.next()){
             comboBox.addItem(result.getString(1));
         }
-
-=======
-        while(result.next()){
-            comboBox.addItem(result.getString(1));
-        }
->>>>>>> 5f5d0e83247974d6480c7d678a518948051ec892
         column.setCellEditor(new DefaultCellEditor(comboBox));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
