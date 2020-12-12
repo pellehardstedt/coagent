@@ -66,6 +66,11 @@ public class ClientsJPanel extends javax.swing.JPanel {
         btnShowBack.setBackground(new Color(190, 227, 219));
         btnShowBack.setOpaque(true);
         txtShowSearch.setOpaque(true);
+        // osynliga ID fält och kolumner. 
+        tblEditCli.getColumnModel().getColumn(0).setMinWidth(0);
+        tblEditCli.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblShowCli.getColumnModel().getColumn(0).setMinWidth(0);
+        tblShowCli.getColumnModel().getColumn(0).setMaxWidth(0);
     }
 
     /**
@@ -161,12 +166,25 @@ public class ClientsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Contact", "Email"
+                "Id", "Name", "Contact", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblShowCli);
 
         txtShowSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
+        txtShowSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtShowSearchKeyPressed(evt);
+            }
+        });
 
         btnShowBack.setText("Back");
         btnShowBack.addActionListener(new java.awt.event.ActionListener() {
@@ -233,9 +251,17 @@ public class ClientsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Contact", "Email"
+                "Id", "Name", "Contact", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblEditCli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEditCliMouseClicked(evt);
@@ -272,6 +298,11 @@ public class ClientsJPanel extends javax.swing.JPanel {
         });
 
         txtEditSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
+        txtEditSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEditSearchKeyPressed(evt);
+            }
+        });
 
         btnSearchEdit.setText("Search");
         btnSearchEdit.setMaximumSize(new java.awt.Dimension(91, 52));
@@ -323,9 +354,9 @@ public class ClientsJPanel extends javax.swing.JPanel {
             .addGroup(panelEditCliLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnAddCli, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                        .addComponent(btnUpdateCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddCli, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpdateCli, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelEditCliLayout.createSequentialGroup()
                         .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -382,9 +413,11 @@ public class ClientsJPanel extends javax.swing.JPanel {
     
     // uppdaterar table i edit
     private void btnSearchEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEditActionPerformed
-        // button refresh
+        // button search
         searchClient(txtEditSearch, tblEditCli);
     }//GEN-LAST:event_btnSearchEditActionPerformed
+    
+    
     
     // tar bort en vald client i en table. 
     private void btnDeleteCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCliActionPerformed
@@ -408,24 +441,39 @@ public class ClientsJPanel extends javax.swing.JPanel {
     private void tblEditCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditCliMouseClicked
         DefaultTableModel tblModel = (DefaultTableModel) tblEditCli.getModel();
         
-        String tblName = tblModel.getValueAt(tblEditCli.getSelectedRow(), 0).toString();
-        String tblContact = tblModel.getValueAt(tblEditCli.getSelectedRow(), 1).toString();
-        String tblEmail = tblModel.getValueAt(tblEditCli.getSelectedRow(), 2).toString();
+       
+        String tblName = tblModel.getValueAt(tblEditCli.getSelectedRow(), 1).toString();
+        String tblContact = tblModel.getValueAt(tblEditCli.getSelectedRow(), 2).toString();
+        String tblEmail = tblModel.getValueAt(tblEditCli.getSelectedRow(), 3).toString();
+        
         
         // lägg till text i textrutorna
         txtName.setText(tblName);
         txtContact.setText(tblContact);
         txtEmail.setText(tblEmail);
+       
     }//GEN-LAST:event_tblEditCliMouseClicked
     
     // uppdaterar en client till det som står i textfälten.
     private void btnUpdateCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCliActionPerformed
         updateClient();    
     }//GEN-LAST:event_btnUpdateCliActionPerformed
-
+    // söker i show tabellen om man trycker på sökknappen
     private void btnShowSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowSearchActionPerformed
         searchClient(txtShowSearch, tblShowCli);    
     }//GEN-LAST:event_btnShowSearchActionPerformed
+    // söker med enter i edit tabellen.
+    private void txtEditSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEditSearchKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            searchClient(txtEditSearch, tblEditCli);
+        }
+    }//GEN-LAST:event_txtEditSearchKeyPressed
+    // söker med enter i show tabellen.
+    private void txtShowSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtShowSearchKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            searchClient(txtShowSearch, tblShowCli);
+        }
+    }//GEN-LAST:event_txtShowSearchKeyPressed
 
     
     // Lägger till clients till databasen.
@@ -456,10 +504,11 @@ public class ClientsJPanel extends javax.swing.JPanel {
         try{
             Connection con = Coagent.getConnection();
             int row = table.getSelectedRow();
-            String name = table.getValueAt(row, 0).toString();
-            String sql = "DELETE FROM clients WHERE Clients_Name = ?";
+            String id = table.getValueAt(row, 0).toString();
+            int idnr = Integer.parseInt(id);
+            String sql = "DELETE FROM clients WHERE Clients_Id = ?";
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, name);
+            stm.setInt(1, idnr);
             stm.executeUpdate();
             stm.close();
             JOptionPane.showMessageDialog(null, "Delete succesfully");
@@ -472,14 +521,16 @@ public class ClientsJPanel extends javax.swing.JPanel {
         String name = txtName.getText();
         String contact = txtContact.getText();
         String email = txtEmail.getText();
+    
         try {
             
             Connection con = Coagent.getConnection();
             Statement stm = con.createStatement();
             
             int row = tblEditCli.getSelectedRow();
-            String value = tblEditCli.getModel().getValueAt(row, 0).toString();
-            String sql = "UPDATE clients SET Clients_Name = '"+name+"', Clients_Contact = '"+contact+"', Clients_Email = '"+email+"' WHERE Clients_Name = '"+value+"'";
+            String value = tblEditCli.getValueAt(row, 0).toString();
+            int idnr = Integer.parseInt(value);
+            String sql = "UPDATE clients SET Clients_Id = '"+idnr+"', Clients_Name = '"+name+"', Clients_Contact = '"+contact+"', Clients_Email = '"+email+"' WHERE Clients_Id = '"+idnr+"'";
             
             if (name.isEmpty()){
                 JOptionPane.showMessageDialog(null, "You need to enter a name");
@@ -500,9 +551,9 @@ public class ClientsJPanel extends javax.swing.JPanel {
         String queryString;
         //if search is empty, query all contracts
         if(searchString.equals("")){
-            queryString = "SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients;";
+            queryString = "SELECT Clients_Id, Clients_Name, Clients_Contact, Clients_Email FROM clients;";
         } else {
-                queryString = "SELECT Clients_Name, Clients_Contact, Clients_Email  FROM clients "
+                queryString = "SELECT Clients_Id, Clients_Name, Clients_Contact, Clients_Email  FROM clients "
                 + "WHERE (Clients_Name LIKE '" + searchString + "%'"
                 + " OR "
                 + "Clients_Contact LIKE '" + searchString + "%'"
@@ -544,7 +595,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
     public void showClient(JTable table){
         String showString = "";
         String queryString;
-        queryString = "SELECT Clients_Name, Clients_Contact, Clients_Email FROM clients ORDER BY Clients_Name ASC;";
+        queryString = "SELECT clients_Id, Clients_Name, Clients_Contact, Clients_Email FROM clients ORDER BY Clients_Name ASC;";
         
         try {
             Connection con = Coagent.getConnection();
