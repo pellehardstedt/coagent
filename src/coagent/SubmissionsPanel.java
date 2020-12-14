@@ -35,37 +35,26 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         
         
         PopulateComboBookTitle();
-        PopulateComboPublisher();
-        
-        comboPublisher.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-            String s = comboPublisher.getSelectedItem().toString();
-            String statement = "SELECT publishers.Publisher_Id, publishers.Publisher_Name, editors.Editor_Name FROM publishers, editors WHERE Publisher_name =\"" + s + "\" and editors.Publisher_Publisher_Id = publishers.Publisher_Id";
-            try {
-                Connection con = Coagent.getConnection();
-                PreparedStatement pst = con.prepareStatement(statement);
-                ResultSet rs = pst.executeQuery();
-                comboEditor.removeAllItems();
-                while (rs.next()) {
-                    comboEditor.addItem(rs.getString("Editor_Name"));
-                }
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                }
-            }
-        });
-        
+        comboBookTitle.setSelectedItem(null);
 
+        PopulateComboPublisher();
+        comboPublisher.setSelectedItem(null);
+        
+        PopulateComboEditor();
+        comboEditor.setSelectedItem(null);
+        
         PopulateComboReplyGrade();
-        
-        
+        //comboReplyGrade.setSelectedItem(null);
+
+
+      
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                comboBookTitle.addItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
-                comboPublisher.addItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 2).toString());
-                comboReplyGrade.addItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
+                comboBookTitle.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
+                comboPublisher.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 1).toString());
+                comboReplyGrade.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 3).toString());
+              
         }
     });
         
@@ -90,6 +79,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         comboReplyGrade = new javax.swing.JComboBox<>();
         lblPublisher = new javax.swing.JLabel();
         comboPublisher = new javax.swing.JComboBox<>();
+        btnCreateNew = new javax.swing.JButton();
         lblSubmissionHeader = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtfieldSubSearch = new javax.swing.JTextPane();
@@ -126,6 +116,14 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
         comboPublisher.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
 
+        btnCreateNew.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnCreateNew.setText("Create new submission");
+        btnCreateNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateNewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSubLayout = new javax.swing.GroupLayout(panelSub);
         panelSub.setLayout(panelSubLayout);
         panelSubLayout.setHorizontalGroup(
@@ -133,6 +131,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             .addGroup(panelSubLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreateNew)
                     .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(panelSubLayout.createSequentialGroup()
                             .addComponent(lblBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,7 +154,9 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         panelSubLayout.setVerticalGroup(
             panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSubLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(16, 16, 16)
+                .addComponent(btnCreateNew)
+                .addGap(18, 18, 18)
                 .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBookTitle)
                     .addComponent(comboBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,7 +170,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReplyGrade)
                     .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         lblSubmissionHeader.setFont(new java.awt.Font("Avenir Next", 0, 36)); // NOI18N
@@ -209,11 +210,11 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Book", "Publisher", "Editor", "Date last changed"
+                "Book", "Publisher", "Editor", "Reply", "Date last changed"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -250,7 +251,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(60, 60, 60)
                             .addComponent(btnSearch))))
-                .addGap(64, 107, Short.MAX_VALUE))
+                .addGap(64, 121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +270,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 .addComponent(panelSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSave)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -280,6 +281,10 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         SearchSubmission();
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewActionPerformed
+        CreateNewSub();
+    }//GEN-LAST:event_btnCreateNewActionPerformed
 
 
     
@@ -322,28 +327,53 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     
     }
     
-
+    private void PopulateComboEditor() {
+        comboPublisher.addItemListener(new ItemListener() {
+        @Override
+            public void itemStateChanged(ItemEvent arg0) {
+                if (comboPublisher.getSelectedItem() == null){
+                    return;
+                } else {    
+                    String s = comboPublisher.getSelectedItem().toString(); 
+                    String statement = "SELECT publishers.Publisher_Id, publishers.Publisher_Name, editors.Editor_Name FROM publishers, editors WHERE Publisher_name =\"" + s + "\" and editors.Publisher_Publisher_Id = publishers.Publisher_Id";
+                try {
+                    Connection con = Coagent.getConnection();
+                    PreparedStatement pst = con.prepareStatement(statement);
+                    ResultSet rs = pst.executeQuery();
+                    comboEditor.removeAllItems();
+                        while (rs.next()) {
+                            comboEditor.addItem(rs.getString("Editor_Name"));
+                        }
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                        }
+                    }
+            }
+        });
+    }
+    
+    
         
-        private void PopulateComboReplyGrade () {
+    private void PopulateComboReplyGrade () {
             
-            ArrayList<String> comboOptions = new ArrayList<String>();
-            comboOptions.add("No reply yet");
-            comboOptions.add("Not interested in this genre");
-            comboOptions.add("Not interested in this book");
-            comboOptions.add("Keep them informed about any offers");
-            comboOptions.add("Making an offer");
-            comboOptions.add("Making a preempt");
-            comboOptions.add("Requested title before submission");
+        ArrayList<String> comboOptions = new ArrayList<String>();
+        comboOptions.add("No reply yet");
+        comboOptions.add("Not interested in this genre");
+        comboOptions.add("Not interested in this book");
+        comboOptions.add("Keep them informed about any offers");
+        comboOptions.add("Making an offer");
+        comboOptions.add("Making a preempt");
+        comboOptions.add("Requested title before submission");
                 
-            for (int i = 0; i < comboOptions.size(); i++)
-                comboReplyGrade.addItem(comboOptions.get(i));
-
-        }    
+        for (int i = 0; i < comboOptions.size(); i++)
+            comboReplyGrade.addItem(comboOptions.get(i));
+    }    
      
     
     private void AddSubmission() {
         String book = String.valueOf(comboBookTitle.getSelectedItem());
         String editor = String.valueOf(comboEditor.getSelectedItem());
+        String reply = String.valueOf(comboReplyGrade.getSelectedItem());
         String queryString1 = "SELECT books.Books_Id, books.Books_Title FROM books WHERE Books_Title = \"" + book + "\";";
         ResultSet result1;
         String queryString2 = "SELECT editors.Editor_Id, editors.Editor_Name FROM editors WHERE editors.Editor_Name = \"" + editor + "\";";
@@ -365,7 +395,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             result2.next();
         
             stm = con.createStatement();
-            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ");";
+            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id, Reply_Grade) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ", " + reply + ");";
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to save these changes into the database?", "Warning", dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
@@ -382,7 +412,13 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     }
     
     
+    private void CreateNewSub() {
+            comboBookTitle.setSelectedItem(null);
+            comboReplyGrade.setSelectedItem(null);
+            comboEditor.setSelectedItem(null);
+            comboPublisher.setSelectedItem(null);
     
+    }
 
 
     private void SearchSubmission() {
@@ -391,10 +427,10 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         //if search is empty, query all submissions
         if(searchString.equals("")){
             //SELECT only the columns in the mysql table that's going into the jTable
-            queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Last_Updated FROM submission_all_info;";
+            queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Reply_Grade, Last_Updated FROM submission_all_info;";
         } else {
                 //Same SELECT as above
-                queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Last_Updated FROM submission_all_info "
+                queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Reply_Grade, Last_Updated FROM submission_all_info "
                 + "WHERE (Books_Title LIKE '" + searchString + "%'"
                 + " OR "
                 + "Editor_Name LIKE '" + searchString + "%'"
@@ -436,6 +472,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreateNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> comboBookTitle;
