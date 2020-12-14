@@ -30,7 +30,6 @@ public class gui extends javax.swing.JFrame {
         editorPanel.setVisible(true);
         card1.add(editorPanel, BorderLayout.CENTER);
 
-
         ClientsJPanel clientPanel = new ClientsJPanel();
         clientPanel.setVisible(true);
         card2.add(clientPanel, BorderLayout.CENTER);
