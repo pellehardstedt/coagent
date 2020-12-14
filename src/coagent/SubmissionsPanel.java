@@ -45,8 +45,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         
         PopulateComboReplyGrade();
         //comboReplyGrade.setSelectedItem(null);
-
-
+        
       
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
@@ -395,7 +394,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             result2.next();
         
             stm = con.createStatement();
-            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id, Reply_Grade) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ", " + reply + ");";
+            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id, Reply_Grade) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ", '" + reply + "');";
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to save these changes into the database?", "Warning", dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
