@@ -30,7 +30,6 @@ public class gui extends javax.swing.JFrame {
         editorPanel.setVisible(true);
         card1.add(editorPanel, BorderLayout.CENTER);
 
-
         ClientsJPanel clientPanel = new ClientsJPanel();
         clientPanel.setVisible(true);
         card2.add(clientPanel, BorderLayout.CENTER);
@@ -85,43 +84,76 @@ public class gui extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(137, 176, 174));
 
-        jButton1.setText("Next Page");
+        jButton1.setBackground(new java.awt.Color(137, 176, 174));
+        jButton1.setForeground(new java.awt.Color(76, 80, 82));
+        jButton1.setText("Editors");
+        jButton1.setBorder(null);
+        jButton1.setMaximumSize(new java.awt.Dimension(96, 22));
+        jButton1.setMinimumSize(new java.awt.Dimension(96, 22));
+        jButton1.setPreferredSize(new java.awt.Dimension(96, 22));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Page 2");
+        jButton2.setBackground(new java.awt.Color(137, 176, 174));
+        jButton2.setForeground(new java.awt.Color(76, 80, 82));
+        jButton2.setText("Clients");
         jButton2.setToolTipText("");
+        jButton2.setBorder(null);
+        jButton2.setMaximumSize(new java.awt.Dimension(96, 22));
+        jButton2.setMinimumSize(new java.awt.Dimension(96, 22));
+        jButton2.setPreferredSize(new java.awt.Dimension(96, 22));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(137, 176, 174));
+        jButton3.setForeground(new java.awt.Color(76, 80, 82));
         jButton3.setText("Page 3");
+        jButton3.setBorder(null);
+        jButton3.setMaximumSize(new java.awt.Dimension(96, 22));
+        jButton3.setMinimumSize(new java.awt.Dimension(96, 22));
+        jButton3.setPreferredSize(new java.awt.Dimension(96, 22));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Page 4");
+        jButton4.setBackground(new java.awt.Color(137, 176, 174));
+        jButton4.setForeground(new java.awt.Color(76, 80, 82));
+        jButton4.setText("Submissions");
+        jButton4.setBorder(null);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Page 5");
+        jButton5.setBackground(new java.awt.Color(137, 176, 174));
+        jButton5.setForeground(new java.awt.Color(76, 80, 82));
+        jButton5.setText("Publishers");
+        jButton5.setBorder(null);
+        jButton5.setMaximumSize(new java.awt.Dimension(96, 22));
+        jButton5.setMinimumSize(new java.awt.Dimension(96, 22));
+        jButton5.setPreferredSize(new java.awt.Dimension(96, 22));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Page 6");
+        jButton6.setBackground(new java.awt.Color(137, 176, 174));
+        jButton6.setForeground(new java.awt.Color(76, 80, 82));
+        jButton6.setText("Contracts");
+        jButton6.setBorder(null);
+        jButton6.setMaximumSize(new java.awt.Dimension(96, 22));
+        jButton6.setMinimumSize(new java.awt.Dimension(96, 22));
+        jButton6.setPreferredSize(new java.awt.Dimension(96, 22));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -135,30 +167,30 @@ public class gui extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
-                .addComponent(jButton1)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
