@@ -200,16 +200,14 @@ public class Register extends javax.swing.JFrame {
 
     public void registerToDb() throws SQLException{
         try {
-            
-            
-            Connection con = Coagent.getConnection();
         
             String username2 = txtUsername.getText();
             String password2 = txtPassword.getText();
             String confirm = txtConfirm.getText();
             
             // kollar så att användarnamn inte finns.
-            String query = "select * from Login WHERE USERNAME = ?";
+            Connection con = Coagent.getConnection();
+            String query = "SELECT Agent_Username FROM agents WHERE Agent_Username = ?;";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, username2);
             ResultSet r1=ps.executeQuery();
@@ -218,19 +216,17 @@ public class Register extends javax.swing.JFrame {
             }
             else{
                 if (password2.equals(confirm)){
-                String sql = "INSERT INTO coagent(USERNAME, PASSWORD) VALUES('"+username2+"', '"+password2+"')";
-                Statement stm = con.createStatement();
-                stm.executeUpdate(sql);
+                    passwordService.savePassword(password2, username2);
 
-                JOptionPane.showMessageDialog(null, "You are now registerd!");
-            
-                dispose();
-                Login fram = new Login();
-                fram.show();
+                    JOptionPane.showMessageDialog(null, "You are now registerd!");
+
+                    dispose();
+                    Login fram = new Login();
+                    fram.show();
                 }
             }
               
-        }catch(Exception e){System.out.println("e");}
+        }catch(Exception e){System.out.println(e);}
     }
     public void validatepassword(){
             String password2 = txtPassword.getText();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javatab;
+package coagent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,9 +23,9 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        if (!this.isUndecorated()) {
-           this.setUndecorated(true);
-        }
+        //if (!this.isUndecorated()) {
+        //   this.setUndecorated(true);
+        //}
         
     }
 
@@ -174,12 +174,8 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         try{
-            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/Uppgift1?serverTimezone=UTC";
-            String username = "root";
-            String password = "Tyronedaman";
-            Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
+
+            Connection con = Coagent.getConnection();
             
             String username1 = txtUsername.getText();
             String password1 = txtPassword.getText();
@@ -199,7 +195,7 @@ public class Login extends javax.swing.JFrame {
                 txtPassword.setText("");
             }
             
-        }catch(Exception e){System.out.println("e");}
+        }catch(Exception e){System.out.println(e);}
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
