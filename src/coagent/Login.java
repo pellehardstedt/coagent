@@ -22,9 +22,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
-        initComponents();
-        
-        
+        initComponents();  
     }
 
     /**
@@ -179,7 +177,7 @@ public class Login extends javax.swing.JFrame {
             String password1 = txtPassword.getText();
             
             Statement stm = con.createStatement();
-            String sql = "SELECT * FROM clients WHERE Clients_name = '"+username1+"' and Clients_contact = '"+password1+"'";
+            String sql = "SELECT * FROM clients WHERE Clients_name = '"+username1+"' and  = '"+password1+"'";
             ResultSet rs = stm.executeQuery(sql);
             
             if (rs.next()){
@@ -200,6 +198,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
         Register fram = new Register();
+        fram.setSize(477, 421);
         fram.show();
     }//GEN-LAST:event_btnRegisterActionPerformed
 

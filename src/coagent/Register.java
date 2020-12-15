@@ -99,6 +99,7 @@ public class Register extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 476, 60);
 
         jPanel2.setBackground(new java.awt.Color(137, 176, 174));
+        jPanel2.setBounds(new java.awt.Rectangle(0, 0, 476, 361));
         jPanel2.setMaximumSize(new java.awt.Dimension(476, 361));
         jPanel2.setMinimumSize(new java.awt.Dimension(476, 361));
         jPanel2.setPreferredSize(new java.awt.Dimension(476, 361));
@@ -181,7 +182,7 @@ public class Register extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 60, 476, 361);
+        jPanel2.setBounds(0, 0, 476, 361);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
