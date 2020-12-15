@@ -34,6 +34,7 @@ public class gui extends javax.swing.JFrame {
         clientPanel.setVisible(true);
         card2.add(clientPanel, BorderLayout.CENTER);
 
+
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
         card4.add(submission, BorderLayout.CENTER);

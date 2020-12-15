@@ -1,5 +1,5 @@
 -- MySQL Workbench Forward Engineering
-DROP DATABASE IF EXISTS coagent;
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -23,7 +23,7 @@ USE `coagent` ;
 CREATE TABLE IF NOT EXISTS `coagent`.`agents` (
   `Agent_Id` INT NOT NULL AUTO_INCREMENT,
   `Agent_Username` VARCHAR(45) NULL DEFAULT NULL,
-  `Agent_Password` VARCHAR(45) NULL DEFAULT NULL,
+  `Agent_Hash_Password` BINARY(64) NULL DEFAULT NULL,
   `Agent_Email` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Agent_Id`),
   UNIQUE INDEX `Agent_Email_UNIQUE` (`Agent_Email` ASC) VISIBLE)
@@ -197,6 +197,23 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `coagent`.`passwordsalt`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `coagent`.`passwordsalt` (
+  `Agent_Agent_Id` INT NOT NULL,
+  `Salt` BINARY(64) NULL DEFAULT NULL,
+  PRIMARY KEY (`Agent_Agent_Id`),
+  CONSTRAINT `Agent_Agent_Id`
+    FOREIGN KEY (`Agent_Agent_Id`)
+    REFERENCES `coagent`.`agents` (`Agent_Id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `coagent`.`submissions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `coagent`.`submissions` (
@@ -241,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`search_for_book_theme_editor` (`Books_Titl
 -- -----------------------------------------------------
 -- Placeholder table for view `coagent`.`submission_all_info`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`submission_all_info` (`Books_Title` INT, `Authors_Name` INT, `Clients_Name` INT, `Editor_Name` INT, `Publisher_Name` INT, `Agent_Username` INT, `Last_Updated` TIMESTAMP);
+CREATE TABLE IF NOT EXISTS `coagent`.`submission_all_info` (`Last_Updated` INT, `Books_Title` INT, `Authors_Name` INT, `Clients_Name` INT, `Editor_Name` INT, `Publisher_Name` INT, `Agent_Username` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `coagent`.`theme_search`

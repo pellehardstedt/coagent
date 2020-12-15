@@ -47,6 +47,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         comboReplyGrade.setSelectedItem(null);
 
 
+   
       
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override

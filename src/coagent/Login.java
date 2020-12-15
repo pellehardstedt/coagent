@@ -178,16 +178,13 @@ public class Login extends javax.swing.JFrame {
             
             String username1 = txtUsername.getText();
             String password1 = txtPassword.getText();
+
             
-            Statement stm = con.createStatement();
-            String sql = "SELECT * FROM Login WHERE username = '"+username1+"' and password = '"+password1+"'";
-            ResultSet rs = stm.executeQuery(sql);
-            
-            if (rs.next()){
+            if (passwordService.comparePassword(username1, password1)){
                 dispose();
-                TryJFrame fram = new TryJFrame();
-                fram.show();
-                fram.setVisible(true);
+                javax.swing.JFrame gui = new gui();
+                gui.show();
+                gui.setVisible(true);
             } else{
                 JOptionPane.showMessageDialog(null, "Username or Password is worng");
                 txtUsername.setText("");
