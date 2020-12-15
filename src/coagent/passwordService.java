@@ -32,14 +32,14 @@ public class passwordService {
             md.update(salt);
             
             byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            
+
             StringBuilder stringBuilder = new StringBuilder();
             
             for(byte b : hashedPassword)
                 stringBuilder.append(String.format("%02x", b));
-            
+
             Connection con = Coagent.getConnection();
-            PreparedStatement postUser = con.prepareStatement("INSERT INTO agents(Agent_Username, Agent_Hash_Password) VALUES('" + user + "', '" + hashedPassword + "')", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement postUser = con.prepareStatement("INSERT INTO agents(Agent_Username, Agent_Hash_Password) VALUES('" + user + "', '" + stringBuilder + "')", Statement.RETURN_GENERATED_KEYS);
             postUser.executeUpdate();
             ResultSet result = postUser.getGeneratedKeys();
             int generatedKey = 0;
@@ -49,12 +49,7 @@ public class passwordService {
             }
             PreparedStatement postSalt = con.prepareStatement("INSERT INTO passwordSalt(Agent_Agent_Id, Salt) VALUES('" + generatedKey + "', '" + salt + "')");
             postSalt.executeUpdate();
-            
-            //output to db
-            System.out.println(stringBuilder);
-            System.out.println(salt);
-            //comparePassword(password, stringBuilder, salt);
-            
+                        
         } catch (NoSuchAlgorithmException e) {
             System.out.println(e);
         }
@@ -62,32 +57,34 @@ public class passwordService {
     
     public static Boolean comparePassword(String username, String inputPassword) throws Exception {
         int id = getUserId(username);
+        if(id == 0){
+            return false;
+        }
         Connection con = Coagent.getConnection();
         PreparedStatement query = con.prepareStatement("SELECT agents.Agent_Hash_Password, passwordSalt.Salt FROM agents JOIN passwordSalt ON agents.Agent_Id = passwordSalt.Agent_Agent_Id WHERE agents.Agent_Id = " + id + ";");
         ResultSet result = query.executeQuery();
         result.next();
-        //String hash = String.valueOf(result.getObject(1));
+;
         byte[] hash = result.getBytes("agents.Agent_Hash_Password");
-        //String saltString = String.valueOf(result.getObject(2));
-       // byte[] salt = saltString.getBytes();
+
         byte[] salt = result.getBytes("passwordSalt.Salt");
-        System.out.println("hash:");
-        System.out.println(hash);
-        System.out.println("salt:");
-        System.out.println(salt);
+
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-256");
             md.update(salt);
             byte[] hashedInputPassword = md.digest(inputPassword.getBytes(StandardCharsets.UTF_8));
-            StringBuilder hashedInputPasswordBuilt = new StringBuilder();
-            for(byte b : hashedInputPassword)
-                hashedInputPasswordBuilt.append(String.format("%02x", b));
             
-            System.out.println(hashedInputPassword);
-            System.out.println(hash);
-            if( Arrays.equals(hashedInputPassword, hash) ){
-                System.out.println("yes");
+            StringBuilder hashInputBuild = new StringBuilder();
+            for(byte b : hashedInputPassword)
+                hashInputBuild.append(String.format("%02x", b));
+            
+            StringBuilder hashDBbuild = new StringBuilder();
+            for(byte b : hashedInputPassword)
+                hashDBbuild.append(String.format("%02x", b));
+
+            if( hashInputBuild.toString().equals(hashDBbuild.toString()) ){
+                System.out.println("Logged in");
                 return true;
             } else {
                 return false;
@@ -96,9 +93,7 @@ public class passwordService {
         } catch (NoSuchAlgorithmException e) {
             System.out.println(e);
         }
-        
-        
-        return true;
+        return false;
     }
 
     private static int getUserId(String user) {
