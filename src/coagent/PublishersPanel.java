@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -24,6 +26,7 @@ public class PublishersPanel extends javax.swing.JPanel {
      */
     PreparedStatement query = null;
     ResultSet result = null;
+    ListSelectionModel listSelectionModel;
     
     public PublishersPanel() {
         initComponents();
@@ -269,6 +272,7 @@ public class PublishersPanel extends javax.swing.JPanel {
     private javax.swing.JButton updatePublishersBtn;
     // End of variables declaration//GEN-END:variables
 
+   
 public void showList(){
     
    try {
@@ -301,12 +305,13 @@ public void addPublisher(){
 }
 
 public void editRow(){
-    publisherSearchTable.getSelectedRow();
-    //EJ klar
-    //query = con.prepareStatement("UPDATE publishers SET  VALUES(?)");
+    //publisherSearchTable.getSelectedRow();
+    listSelectionModel = publisherSearchTable.getSelectionModel();
+    listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+    publisherSearchTable.setSelectionModel(listSelectionModel);
    
 }
-
+        
 public void searchPublisher(){
 
 String searchString = publishersSearchTxtFld.getText();
@@ -332,4 +337,40 @@ String searchString = publishersSearchTxtFld.getText();
             System.out.println(e);
         }
 }
+
+class SharedListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) { 
+            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+            
+ 
+            int firstIndex = e.getFirstIndex();
+            int lastIndex = e.getLastIndex();
+            boolean isAdjusting = e.getValueIsAdjusting(); 
+            System.out.println("Event for indexes "
+                          + firstIndex + " - " + lastIndex
+                          + "; isAdjusting is " + isAdjusting
+                          + "; selected indexes:");
+ 
+            if (lsm.isSelectionEmpty()) {
+                System.out.println(" <none>");
+            } else {
+                // Find out which indexes are selected.
+                int minIndex = lsm.getMinSelectionIndex();
+                int maxIndex = lsm.getMaxSelectionIndex();
+                for (int i = minIndex; i <= maxIndex; i++) {
+                    if (lsm.isSelectedIndex(i)) {
+                        System.out.println(" " + i);
+                    }
+                }
+            }
+           // output.append(newline);
+           String position = null;
+           
+        }
+
+
+        }
+    
+
+
 }
