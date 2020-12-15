@@ -35,37 +35,27 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         
         
         PopulateComboBookTitle();
-        PopulateComboPublisher();
-        
-        comboPublisher.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent arg0) {
-            String s = comboPublisher.getSelectedItem().toString();
-            String statement = "SELECT publishers.Publisher_Id, publishers.Publisher_Name, editors.Editor_Name FROM publishers, editors WHERE Publisher_name =\"" + s + "\" and editors.Publisher_Publisher_Id = publishers.Publisher_Id";
-            try {
-                Connection con = Coagent.getConnection();
-                PreparedStatement pst = con.prepareStatement(statement);
-                ResultSet rs = pst.executeQuery();
-                comboEditor.removeAllItems();
-                while (rs.next()) {
-                    comboEditor.addItem(rs.getString("Editor_Name"));
-                }
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                }
-            }
-        });
-        
+        comboBookTitle.setSelectedItem(null);
 
+        PopulateComboPublisher();
+        comboPublisher.setSelectedItem(null);
+        
+        PopulateComboEditor();
+        comboEditor.setSelectedItem(null);
+        
         PopulateComboReplyGrade();
-        
-        
+        comboReplyGrade.setSelectedItem(null);
+
+
+   
+      
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                comboBookTitle.addItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
-                comboPublisher.addItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 2).toString());
-                comboReplyGrade.addItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
+                comboBookTitle.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
+                comboPublisher.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 1).toString());
+                comboReplyGrade.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 3).toString());
+              
         }
     });
         
@@ -90,6 +80,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         comboReplyGrade = new javax.swing.JComboBox<>();
         lblPublisher = new javax.swing.JLabel();
         comboPublisher = new javax.swing.JComboBox<>();
+        btnUpdateReply = new javax.swing.JButton();
         lblSubmissionHeader = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtfieldSubSearch = new javax.swing.JTextPane();
@@ -98,6 +89,8 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableSearchSub = new javax.swing.JTable();
         lblSearchExplain = new javax.swing.JLabel();
+        btnCreateNew = new javax.swing.JButton();
+        btnClearSearch = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(190, 227, 219));
         setToolTipText("");
@@ -126,6 +119,14 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
         comboPublisher.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
 
+        btnUpdateReply.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnUpdateReply.setText("Update reply");
+        btnUpdateReply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateReplyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSubLayout = new javax.swing.GroupLayout(panelSub);
         panelSub.setLayout(panelSubLayout);
         panelSubLayout.setHorizontalGroup(
@@ -149,13 +150,15 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                     .addGroup(panelSubLayout.createSequentialGroup()
                         .addComponent(lblReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdateReply)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         panelSubLayout.setVerticalGroup(
             panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSubLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(31, 31, 31)
                 .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBookTitle)
                     .addComponent(comboBookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,11 +168,12 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                     .addComponent(comboPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEditorName)
                     .addComponent(lblPublisher))
-                .addGap(28, 28, 28)
+                .addGap(26, 26, 26)
                 .addGroup(panelSubLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblReplyGrade)
-                    .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(comboReplyGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateReply))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         lblSubmissionHeader.setFont(new java.awt.Font("Avenir Next", 0, 36)); // NOI18N
@@ -191,7 +195,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         });
 
         btnSave.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
-        btnSave.setText("Add to submissions");
+        btnSave.setText("Save new submssion");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -209,17 +213,9 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Book", "Publisher", "Editor", "Date last changed"
+                "Book", "Publisher", "Editor", "Reply", "Date last updated"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tableSearchSub.setCellSelectionEnabled(true);
         tableSearchSub.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         tableSearchSub.setGridColor(new java.awt.Color(250, 249, 249));
@@ -231,26 +227,48 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         lblSearchExplain.setFont(new java.awt.Font("Avenir Next", 0, 10)); // NOI18N
         lblSearchExplain.setText("Search in submissions by a book's title or an editor's name.");
 
+        btnCreateNew.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnCreateNew.setText("Start new submission");
+        btnCreateNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateNewActionPerformed(evt);
+            }
+        });
+
+        btnClearSearch.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnClearSearch.setText("Clear search results ");
+        btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblSearchExplain))
-                    .addComponent(panelSub, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(60, 60, 60)
-                            .addComponent(btnSearch))))
-                .addGap(64, 107, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnClearSearch)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnCreateNew)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnSave)
+                            .addGap(205, 205, 205))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSearchExplain))
+                        .addComponent(panelSub, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(60, 60, 60)
+                                .addComponent(btnSearch)))))
+                .addGap(64, 121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,11 +283,15 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                     .addComponent(btnSearch))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClearSearch)
                 .addGap(18, 18, 18)
                 .addComponent(panelSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnSave)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreateNew)
+                    .addComponent(btnSave))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -280,6 +302,18 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         SearchSubmission();
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewActionPerformed
+        CreateNewSub();
+    }//GEN-LAST:event_btnCreateNewActionPerformed
+
+    private void btnUpdateReplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateReplyActionPerformed
+        UpdateReply();
+    }//GEN-LAST:event_btnUpdateReplyActionPerformed
+
+    private void btnClearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearSearchActionPerformed
+        ClearSearch();
+    }//GEN-LAST:event_btnClearSearchActionPerformed
 
 
     
@@ -322,28 +356,53 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     
     }
     
-
+    private void PopulateComboEditor() {
+        comboPublisher.addItemListener(new ItemListener() {
+        @Override
+            public void itemStateChanged(ItemEvent arg0) {
+                if (comboPublisher.getSelectedItem() == null){
+                    return;
+                } else {    
+                    String s = comboPublisher.getSelectedItem().toString(); 
+                    String statement = "SELECT publishers.Publisher_Id, publishers.Publisher_Name, editors.Editor_Name FROM publishers, editors WHERE Publisher_name =\"" + s + "\" and editors.Publisher_Publisher_Id = publishers.Publisher_Id";
+                try {
+                    Connection con = Coagent.getConnection();
+                    PreparedStatement pst = con.prepareStatement(statement);
+                    ResultSet rs = pst.executeQuery();
+                    comboEditor.removeAllItems();
+                        while (rs.next()) {
+                            comboEditor.addItem(rs.getString("Editor_Name"));
+                        }
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                        }
+                    }
+            }
+        });
+    }
+    
+    
         
-        private void PopulateComboReplyGrade () {
+    private void PopulateComboReplyGrade () {
             
-            ArrayList<String> comboOptions = new ArrayList<String>();
-            comboOptions.add("No reply yet");
-            comboOptions.add("Not interested in this genre");
-            comboOptions.add("Not interested in this book");
-            comboOptions.add("Keep them informed about any offers");
-            comboOptions.add("Making an offer");
-            comboOptions.add("Making a preempt");
-            comboOptions.add("Requested title before submission");
+        ArrayList<String> comboOptions = new ArrayList<String>();
+        comboOptions.add("No reply yet");
+        comboOptions.add("Not interested in this genre");
+        comboOptions.add("Not interested in this book");
+        comboOptions.add("Keep them informed about any offers");
+        comboOptions.add("Making an offer");
+        comboOptions.add("Making a preempt");
+        comboOptions.add("Requested title before submission");
                 
-            for (int i = 0; i < comboOptions.size(); i++)
-                comboReplyGrade.addItem(comboOptions.get(i));
-
-        }    
+        for (int i = 0; i < comboOptions.size(); i++)
+            comboReplyGrade.addItem(comboOptions.get(i));
+    }    
      
     
     private void AddSubmission() {
         String book = String.valueOf(comboBookTitle.getSelectedItem());
         String editor = String.valueOf(comboEditor.getSelectedItem());
+        String reply = String.valueOf(comboReplyGrade.getSelectedItem());
         String queryString1 = "SELECT books.Books_Id, books.Books_Title FROM books WHERE Books_Title = \"" + book + "\";";
         ResultSet result1;
         String queryString2 = "SELECT editors.Editor_Id, editors.Editor_Name FROM editors WHERE editors.Editor_Name = \"" + editor + "\";";
@@ -365,7 +424,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             result2.next();
         
             stm = con.createStatement();
-            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ");";
+            String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id, Reply_Grade) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ", '" + reply + "');";
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to save these changes into the database?", "Warning", dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
@@ -382,8 +441,73 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     }
     
     
+    private void CreateNewSub() {
+        comboBookTitle.setSelectedItem(null);
+        comboReplyGrade.setSelectedItem(null);
+        comboEditor.setSelectedItem(null);
+        comboPublisher.setSelectedItem(null);
     
+    }
 
+    private void ClearSearch() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) tableSearchSub.getModel();
+            model.setRowCount(0);
+   
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    
+    }
+    
+    
+    private void UpdateReply() {
+        String book = String.valueOf(comboBookTitle.getSelectedItem());
+        String editor = String.valueOf(comboEditor.getSelectedItem());
+        String reply = String.valueOf(comboReplyGrade.getSelectedItem());
+        String queryString1 = "SELECT books.Books_Id, books.Books_Title FROM books WHERE Books_Title = \"" + book + "\";";
+        ResultSet result1;
+        String queryString2 = "SELECT editors.Editor_Id, editors.Editor_Name FROM editors WHERE editors.Editor_Name = \"" + editor + "\";";
+        ResultSet result2;
+        Statement stm;
+        
+        try {
+            Connection con = Coagent.getConnection();
+            //Get Book_ID from database
+            PreparedStatement query1 = con.prepareStatement(queryString1);
+            result1 = query1.executeQuery();
+            //.next() shifts the cursor to the next (the first) row of the result set
+            result1.next();
+            
+            //Get Editor_ID from database
+            PreparedStatement query2 = con.prepareStatement(queryString2);
+            result2 = query2.executeQuery();
+            //.next() shifts the cursor to the next (the first) row of the result set
+            result2.next();
+        
+            stm = con.createStatement();
+            String sql = "UPDATE submissions SET Reply_Grade = '" + reply + "' WHERE Books_Books_Id = " + result1.getString(1) + " AND Editor_Editor_Id = " + result2.getString(1) + ";";
+            System.out.println(sql);
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like update this submission?", "Warning", dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                     int updateresult = stm.executeUpdate(sql);
+                     if (updateresult == 1) {
+                     JOptionPane.showMessageDialog(null, "Submission updated");
+                     }
+                     else {
+                     JOptionPane.showMessageDialog(null, "This submission doesn't exist. Please create it first to update the reply.");
+                     }
+                }
+                else {
+                }
+        
+           } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, "Submission doesn't exist yet");
+               System.out.println(e);
+             }
+    
+    }
 
     private void SearchSubmission() {
         String searchString = txtfieldSubSearch.getText();
@@ -391,10 +515,10 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         //if search is empty, query all submissions
         if(searchString.equals("")){
             //SELECT only the columns in the mysql table that's going into the jTable
-            queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Last_Updated FROM submission_all_info;";
+            queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Reply_Grade, Last_Updated FROM submission_all_info;";
         } else {
                 //Same SELECT as above
-                queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Last_Updated FROM submission_all_info "
+                queryString = "SELECT Books_Title, Publisher_Name, Editor_Name, Reply_Grade, Last_Updated FROM submission_all_info "
                 + "WHERE (Books_Title LIKE '" + searchString + "%'"
                 + " OR "
                 + "Editor_Name LIKE '" + searchString + "%'"
@@ -436,8 +560,11 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClearSearch;
+    private javax.swing.JButton btnCreateNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUpdateReply;
     private javax.swing.JComboBox<String> comboBookTitle;
     private javax.swing.JComboBox<String> comboEditor;
     private javax.swing.JComboBox<String> comboPublisher;

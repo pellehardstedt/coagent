@@ -22,7 +22,12 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
-        initComponents();  
+
+        initComponents();
+        //if (!this.isUndecorated()) {
+        //   this.setUndecorated(true);
+        //}
+        
     }
 
     /**
@@ -53,7 +58,6 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(190, 227, 219));
-        jPanel1.setLocation(new java.awt.Point(0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(476, 60));
         jPanel1.setMinimumSize(new java.awt.Dimension(476, 60));
         jPanel1.setPreferredSize(new java.awt.Dimension(476, 60));
@@ -170,28 +174,27 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         try{
-            
+
             Connection con = Coagent.getConnection();
             
             String username1 = txtUsername.getText();
             String password1 = txtPassword.getText();
+
             
-            Statement stm = con.createStatement();
-            String sql = "SELECT * FROM clients WHERE Clients_name = '"+username1+"' and  = '"+password1+"'";
-            ResultSet rs = stm.executeQuery(sql);
-            
-            if (rs.next()){
+
+            if (passwordService.comparePassword(username1, password1)){
                 dispose();
                 javax.swing.JFrame gui = new gui();
+                gui.show();
                 gui.setVisible(true);
-                gui.setResizable(true);
+
             } else{
                 JOptionPane.showMessageDialog(null, "Username or Password is worng");
                 txtUsername.setText("");
                 txtPassword.setText("");
             }
             
-        }catch(Exception e){System.out.println("e");}
+        }catch(Exception e){System.out.println(e);}
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed

@@ -1,5 +1,5 @@
 -- MySQL Workbench Forward Engineering
-DROP DATABASE IF EXISTS coagent;
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -23,11 +23,12 @@ USE `coagent` ;
 CREATE TABLE IF NOT EXISTS `coagent`.`agents` (
   `Agent_Id` INT NOT NULL AUTO_INCREMENT,
   `Agent_Username` VARCHAR(45) NULL DEFAULT NULL,
-  `Agent_Password` VARCHAR(45) NULL DEFAULT NULL,
+  `Agent_Hash_Password` BINARY(64) NULL DEFAULT NULL,
   `Agent_Email` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Agent_Id`),
   UNIQUE INDEX `Agent_Email_UNIQUE` (`Agent_Email` ASC) VISIBLE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -42,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`clients` (
   `Clients_Email` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Clients_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -61,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`authors` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -89,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`books` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -101,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`themes` (
   `Theme` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`Theme_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -138,6 +143,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`publishers` (
   `Publisher_Contact` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`Publisher_Id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -159,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`editors` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -197,12 +204,29 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `coagent`.`passwordsalt`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `coagent`.`passwordsalt` (
+  `Agent_Agent_Id` INT NOT NULL,
+  `Salt` BINARY(64) NULL DEFAULT NULL,
+  PRIMARY KEY (`Agent_Agent_Id`),
+  CONSTRAINT `Agent_Agent_Id`
+    FOREIGN KEY (`Agent_Agent_Id`)
+    REFERENCES `coagent`.`agents` (`Agent_Id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `coagent`.`submissions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `coagent`.`submissions` (
   `Books_Books_Id` INT NOT NULL,
   `Editor_Editor_Id` INT NOT NULL,
-  `Reply_Grade` INT NULL DEFAULT NULL,
+  `Reply_Grade` VARCHAR(255) NULL DEFAULT NULL,
   `Last_Updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Books_Books_Id`, `Editor_Editor_Id`),
   INDEX `fk_Books_has_Publisher_Books1_idx` (`Books_Books_Id` ASC) VISIBLE,
@@ -241,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `coagent`.`search_for_book_theme_editor` (`Books_Titl
 -- -----------------------------------------------------
 -- Placeholder table for view `coagent`.`submission_all_info`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `coagent`.`submission_all_info` (`Books_Title` INT, `Authors_Name` INT, `Clients_Name` INT, `Editor_Name` INT, `Publisher_Name` INT, `Agent_Username` INT, `Last_Updated` TIMESTAMP);
+CREATE TABLE IF NOT EXISTS `coagent`.`submission_all_info` (`Books_Title` INT, `Authors_Name` INT, `Clients_Name` INT, `Editor_Name` INT, `Publisher_Name` INT, `Reply_Grade` INT, `Last_Updated` INT, `Agent_Username` INT);
 
 -- -----------------------------------------------------
 -- Placeholder table for view `coagent`.`theme_search`
@@ -311,7 +335,7 @@ CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY D
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `coagent`.`submission_all_info`;
 USE `coagent`;
-CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `coagent`.`submission_all_info` AS select `coagent`.`submissions`.`Last_Updated` AS `Last_Updated`,`coagent`.`books`.`Books_Title` AS `Books_Title`,`coagent`.`authors`.`Authors_Name` AS `Authors_Name`,`coagent`.`clients`.`Clients_Name` AS `Clients_Name`,`coagent`.`editors`.`Editor_Name` AS `Editor_Name`,`coagent`.`publishers`.`Publisher_Name` AS `Publisher_Name`,`coagent`.`agents`.`Agent_Username` AS `Agent_Username` from ((((((`coagent`.`submissions` join `coagent`.`books` on((`coagent`.`submissions`.`Books_Books_Id` = `coagent`.`books`.`Books_Id`))) join `coagent`.`authors` on((`coagent`.`books`.`Authors_Authors_Id` = `coagent`.`authors`.`Authors_Id`))) join `coagent`.`clients` on((`coagent`.`authors`.`Clients_Clients_Id` = `coagent`.`clients`.`Clients_Id`))) join `coagent`.`editors` on((`coagent`.`submissions`.`Editor_Editor_Id` = `coagent`.`editors`.`Editor_Id`))) join `coagent`.`publishers` on((`coagent`.`editors`.`Publisher_Publisher_Id` = `coagent`.`publishers`.`Publisher_Id`))) join `coagent`.`agents` on((`coagent`.`books`.`Agent_Agent_Id` = `coagent`.`agents`.`Agent_Id`)));
+CREATE  OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `coagent`.`submission_all_info` AS select `coagent`.`books`.`Books_Title` AS `Books_Title`,`coagent`.`authors`.`Authors_Name` AS `Authors_Name`,`coagent`.`clients`.`Clients_Name` AS `Clients_Name`,`coagent`.`editors`.`Editor_Name` AS `Editor_Name`,`coagent`.`publishers`.`Publisher_Name` AS `Publisher_Name`,`coagent`.`submissions`.`Reply_Grade` AS `Reply_Grade`,`coagent`.`submissions`.`Last_Updated` AS `Last_Updated`,`coagent`.`agents`.`Agent_Username` AS `Agent_Username` from ((((((`coagent`.`submissions` join `coagent`.`books` on((`coagent`.`submissions`.`Books_Books_Id` = `coagent`.`books`.`Books_Id`))) join `coagent`.`authors` on((`coagent`.`books`.`Authors_Authors_Id` = `coagent`.`authors`.`Authors_Id`))) join `coagent`.`clients` on((`coagent`.`authors`.`Clients_Clients_Id` = `coagent`.`clients`.`Clients_Id`))) join `coagent`.`editors` on((`coagent`.`submissions`.`Editor_Editor_Id` = `coagent`.`editors`.`Editor_Id`))) join `coagent`.`publishers` on((`coagent`.`editors`.`Publisher_Publisher_Id` = `coagent`.`publishers`.`Publisher_Id`))) join `coagent`.`agents` on((`coagent`.`books`.`Agent_Agent_Id` = `coagent`.`agents`.`Agent_Id`)));
 
 -- -----------------------------------------------------
 -- View `coagent`.`theme_search`
