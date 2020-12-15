@@ -69,6 +69,8 @@ public class BooksPanel extends javax.swing.JPanel {
             "Clients_Name",
             "Agent_Username"
         };
+        
+        Object bookIdFromEdit;
         int selectedRowIndex;
         Boolean editable;
     /**
@@ -380,11 +382,15 @@ public class BooksPanel extends javax.swing.JPanel {
             
             String title = jTextField1.getText();
             selected.add(title);
-            String author;
-            if(jTextField1.getText().equals("New author")) {
-                author = jTextField1.getText();
-            } else {
+            String author;  
+            if(jTextField2.getText().equals("New author")) {
                 author = String.valueOf(jComboBox1.getSelectedItem());
+            } else {
+                author = jTextField1.getText(); 
+                PreparedStatement query = con.prepareStatement("INSERT INTO authors(Authors_Name, Clients_Clients_Id) VALUES('" + author + "', (SELECT Clients_Id FROM clients WHERE Clients_Name = '" + String.valueOf(jComboBox2.getSelectedItem()) + "'));");
+                System.out.println(query);
+                int result = query.executeUpdate();
+                System.out.println(result);
             }
             selected.add(author);
             String client = String.valueOf(jComboBox2.getSelectedItem());
@@ -405,14 +411,25 @@ public class BooksPanel extends javax.swing.JPanel {
             }
             
             PreparedStatement query;
+            int book_id = 0;
             if (addNewContract.getText().equals("Save changes")){
+                /*
+                query = con.prepareStatement("SELECT Books_Id FROM books WHERE Books_Title = '" + String.valueOf(bookIdFromEdit) + "';");
+                System.out.println(query);
+                ResultSet result = query.executeQuery();
+                if(result.next()) {
+                    System.out.println(result.getInt(1));
+                    book_id = result.getInt(1);
+                }
+*/
+                
                 Object id = source.getText();
                 query = con.prepareStatement(""
-                        + "UPDATE contracts "
-                        + "SET Books_Books_Id = '" + ids.get(0) + "', "
-                                + "Editor_Editor_Id = '" + ids.get(1) + "', "
-                                        + "Publisher_Publisher_Id = '" + ids.get(2)+ "' "
-                                                + "WHERE Contract_Id = " + id + ";" );
+                        + "UPDATE books "
+                        + "SET Books_Title = '" + title + "', "
+                        + "Authors_Authors_Id = '" + ids.get(0) + "', "
+                        + "Agent_Agent_Id = '" + ids.get(2)+ "' "
+                        + "WHERE Books_Id = " + bookIdFromEdit + ";" );
             } else {
                 //INSERT INTO books(Books_Title, Agent_Agent_Id, Authors_Authors_Id) VALUES("Layla", 5, 5);
                 query = con.prepareStatement("INSERT INTO books(Books_Title, Authors_Authors_Id, Agent_Agent_Id) VALUES('" + selected.get(0) + "', " + ids.get(0) + ", " + ids.get(1) + ");");
@@ -444,12 +461,14 @@ public class BooksPanel extends javax.swing.JPanel {
 
     private void jButtonEditContractsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditContractsActionPerformed
         addNewContract.setText("Save changes");
-
+        bookIdFromEdit = tableSearch.getModel().getValueAt(selectedRowIndex, 0);
+        System.out.println("BOOK ID: " + bookIdFromEdit);
+        
         Object title = tableSearch.getModel().getValueAt(selectedRowIndex, 1);
         jTextField1.setText(String.valueOf(title));
 
         Object author = tableSearch.getModel().getValueAt(selectedRowIndex, 3);
-        jTextField2.setText(String.valueOf(author));
+        jComboBox1.setSelectedItem(String.valueOf(author));
 
         Object client = tableSearch.getModel().getValueAt(selectedRowIndex, 5   );
         jComboBox2.setSelectedItem(String.valueOf(client));
