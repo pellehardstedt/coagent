@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javatab;
+package coagent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,9 +23,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        if (!this.isUndecorated()) {
-           this.setUndecorated(true);
-        }
+        
         
     }
 
@@ -174,25 +172,21 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         try{
-            String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/Uppgift1?serverTimezone=UTC";
-            String username = "root";
-            String password = "Tyronedaman";
-            Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
+            
+            Connection con = Coagent.getConnection();
             
             String username1 = txtUsername.getText();
             String password1 = txtPassword.getText();
             
             Statement stm = con.createStatement();
-            String sql = "SELECT * FROM Login WHERE username = '"+username1+"' and password = '"+password1+"'";
+            String sql = "SELECT * FROM clients WHERE Clients_name = '"+username1+"' and Clients_contact = '"+password1+"'";
             ResultSet rs = stm.executeQuery(sql);
             
             if (rs.next()){
                 dispose();
-                TryJFrame fram = new TryJFrame();
-                fram.show();
-                fram.setVisible(true);
+                javax.swing.JFrame gui = new gui();
+                gui.setVisible(true);
+                gui.setResizable(true);
             } else{
                 JOptionPane.showMessageDialog(null, "Username or Password is worng");
                 txtUsername.setText("");

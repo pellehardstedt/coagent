@@ -209,7 +209,7 @@ public class Register extends javax.swing.JFrame {
             String confirm = txtConfirm.getText();
             
             // kollar så att användarnamn inte finns.
-            String query = "select * from Login WHERE USERNAME = ?";
+            String query = "select * from DATABAS WHERE USERNAME = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, username2);
             ResultSet r1=ps.executeQuery();
@@ -218,7 +218,7 @@ public class Register extends javax.swing.JFrame {
             }
             else{
                 if (password2.equals(confirm)){
-                String sql = "INSERT INTO coagent(USERNAME, PASSWORD) VALUES('"+username2+"', '"+password2+"')";
+                String sql = "INSERT INTO DATABAS(USERNAME, PASSWORD) VALUES('"+username2+"', '"+password2+"')";
                 Statement stm = con.createStatement();
                 stm.executeUpdate(sql);
 
@@ -247,7 +247,7 @@ public class Register extends javax.swing.JFrame {
        
         
         Statement stmt = con.createStatement();
-        String query = "select username from Members WHERE username = '"+username2+"'";
+        String query = "select USERNAME from DATABAS WHERE USERNAME = '"+username2+"'";
         ResultSet rs=stmt.executeQuery(query);
         String checkUser = rs.getString(1);
 
