@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+        
         initComponents();
         //if (!this.isUndecorated()) {
         //   this.setUndecorated(true);
@@ -51,9 +52,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(476, 421));
         setMinimumSize(new java.awt.Dimension(476, 421));
-        setPreferredSize(new java.awt.Dimension(476, 421));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(190, 227, 219));
@@ -101,14 +100,24 @@ public class Login extends javax.swing.JFrame {
 
         txtPassword.setBackground(new java.awt.Color(190, 227, 219));
         txtPassword.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("Password:");
 
         txtUsername.setBackground(new java.awt.Color(190, 227, 219));
         txtUsername.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+        });
 
-        btnRegister.setText("Register");
+        btnRegister.setText("New user");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
@@ -179,12 +188,12 @@ public class Login extends javax.swing.JFrame {
             String username1 = txtUsername.getText();
             String password1 = txtPassword.getText();
 
-            
             if (passwordService.comparePassword(username1, password1)){
                 dispose();
                 javax.swing.JFrame gui = new gui();
                 gui.show();
                 gui.setVisible(true);
+
             } else{
                 JOptionPane.showMessageDialog(null, "Username or Password is worng");
                 txtUsername.setText("");
@@ -198,6 +207,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
         Register fram = new Register();
+        fram.setSize(475, 412);
         fram.show();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -210,7 +220,62 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setState(Login.ICONIFIED);
     }//GEN-LAST:event_jLabel4MouseClicked
+    // Om man trycker enter när man skrivit lösenord
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            try{
 
+            Connection con = Coagent.getConnection();
+            
+            String username1 = txtUsername.getText();
+            String password1 = txtPassword.getText();
+
+            
+
+            if (passwordService.comparePassword(username1, password1)){
+                dispose();
+                javax.swing.JFrame gui = new gui();
+                gui.show();
+                gui.setVisible(true);
+
+            } else{
+                JOptionPane.showMessageDialog(null, "Username or Password is worng");
+                txtUsername.setText("");
+                txtPassword.setText("");
+            }
+            
+            }catch(Exception e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+    // Om man trycker enter när man skrivit username
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            try{
+
+            Connection con = Coagent.getConnection();
+            
+            String username1 = txtUsername.getText();
+            String password1 = txtPassword.getText();
+
+            
+
+            if (passwordService.comparePassword(username1, password1)){
+                dispose();
+                javax.swing.JFrame gui = new gui();
+                gui.show();
+                gui.setVisible(true);
+
+            } else{
+                JOptionPane.showMessageDialog(null, "Username or Password is worng");
+                txtUsername.setText("");
+                txtPassword.setText("");
+            }
+            
+            }catch(Exception e){System.out.println(e);}
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
+    
+    
     /**
      * @param args the command line arguments
      */
