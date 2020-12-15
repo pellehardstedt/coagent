@@ -54,17 +54,20 @@ public class BooksPanel extends javax.swing.JPanel {
         String[] dbAddTables = {
             "books",
             "authors",
+            "clients",
             "agents"
         };
         String[] dbAddIds = {
             "Books_Id",
             "Authors_Id",
+            "Clients_Id",
             "Agent_Id"
         };
         String[] dbAddName = {
             "Books_Title",
             "Authors_Name",
-            "Agent_Name"
+            "Clients_Name",
+            "Agent_Username"
         };
         int selectedRowIndex;
         Boolean editable;
@@ -379,7 +382,7 @@ public class BooksPanel extends javax.swing.JPanel {
             selected.add(title);
             String author;
             if(jTextField1.getText().equals("New author")) {
-                author = jTextField2.getText();
+                author = jTextField1.getText();
             } else {
                 author = String.valueOf(jComboBox1.getSelectedItem());
             }
@@ -390,21 +393,18 @@ public class BooksPanel extends javax.swing.JPanel {
             selected.add(agent);
             
             
-            for(int i = 1; i < 2; i++){
+            for(int i = 1; i < 4; i++){
 
                 PreparedStatement query = con.prepareStatement("SELECT " + dbAddIds[i] + " FROM " + dbAddTables[i] + " WHERE " + dbAddName[i] + " = '" + selected.get(i) + "';" );
                 System.out.println(query);
                 ResultSet result = query.executeQuery();
-                System.out.println("before result.next");
                 if(result.next()) {
-                    System.out.println("inside result.next");
                     System.out.println(result.getInt(1));
                     ids.add(result.getInt(1));
                 }
             }
             
-            PreparedStatement query = query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
-
+            PreparedStatement query;
             if (addNewContract.getText().equals("Save changes")){
                 Object id = source.getText();
                 query = con.prepareStatement(""
@@ -414,12 +414,14 @@ public class BooksPanel extends javax.swing.JPanel {
                                         + "Publisher_Publisher_Id = '" + ids.get(2)+ "' "
                                                 + "WHERE Contract_Id = " + id + ";" );
             } else {
-                query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
+                //INSERT INTO books(Books_Title, Agent_Agent_Id, Authors_Authors_Id) VALUES("Layla", 5, 5);
+                query = con.prepareStatement("INSERT INTO books(Books_Title, Authors_Authors_Id, Agent_Agent_Id) VALUES('" + selected.get(0) + "', " + ids.get(0) + ", " + ids.get(1) + ");");
+
             }
             System.out.println(query);
             int result = query.executeUpdate();
             System.out.println(result);
-            //remove previous selection after INSERT
+            //  remove previous selection after INSERT
 
             if(addNewContract.getText().equals("Save changes")){
                 addNewContract.setText("Add");
