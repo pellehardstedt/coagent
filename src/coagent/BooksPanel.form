@@ -145,7 +145,7 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -188,9 +188,6 @@
     </Container>
     <Component class="javax.swing.JTextField" name="jTextFieldContractSearch1">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="db" green="e3" red="be" type="rgb"/>
-        </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[2, 14, 2, 14]"/>
         </Property>

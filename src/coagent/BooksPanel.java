@@ -180,14 +180,13 @@ public class BooksPanel extends javax.swing.JPanel {
         tableSearch.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tableSearch.getColumnModel().getColumnCount() > 0) {
             tableSearch.getColumnModel().getColumn(0).setResizable(false);
-            tableSearch.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tableSearch.getColumnModel().getColumn(1).setPreferredWidth(60);
             tableSearch.getColumnModel().getColumn(2).setPreferredWidth(40);
             tableSearch.getColumnModel().getColumn(3).setPreferredWidth(30);
             tableSearch.getColumnModel().getColumn(4).setPreferredWidth(30);
             tableSearch.getColumnModel().getColumn(5).setPreferredWidth(30);
         }
 
-        jTextFieldContractSearch1.setBackground(new java.awt.Color(190, 227, 219));
         jTextFieldContractSearch1.setMargin(new java.awt.Insets(2, 14, 2, 14));
         jTextFieldContractSearch1.setMinimumSize(new java.awt.Dimension(200, 22));
         jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
@@ -327,21 +326,13 @@ public class BooksPanel extends javax.swing.JPanel {
                 "INNER JOIN authors ON books.Authors_Authors_Id = authors.Authors_Id)\n" +
                 "INNER JOIN clients ON authors.Clients_Clients_Id = clients.Clients_Id);";
         } else {
-                queryString = "SELECT * FROM contract_all_info "
-                + "WHERE (Books_Title LIKE '" + searchString + "%'"
-                + " OR "
-                + "Authors_Name LIKE '" + searchString + "%'"
-                + " OR "
-                + "Clients_Name LIKE '" + searchString + "%'"
-                + " OR "
-                + "Editor_Name LIKE '" + searchString + "%'"
-                + " OR "
-                + "Publisher_Name LIKE '" + searchString + "%'"
-                + " OR "
-                + "Agent_Username LIKE '" + searchString + "%'"
-                + ");";
+                queryString = "SELECT books.Books_Id, books.Books_Title, authors.Authors_Id, authors.Authors_Name, clients.Clients_Id, clients.Clients_Name "
+                + "FROM ((books "
+                + "INNER JOIN authors ON books.Authors_Authors_Id = authors.Authors_Id) "
+                + "INNER JOIN clients ON authors.Clients_Clients_Id = clients.Clients_Id) "
+                + "WHERE Books_Title LIKE '" + searchString + "%';";
         }
-
+        System.out.println(queryString);
         try {
             Connection con = Coagent.getConnection();
             PreparedStatement query = con.prepareStatement(queryString);
@@ -413,7 +404,6 @@ public class BooksPanel extends javax.swing.JPanel {
             PreparedStatement query;
             int book_id = 0;
             if (addNewContract.getText().equals("Save changes")){
-                /*
                 query = con.prepareStatement("SELECT Books_Id FROM books WHERE Books_Title = '" + String.valueOf(bookIdFromEdit) + "';");
                 System.out.println(query);
                 ResultSet result = query.executeQuery();
@@ -421,8 +411,7 @@ public class BooksPanel extends javax.swing.JPanel {
                     System.out.println(result.getInt(1));
                     book_id = result.getInt(1);
                 }
-*/
-                
+      
                 Object id = source.getText();
                 query = con.prepareStatement(""
                         + "UPDATE books "
