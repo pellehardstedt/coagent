@@ -290,6 +290,7 @@ public class Register extends javax.swing.JFrame {
 
                     dispose();
                     Login fram = new Login();
+                    fram.setLocationRelativeTo(null);
                     fram.show();
                 }
             }

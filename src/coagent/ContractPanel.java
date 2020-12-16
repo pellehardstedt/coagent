@@ -6,6 +6,7 @@
 package coagent;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,14 +92,16 @@ public class ContractPanel extends javax.swing.JPanel {
         for (int i = 1; i < dbSearchTables.length; i++) {
             addComboBoxItems(dbSearchTables[i], dbSearchColumns[i], i, tableSearch);
         }
-
+        Font headerFont = new Font("Verdana", Font.PLAIN, 13);
         JTableHeader headerAdd = tableAdd.getTableHeader();
         headerAdd.setBackground( new Color(190, 227, 219) );
         headerAdd.setForeground( new Color(85, 91, 110) );
+        headerAdd.setFont(headerFont);
 
         JTableHeader headerSearch = tableSearch.getTableHeader();
         headerSearch.setBackground( new Color(190, 227, 219) );
         headerSearch.setForeground( new Color(85, 91, 110) );
+        headerSearch.setFont(headerFont);   
 
         //hide ID columns
         TableColumn searchIdC = tableSearch.getColumnModel().getColumn(0);
@@ -129,7 +132,7 @@ public class ContractPanel extends javax.swing.JPanel {
         addNewContract = new javax.swing.JButton();
         jButtonEditContracts = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(250, 249, 249));
+        setBackground(new java.awt.Color(190, 227, 219));
         setPreferredSize(new java.awt.Dimension(714, 543));
 
         tableSearch.setBackground(new java.awt.Color(190, 227, 219));
@@ -189,6 +192,7 @@ public class ContractPanel extends javax.swing.JPanel {
         });
 
         jButtonSearchContracts1.setBackground(new java.awt.Color(190, 227, 219));
+        jButtonSearchContracts1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButtonSearchContracts1.setText("Search");
         jButtonSearchContracts1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,6 +229,7 @@ public class ContractPanel extends javax.swing.JPanel {
         });
 
         jButtonEditContracts.setBackground(new java.awt.Color(190, 227, 219));
+        jButtonEditContracts.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButtonEditContracts.setText("Edit");
         jButtonEditContracts.setToolTipText("");
         jButtonEditContracts.setEnabled(false);
@@ -269,7 +274,7 @@ public class ContractPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addNewContract, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                     .addComponent(jScrollPaneTableAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -320,7 +325,7 @@ public class ContractPanel extends javax.swing.JPanel {
                 }
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
-
+            
             //jTableContracts1.setValueAt("AAA", 0, 0);
         } catch (Exception e) {
             System.out.println(e);
