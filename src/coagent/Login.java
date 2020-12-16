@@ -191,6 +191,7 @@ public class Login extends javax.swing.JFrame {
             if (passwordService.comparePassword(username1, password1)){
                 dispose();
                 javax.swing.JFrame gui = new gui();
+                gui.setLocationRelativeTo(null);
                 gui.show();
                 gui.setVisible(true);
 
@@ -207,6 +208,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
         Register fram = new Register();
+        fram.setLocationRelativeTo(null);
         fram.setSize(475, 412);
         fram.show();
     }//GEN-LAST:event_btnRegisterActionPerformed

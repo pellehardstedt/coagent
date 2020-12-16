@@ -21,6 +21,7 @@ public class Coagent {
     public static void main(String[] args) throws Exception {
         //getConnection();
         javax.swing.JFrame gui = new Login();
+        gui.setLocationRelativeTo(null);
         gui.setVisible(true);
         gui.setResizable(true);
         
