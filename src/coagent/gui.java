@@ -110,6 +110,7 @@ public class gui extends javax.swing.JFrame {
         jButton2.setText("Submissions");
         jButton2.setToolTipText("");
         jButton2.setBorderPainted(false);
+        jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton2.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton2.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -124,6 +125,7 @@ public class gui extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(76, 80, 82));
         jButton3.setText("Contracts");
         jButton3.setBorderPainted(false);
+        jButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton3.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton3.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton3.setPreferredSize(new java.awt.Dimension(96, 22));
