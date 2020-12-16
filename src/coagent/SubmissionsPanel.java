@@ -5,6 +5,8 @@
  */
 package coagent;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -47,7 +50,11 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         comboReplyGrade.setSelectedItem(null);
 
 
-   
+        JTableHeader headerAdd = tableSearchSub.getTableHeader();
+        headerAdd.setBackground( new Color(190, 227, 219) );
+        headerAdd.setForeground( new Color(85, 91, 110) );
+        Font headerFont = new Font("Verdana", Font.PLAIN, 13);
+        headerAdd.setFont(headerFont);
       
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
@@ -97,28 +104,28 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
         panelSub.setBackground(new java.awt.Color(250, 249, 249));
 
-        lblBookTitle.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblBookTitle.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         lblBookTitle.setText("Book");
 
-        lblEditorName.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblEditorName.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         lblEditorName.setText("Editor");
 
-        lblReplyGrade.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblReplyGrade.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         lblReplyGrade.setText("Reply");
 
-        comboBookTitle.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboBookTitle.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
 
-        comboEditor.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboEditor.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
 
-        comboReplyGrade.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboReplyGrade.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         comboReplyGrade.setToolTipText("");
 
-        lblPublisher.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        lblPublisher.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         lblPublisher.setText("Publisher");
 
-        comboPublisher.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        comboPublisher.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
 
-        btnUpdateReply.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnUpdateReply.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnUpdateReply.setText("Update reply");
         btnUpdateReply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +182,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        lblSubmissionHeader.setFont(new java.awt.Font("Avenir Next", 0, 36)); // NOI18N
+        lblSubmissionHeader.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         lblSubmissionHeader.setText("Submissions");
 
         txtfieldSubSearch.setBackground(new java.awt.Color(249, 250, 250));
@@ -185,7 +192,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(txtfieldSubSearch);
 
         btnSearch.setBackground(new java.awt.Color(250, 249, 249));
-        btnSearch.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnSearch.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnSearch.setText("Search submissions");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,7 +200,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSave.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnSave.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnSave.setText("Save new submssion");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,8 +212,9 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         jScrollPane2.setForeground(new java.awt.Color(190, 227, 219));
         jScrollPane2.setToolTipText("");
 
+        tableSearchSub.setAutoCreateRowSorter(true);
         tableSearchSub.setBackground(new java.awt.Color(190, 227, 219));
-        tableSearchSub.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        tableSearchSub.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         tableSearchSub.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -231,7 +239,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tableSearchSub);
         tableSearchSub.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        btnCreateNew.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnCreateNew.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnCreateNew.setText("Start new submission");
         btnCreateNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +247,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             }
         });
 
-        btnClearSearch.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
+        btnClearSearch.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnClearSearch.setText("Clear search results ");
         btnClearSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +276,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(60, 60, 60)
                                 .addComponent(btnSearch)))))
-                .addGap(64, 121, Short.MAX_VALUE))
+                .addGap(64, 106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
