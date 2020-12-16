@@ -88,7 +88,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         btnSave = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableSearchSub = new javax.swing.JTable();
-        lblSearchExplain = new javax.swing.JLabel();
         btnCreateNew = new javax.swing.JButton();
         btnClearSearch = new javax.swing.JButton();
 
@@ -215,7 +214,15 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             new String [] {
                 "Book", "Publisher", "Editor", "Reply", "Date last updated"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableSearchSub.setCellSelectionEnabled(true);
         tableSearchSub.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         tableSearchSub.setGridColor(new java.awt.Color(250, 249, 249));
@@ -223,9 +230,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         tableSearchSub.setSelectionForeground(new java.awt.Color(250, 249, 249));
         jScrollPane2.setViewportView(tableSearchSub);
         tableSearchSub.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
-        lblSearchExplain.setFont(new java.awt.Font("Avenir Next", 0, 10)); // NOI18N
-        lblSearchExplain.setText("Search in submissions by a book's title or an editor's name.");
 
         btnCreateNew.setFont(new java.awt.Font("Avenir Next", 0, 13)); // NOI18N
         btnCreateNew.setText("Start new submission");
@@ -251,16 +255,12 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnClearSearch)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(btnCreateNew)
                             .addGap(18, 18, 18)
-                            .addComponent(btnSave)
-                            .addGap(205, 205, 205))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblSearchExplain))
+                            .addComponent(btnSave))
+                        .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(panelSub, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,9 +274,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSearchExplain))
+                .addComponent(lblSubmissionHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -575,7 +573,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblEditorName;
     private javax.swing.JLabel lblPublisher;
     private javax.swing.JLabel lblReplyGrade;
-    private javax.swing.JLabel lblSearchExplain;
     private javax.swing.JLabel lblSubmissionHeader;
     private javax.swing.JPanel panelSub;
     private javax.swing.JTable tableSearchSub;
