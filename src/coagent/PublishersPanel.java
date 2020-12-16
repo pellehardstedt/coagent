@@ -5,13 +5,14 @@
  */
 package coagent;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.table.JTableHeader;
 import net.proteanit.sql.DbUtils;
 import javax.swing.table.TableModel;
 
@@ -25,12 +26,16 @@ public class PublishersPanel extends javax.swing.JPanel {
      */
     PreparedStatement query = null;
     ResultSet result = null;
+    
 
     
     public PublishersPanel() {
         initComponents();
         addPublisherPanel.setVisible(false);
         editPublisherPanel.setVisible(false);
+        JTableHeader headerSearch = publisherSearchTable.getTableHeader();
+        headerSearch.setBackground( new Color(190, 227, 219) );
+        headerSearch.setForeground( new Color(85, 91, 110) );
     }
 
     /**
@@ -69,9 +74,10 @@ public class PublishersPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(190, 227, 219));
 
-        publisherTitleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        publisherTitleLbl.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         publisherTitleLbl.setText("Publishers");
 
+        addPublisherBtn.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         addPublisherBtn.setText("Add");
         addPublisherBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,6 +85,8 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        publisherSearchTable.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        publisherSearchTable.setForeground(new java.awt.Color(85, 91, 110));
         publisherSearchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -87,17 +95,32 @@ public class PublishersPanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "", "", ""
+                "Publisher Id", "Publisher Name", "Publisher Contact"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         publisherSearchTable.setToolTipText("");
+        publisherSearchTable.getTableHeader().setReorderingAllowed(false);
         publisherSearchTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 publisherSearchTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(publisherSearchTable);
+        if (publisherSearchTable.getColumnModel().getColumnCount() > 0) {
+            publisherSearchTable.getColumnModel().getColumn(0).setResizable(false);
+            publisherSearchTable.getColumnModel().getColumn(1).setResizable(false);
+            publisherSearchTable.getColumnModel().getColumn(2).setResizable(false);
+        }
 
+        searchPublisherBtn.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         searchPublisherBtn.setText("Search");
         searchPublisherBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +128,7 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        editPublishersBtn.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         editPublishersBtn.setText("Edit");
         editPublishersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,12 +136,16 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        publishersSearchTxtFld.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         publishersSearchTxtFld.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 publishersSearchTxtFldKeyReleased(evt);
             }
         });
 
+        addPublisherPanel.setBackground(new java.awt.Color(137, 176, 174));
+
+        confirmAddBtn.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         confirmAddBtn.setText("OK");
         confirmAddBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +153,7 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        cancelAddBtn.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         cancelAddBtn.setText("Cancel");
         cancelAddBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,8 +161,10 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel1.setText("Publisher Name");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel2.setText("Publisher Contact");
 
         javax.swing.GroupLayout addPublisherPanelLayout = new javax.swing.GroupLayout(addPublisherPanel);
@@ -143,21 +174,18 @@ public class PublishersPanel extends javax.swing.JPanel {
             .addGroup(addPublisherPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(addPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addPublisherPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(31, 31, 31)
-                        .addComponent(addPublisherNameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(addPublisherPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addGroup(addPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(addPublisherPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(cancelAddBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(confirmAddBtn))
-                            .addComponent(addPublisherContactTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(addPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addPublisherNameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(addPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addPublisherPanelLayout.createSequentialGroup()
+                            .addComponent(cancelAddBtn)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(confirmAddBtn))
+                        .addComponent(addPublisherContactTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         addPublisherPanelLayout.setVerticalGroup(
             addPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,6 +205,9 @@ public class PublishersPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        editPublisherPanel.setBackground(new java.awt.Color(137, 176, 174));
+
+        confirmEditBtn1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         confirmEditBtn1.setText("OK");
         confirmEditBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,6 +215,7 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        cancelEditBtn1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         cancelEditBtn1.setText("Cancel");
         cancelEditBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,10 +223,13 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel3.setText("Publisher Name");
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel4.setText("Publisher Contact");
 
+        publisherDeleteBtn.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         publisherDeleteBtn.setText("Delete");
         publisherDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +237,10 @@ public class PublishersPanel extends javax.swing.JPanel {
             }
         });
 
+        publisherIdLabel.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         publisherIdLabel.setText("Publisher Id: ");
+
+        publisherIdNumlbl.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout editPublisherPanelLayout = new javax.swing.GroupLayout(editPublisherPanel);
         editPublisherPanel.setLayout(editPublisherPanelLayout);
@@ -212,25 +250,28 @@ public class PublishersPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(editPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(editPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(editPublisherPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(31, 31, 31)
-                            .addComponent(editPublisherNameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(editPublisherPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(18, 18, 18)
-                            .addComponent(editPublisherContactTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPublisherPanelLayout.createSequentialGroup()
                             .addComponent(publisherDeleteBtn)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(cancelEditBtn1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(confirmEditBtn1)))
+                            .addComponent(confirmEditBtn1))
+                        .addGroup(editPublisherPanelLayout.createSequentialGroup()
+                            .addGroup(editPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(editPublisherPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(editPublisherNameTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(editPublisherPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(editPublisherContactTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(2, 2, 2)))
                     .addGroup(editPublisherPanelLayout.createSequentialGroup()
                         .addComponent(publisherIdLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(publisherIdNumlbl)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         editPublisherPanelLayout.setVerticalGroup(
             editPublisherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
