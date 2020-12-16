@@ -142,6 +142,7 @@ public class BooksPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(714, 543));
 
         tableSearch.setBackground(new java.awt.Color(190, 227, 219));
+        tableSearch.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         tableSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -187,6 +188,7 @@ public class BooksPanel extends javax.swing.JPanel {
             tableSearch.getColumnModel().getColumn(5).setPreferredWidth(30);
         }
 
+        jTextFieldContractSearch1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jTextFieldContractSearch1.setMargin(new java.awt.Insets(2, 14, 2, 14));
         jTextFieldContractSearch1.setMinimumSize(new java.awt.Dimension(200, 22));
         jTextFieldContractSearch1.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +198,7 @@ public class BooksPanel extends javax.swing.JPanel {
         });
 
         jButtonSearchContracts1.setBackground(new java.awt.Color(190, 227, 219));
+        jButtonSearchContracts1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButtonSearchContracts1.setText("Search");
         jButtonSearchContracts1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,6 +207,7 @@ public class BooksPanel extends javax.swing.JPanel {
         });
 
         addNewContract.setBackground(new java.awt.Color(190, 227, 219));
+        addNewContract.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         addNewContract.setText("Add");
         addNewContract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +216,7 @@ public class BooksPanel extends javax.swing.JPanel {
         });
 
         jButtonEditContracts.setBackground(new java.awt.Color(190, 227, 219));
+        jButtonEditContracts.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButtonEditContracts.setText("Edit");
         jButtonEditContracts.setToolTipText("");
         jButtonEditContracts.setEnabled(false);
@@ -221,24 +226,37 @@ public class BooksPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(69, 73, 74));
         jLabel1.setText("Book Title");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(69, 73, 74));
         jLabel2.setText("Author");
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(69, 73, 74));
         jLabel3.setText("Client");
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(69, 73, 74));
         jLabel4.setText("Agent");
 
+        jTextField1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
+
+        jTextField2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jTextField2.setText("New author");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
+
+        jComboBox1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
+
+        jComboBox2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
+
+        jComboBox3.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -247,15 +265,15 @@ public class BooksPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneTableSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneTableSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonSearchContracts1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonEditContracts))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonEditContracts, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
@@ -301,12 +319,12 @@ public class BooksPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(addNewContract, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldContractSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSearchContracts1)
                     .addComponent(jButtonEditContracts))
-                .addGap(86, 86, 86)
+                .addGap(60, 60, 60)
                 .addComponent(jScrollPaneTableSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(139, 139, 139))
         );
