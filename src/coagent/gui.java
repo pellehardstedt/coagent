@@ -28,7 +28,7 @@ public class gui extends javax.swing.JFrame {
 
         EditorPanel editorPanel = new EditorPanel();
         editorPanel.setVisible(true);
-        card3.add(editorPanel, BorderLayout.CENTER);
+        card1.add(editorPanel, BorderLayout.CENTER);
 
         ClientsJPanel clientPanel = new ClientsJPanel();
         clientPanel.setVisible(true);
@@ -36,7 +36,7 @@ public class gui extends javax.swing.JFrame {
 
         BooksPanel booksPanel = new BooksPanel();
         booksPanel.setVisible(true);
-        card1.add(booksPanel, BorderLayout.CENTER);
+        card3.add(booksPanel, BorderLayout.CENTER);
 
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
