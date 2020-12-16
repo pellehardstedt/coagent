@@ -364,10 +364,10 @@ public class BooksPanel extends javax.swing.JPanel {
             String title = jTextField1.getText();
             selected.add(title);
             String author;  
-            if(jTextField2.getText().equals("New author")) {
+            if(jTextField2.getText().equals("New author") || jTextField2.getText().equals("")) {
                 author = String.valueOf(jComboBox1.getSelectedItem());
             } else {
-                author = jTextField1.getText(); 
+                author = jTextField2.getText(); 
                 PreparedStatement query = con.prepareStatement("INSERT INTO authors(Authors_Name, Clients_Clients_Id) VALUES('" + author + "', (SELECT Clients_Id FROM clients WHERE Clients_Name = '" + String.valueOf(jComboBox2.getSelectedItem()) + "'));");
                 int result = query.executeUpdate();
             }
