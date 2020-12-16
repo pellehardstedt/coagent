@@ -110,8 +110,10 @@ public class ClientsJPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.CardLayout());
 
+        panelHomeCli.setBackground(new java.awt.Color(190, 227, 219));
         panelHomeCli.setMinimumSize(new java.awt.Dimension(250, 250));
 
+        btnShowClient.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnShowClient.setText("Show Clients");
         btnShowClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +121,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnEditClient.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnEditClient.setText("Edit Clients");
         btnEditClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,8 +129,8 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblHomeCli.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        lblHomeCli.setText("Clients options");
+        lblHomeCli.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
+        lblHomeCli.setText("Clients");
 
         javax.swing.GroupLayout panelHomeCliLayout = new javax.swing.GroupLayout(panelHomeCli);
         panelHomeCli.setLayout(panelHomeCliLayout);
@@ -135,32 +138,33 @@ public class ClientsJPanel extends javax.swing.JPanel {
             panelHomeCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomeCliLayout.createSequentialGroup()
                 .addGroup(panelHomeCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnEditClient, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelHomeCliLayout.createSequentialGroup()
+                            .addGap(120, 120, 120)
+                            .addComponent(btnShowClient, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelHomeCliLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(panelHomeCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnShowClient, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                            .addComponent(btnEditClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelHomeCliLayout.createSequentialGroup()
-                        .addGap(159, 159, 159)
+                        .addGap(216, 216, 216)
                         .addComponent(lblHomeCli)))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         panelHomeCliLayout.setVerticalGroup(
             panelHomeCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomeCliLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(63, 63, 63)
                 .addComponent(lblHomeCli)
-                .addGap(58, 58, 58)
+                .addGap(52, 52, 52)
                 .addComponent(btnShowClient, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addComponent(btnEditClient, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         add(panelHomeCli, "card2");
 
         panelShowCli.setMinimumSize(new java.awt.Dimension(250, 250));
 
+        tblShowCli.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         tblShowCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -179,6 +183,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblShowCli);
 
+        txtShowSearch.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         txtShowSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
         txtShowSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -186,6 +191,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnShowBack.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnShowBack.setText("Back");
         btnShowBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,6 +199,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnShowSearch.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnShowSearch.setText("Search");
         btnShowSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,26 +212,28 @@ public class ClientsJPanel extends javax.swing.JPanel {
         panelShowCliLayout.setHorizontalGroup(
             panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelShowCliLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelShowCliLayout.createSequentialGroup()
                         .addComponent(txtShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnShowBack)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShowCliLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnShowBack)))
+                .addContainerGap())
         );
         panelShowCliLayout.setVerticalGroup(
             panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelShowCliLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(52, 52, 52)
                 .addGroup(panelShowCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtShowSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnShowSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnShowBack)
                 .addGap(38, 38, 38))
@@ -234,18 +243,25 @@ public class ClientsJPanel extends javax.swing.JPanel {
 
         panelEditCli.setMinimumSize(new java.awt.Dimension(250, 250));
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel1.setText("Name:");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel2.setText("Contact:");
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel3.setText("Email:");
 
+        txtName.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         txtName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
 
+        txtContact.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         txtContact.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
 
+        txtEmail.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         txtEmail.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
 
+        tblEditCli.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         tblEditCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -269,6 +285,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblEditCli);
 
+        btnAddCli.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnAddCli.setText("Add");
         btnAddCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +293,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdateCli.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnUpdateCli.setText("Update");
         btnUpdateCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,6 +301,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteCli.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnDeleteCli.setText("Delete");
         btnDeleteCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,6 +309,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBackEdit.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnBackEdit.setText("Back");
         btnBackEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +317,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtEditSearch.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         txtEditSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219), new java.awt.Color(190, 227, 219)));
         txtEditSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -304,6 +325,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnSearchEdit.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnSearchEdit.setText("Search");
         btnSearchEdit.setMaximumSize(new java.awt.Dimension(91, 52));
         btnSearchEdit.setMinimumSize(new java.awt.Dimension(91, 52));
@@ -319,9 +341,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
             panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEditCliLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnBackEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEditCliLayout.createSequentialGroup()
                         .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
@@ -335,19 +355,23 @@ public class ClientsJPanel extends javax.swing.JPanel {
                                     .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
+                            .addGroup(panelEditCliLayout.createSequentialGroup()
                                 .addComponent(txtEditSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearchEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)))
+                                .addComponent(btnSearchEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(39, 39, 39)
                         .addGroup(panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDeleteCli, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelEditCliLayout.createSequentialGroup()
                                 .addComponent(btnAddCli, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnUpdateCli)))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                                .addComponent(btnUpdateCli)))
+                        .addGap(0, 87, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEditCliLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBackEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         panelEditCliLayout.setVerticalGroup(
             panelEditCliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +402,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
                             .addComponent(btnSearchEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnDeleteCli, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBackEdit)
                 .addGap(39, 39, 39))
@@ -392,7 +416,7 @@ public class ClientsJPanel extends javax.swing.JPanel {
         panelHomeCli.setVisible(false);
         panelShowCli.setVisible(true);
         panelEditCli.setVisible(false);
-        showClient(tblShowCli); // Detta är dumt om databasen är stor 
+        // showClient(tblShowCli); // Detta är dumt om databasen är stor 
     }//GEN-LAST:event_btnShowClientActionPerformed
 
 // gör bara edit panelen synlig fyller i table med clients
@@ -422,6 +446,10 @@ public class ClientsJPanel extends javax.swing.JPanel {
     // tar bort en vald client i en table. 
     private void btnDeleteCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCliActionPerformed
         deleteClient(tblEditCli);
+        txtName.setText("");
+        txtContact.setText("");
+        txtEmail.setText("");
+        
     }//GEN-LAST:event_btnDeleteCliActionPerformed
 
         // lägger till en client som står i textfälten.
@@ -439,30 +467,31 @@ public class ClientsJPanel extends javax.swing.JPanel {
   
     // Om man klickar på en rad i table i edit så fylls textrutorna i. 
     private void tblEditCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditCliMouseClicked
-        
-        
+
         DefaultTableModel tblModel = (DefaultTableModel) tblEditCli.getModel();
        
         String tblName = tblModel.getValueAt(tblEditCli.getSelectedRow(), 1).toString();
-        if (tblName != null){
-           txtName.setText(tblName);
+        if (tblName == null){
+           txtName.setText("");
         }
         else {
-            txtName.setText("");
+            txtName.setText(tblName);
         }
         String tblContact = tblModel.getValueAt(tblEditCli.getSelectedRow(), 2).toString();
-        if (tblContact != null){
-           txtContact.setText(tblContact);
+        if (tblContact == null){
+           txtContact.setText("");
         }
         else {
-            txtContact.setText("");
+            
+            txtContact.setText(tblContact);
         }
         String tblEmail = tblModel.getValueAt(tblEditCli.getSelectedRow(), 3).toString();
-        if (tblEmail != null){
-           txtEmail.setText(tblEmail);
+        if (tblEmail == null){
+            txtEmail.setText("");
         }
         else {
-            txtEmail.setText("");
+            
+            txtEmail.setText(tblEmail);
         }
         
         // lägg till text i textrutorna
