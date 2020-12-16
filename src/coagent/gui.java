@@ -28,12 +28,15 @@ public class gui extends javax.swing.JFrame {
 
         EditorPanel editorPanel = new EditorPanel();
         editorPanel.setVisible(true);
-        card1.add(editorPanel, BorderLayout.CENTER);
+        card3.add(editorPanel, BorderLayout.CENTER);
 
         ClientsJPanel clientPanel = new ClientsJPanel();
         clientPanel.setVisible(true);
         card2.add(clientPanel, BorderLayout.CENTER);
 
+        BooksPanel booksPanel = new BooksPanel();
+        booksPanel.setVisible(true);
+        card1.add(booksPanel, BorderLayout.CENTER);
 
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
@@ -73,7 +76,6 @@ public class gui extends javax.swing.JFrame {
         card1 = new javax.swing.JPanel();
         card2 = new javax.swing.JPanel();
         card3 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
         card4 = new javax.swing.JPanel();
         card5 = new javax.swing.JPanel();
         card6 = new javax.swing.JPanel();
@@ -209,10 +211,6 @@ public class gui extends javax.swing.JFrame {
 
         card3.setBackground(new java.awt.Color(250, 249, 249));
         card3.setLayout(new java.awt.BorderLayout());
-
-        jTextField3.setText("Search 3");
-        card3.add(jTextField3, java.awt.BorderLayout.CENTER);
-
         jPanel2Cards.add(card3, "card3");
 
         card4.setBackground(new java.awt.Color(250, 249, 249));
@@ -326,6 +324,5 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2Cards;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

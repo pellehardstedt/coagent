@@ -64,9 +64,19 @@ public class Register extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("x");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("-");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,19 +112,33 @@ public class Register extends javax.swing.JFrame {
         jPanel2.setMaximumSize(new java.awt.Dimension(476, 361));
         jPanel2.setMinimumSize(new java.awt.Dimension(476, 361));
         jPanel2.setPreferredSize(new java.awt.Dimension(476, 361));
-        jPanel2.setSize(new java.awt.Dimension(476, 361));
 
         txtUsername.setBackground(new java.awt.Color(190, 227, 219));
         txtUsername.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+        });
 
         txtPassword.setBackground(new java.awt.Color(190, 227, 219));
         txtPassword.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         txtConfirm.setBackground(new java.awt.Color(190, 227, 219));
         txtConfirm.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         txtConfirm.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtConfirmFocusLost(evt);
+            }
+        });
+        txtConfirm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtConfirmKeyPressed(evt);
             }
         });
 
@@ -143,18 +167,18 @@ public class Register extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                                 .addGap(100, 100, 100)
                                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -163,7 +187,7 @@ public class Register extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(137, 137, 137)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -171,17 +195,17 @@ public class Register extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 60, 476, 361);
+        jPanel2.setBounds(0, 0, 476, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -197,6 +221,47 @@ public class Register extends javax.swing.JFrame {
     private void txtConfirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmFocusLost
         validatepassword();
     }//GEN-LAST:event_txtConfirmFocusLost
+    // Enter vid Username
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            validatepassword();
+            try {
+                registerToDb();
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
+    // Om man trycker enter på password
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            validatepassword();
+            try {
+                registerToDb();
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+    // om man trycker enter vid confirm password.
+    private void txtConfirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            validatepassword();
+            try {
+                registerToDb();
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        }
+    }//GEN-LAST:event_txtConfirmKeyPressed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        this.setState(Login.ICONIFIED);
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     public void registerToDb() throws SQLException{
         try {
@@ -206,8 +271,10 @@ public class Register extends javax.swing.JFrame {
             String confirm = txtConfirm.getText();
             
             // kollar så att användarnamn inte finns.
+
             Connection con = Coagent.getConnection();
             String query = "SELECT Agent_Username FROM agents WHERE Agent_Username = ?;";
+
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, username2);
             ResultSet r1=ps.executeQuery();
@@ -216,9 +283,10 @@ public class Register extends javax.swing.JFrame {
             }
             else{
                 if (password2.equals(confirm)){
+
                     passwordService.savePassword(password2, username2);
 
-                    JOptionPane.showMessageDialog(null, "You are now registerd!");
+                    JOptionPane.showMessageDialog(null, "You are now registered!");
 
                     dispose();
                     Login fram = new Login();
@@ -235,26 +303,6 @@ public class Register extends javax.swing.JFrame {
             if (!password2.equals(confirm))
                 JOptionPane.showMessageDialog(null, "Passwords doesn't match, pleas check!");
             
-    }
-    
-    public String validateUsername(String username2) throws SQLException, Exception{
-        String status = null;
-        Connection con = Coagent.getConnection();
-       
-        
-        Statement stmt = con.createStatement();
-        String query = "select username from Members WHERE username = '"+username2+"'";
-        ResultSet rs=stmt.executeQuery(query);
-        String checkUser = rs.getString(1);
-
-        if(checkUser.equals(username2)){
-            status="True";
-        }
-        else{
-            status="False";
-        }
-        con.close();
-        return status;
     }
     
     /**

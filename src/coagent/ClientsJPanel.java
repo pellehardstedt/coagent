@@ -439,18 +439,37 @@ public class ClientsJPanel extends javax.swing.JPanel {
   
     // Om man klickar på en rad i table i edit så fylls textrutorna i. 
     private void tblEditCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEditCliMouseClicked
-        DefaultTableModel tblModel = (DefaultTableModel) tblEditCli.getModel();
         
+        
+        DefaultTableModel tblModel = (DefaultTableModel) tblEditCli.getModel();
        
         String tblName = tblModel.getValueAt(tblEditCli.getSelectedRow(), 1).toString();
+        if (tblName != null){
+           txtName.setText(tblName);
+        }
+        else {
+            txtName.setText("");
+        }
         String tblContact = tblModel.getValueAt(tblEditCli.getSelectedRow(), 2).toString();
+        if (tblContact != null){
+           txtContact.setText(tblContact);
+        }
+        else {
+            txtContact.setText("");
+        }
         String tblEmail = tblModel.getValueAt(tblEditCli.getSelectedRow(), 3).toString();
-        
+        if (tblEmail != null){
+           txtEmail.setText(tblEmail);
+        }
+        else {
+            txtEmail.setText("");
+        }
         
         // lägg till text i textrutorna
-        txtName.setText(tblName);
-        txtContact.setText(tblContact);
-        txtEmail.setText(tblEmail);
+        
+        
+        
+        
        
     }//GEN-LAST:event_tblEditCliMouseClicked
     
