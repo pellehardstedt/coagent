@@ -59,15 +59,14 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setMaximumSize(new java.awt.Dimension(476, 60));
         jPanel1.setMinimumSize(new java.awt.Dimension(476, 60));
         jPanel1.setPreferredSize(new java.awt.Dimension(476, 60));
-        jPanel1.setSize(new java.awt.Dimension(476, 60));
         jPanel1.setLayout(null);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
         jLabel6.setText("Login");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(10, 10, 80, 30);
+        jLabel6.setBounds(30, 0, 130, 50);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         jLabel3.setText("x");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -75,9 +74,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(440, 0, 20, 30);
+        jLabel3.setBounds(410, 10, 20, 30);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         jLabel4.setText("-");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -85,17 +84,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(410, 0, 20, 29);
+        jLabel4.setBounds(380, 10, 20, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 476, 60);
+        jPanel1.setBounds(0, 0, 480, 60);
 
         jPanel2.setBackground(new java.awt.Color(137, 176, 174));
         jPanel2.setMaximumSize(new java.awt.Dimension(476, 421));
         jPanel2.setPreferredSize(new java.awt.Dimension(476, 421));
-        jPanel2.setSize(new java.awt.Dimension(476, 421));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel1.setText("Username:");
 
         txtPassword.setBackground(new java.awt.Color(190, 227, 219));
@@ -106,17 +104,18 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel2.setText("Password:");
 
         txtUsername.setBackground(new java.awt.Color(190, 227, 219));
-        txtUsername.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUsernameKeyPressed(evt);
             }
         });
 
+        btnRegister.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnRegister.setText("New user");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +123,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btnLogin.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,22 +136,22 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(94, 94, 94)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +172,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 476, 421);
+        jPanel2.setBounds(0, 0, 476, 420);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
