@@ -83,7 +83,7 @@ public class gui extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(1050, 900));
 
         jPanel1.setBackground(new java.awt.Color(137, 176, 174));
 
