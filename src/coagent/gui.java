@@ -28,27 +28,27 @@ public class gui extends javax.swing.JFrame {
 
         EditorPanel editorPanel = new EditorPanel();
         editorPanel.setVisible(true);
-        card1.add(editorPanel, BorderLayout.CENTER);
+        card5.add(editorPanel, BorderLayout.CENTER);
 
         ClientsJPanel clientPanel = new ClientsJPanel();
         clientPanel.setVisible(true);
-        card2.add(clientPanel, BorderLayout.CENTER);
+        card6.add(clientPanel, BorderLayout.CENTER);
 
         BooksPanel booksPanel = new BooksPanel();
         booksPanel.setVisible(true);
-        card3.add(booksPanel, BorderLayout.CENTER);
+        card1.add(booksPanel, BorderLayout.CENTER);
 
         SubmissionsPanel submission = new SubmissionsPanel();
         submission.setVisible(true);
-        card4.add(submission, BorderLayout.CENTER);
+        card2.add(submission, BorderLayout.CENTER);
 
         PublishersPanel publishersPanel = new PublishersPanel();
         publishersPanel.setVisible(true);
-        card5.add(publishersPanel, BorderLayout.CENTER);
+        card4.add(publishersPanel, BorderLayout.CENTER);
 
         ContractPanel contract = new ContractPanel();
         contract.setVisible(true);
-        card6.add(contract, BorderLayout.CENTER);
+        card3.add(contract, BorderLayout.CENTER);
 
         cardLayout = (CardLayout)(jPanel2Cards.getLayout());
     }
@@ -85,12 +85,16 @@ public class gui extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1050, 900));
 
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(151, 900));
+
         jPanel1.setBackground(new java.awt.Color(137, 176, 174));
+        jPanel1.setPreferredSize(new java.awt.Dimension(150, 900));
 
         jButton1.setBackground(new java.awt.Color(137, 176, 174));
+        jButton1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButton1.setForeground(new java.awt.Color(76, 80, 82));
-        jButton1.setText("Editors");
-        jButton1.setBorder(null);
+        jButton1.setText("Books");
+        jButton1.setBorderPainted(false);
         jButton1.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton1.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton1.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -101,10 +105,11 @@ public class gui extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(137, 176, 174));
+        jButton2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButton2.setForeground(new java.awt.Color(76, 80, 82));
-        jButton2.setText("Clients");
+        jButton2.setText("Submissions");
         jButton2.setToolTipText("");
-        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
         jButton2.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton2.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton2.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -115,9 +120,10 @@ public class gui extends javax.swing.JFrame {
         });
 
         jButton3.setBackground(new java.awt.Color(137, 176, 174));
+        jButton3.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButton3.setForeground(new java.awt.Color(76, 80, 82));
-        jButton3.setText("Page 3");
-        jButton3.setBorder(null);
+        jButton3.setText("Contracts");
+        jButton3.setBorderPainted(false);
         jButton3.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton3.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton3.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -128,9 +134,10 @@ public class gui extends javax.swing.JFrame {
         });
 
         jButton4.setBackground(new java.awt.Color(137, 176, 174));
+        jButton4.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButton4.setForeground(new java.awt.Color(76, 80, 82));
-        jButton4.setText("Submissions");
-        jButton4.setBorder(null);
+        jButton4.setText("Publishers");
+        jButton4.setBorderPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -138,9 +145,10 @@ public class gui extends javax.swing.JFrame {
         });
 
         jButton5.setBackground(new java.awt.Color(137, 176, 174));
+        jButton5.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButton5.setForeground(new java.awt.Color(76, 80, 82));
-        jButton5.setText("Publishers");
-        jButton5.setBorder(null);
+        jButton5.setText("Editors");
+        jButton5.setBorderPainted(false);
         jButton5.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton5.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton5.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -151,9 +159,10 @@ public class gui extends javax.swing.JFrame {
         });
 
         jButton6.setBackground(new java.awt.Color(137, 176, 174));
+        jButton6.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jButton6.setForeground(new java.awt.Color(76, 80, 82));
-        jButton6.setText("Contracts");
-        jButton6.setBorder(null);
+        jButton6.setText("Clients");
+        jButton6.setBorderPainted(false);
         jButton6.setMaximumSize(new java.awt.Dimension(96, 22));
         jButton6.setMinimumSize(new java.awt.Dimension(96, 22));
         jButton6.setPreferredSize(new java.awt.Dimension(96, 22));
@@ -193,7 +202,7 @@ public class gui extends javax.swing.JFrame {
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(653, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -231,11 +240,11 @@ public class gui extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
