@@ -5,6 +5,8 @@
  */
 package coagent;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import static sun.jvm.hotspot.HelloWorld.e;
@@ -46,6 +49,14 @@ public class EditorPanel extends javax.swing.JPanel {
         editorTable.getColumnModel().getColumn(0).setMinWidth(0);
         editorTable.getColumnModel().getColumn(0).setMaxWidth(0);
         
+        Font headerFont = new Font("Verdana", Font.PLAIN, 13);
+
+        //headerAdd.setFont(headerFont);
+        
+        JTableHeader headerSearch = editorTable.getTableHeader();
+        headerSearch.setBackground( new Color(190, 227, 219) );
+        headerSearch.setForeground( new Color(85, 91, 110) );
+        
         //addComboBoxItems();
     }
 
@@ -74,10 +85,12 @@ public class EditorPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(190, 227, 219));
         setPreferredSize(new java.awt.Dimension(714, 543));
 
+        editorSearchButton.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         editorSearchButton.setText("Search");
         editorSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,19 +98,20 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        editorTable.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         editorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Editor Name", "Editor Contact", "Editor Interested In", "Publisher Name"
+                "", "Editor Name", "Editor Contact", "Editor Interested In", "Publisher Name"
             }
         ));
         editorTable.setRowHeight(40);
         editorTable.setSelectionForeground(new java.awt.Color(255, 102, 102));
         jScrollPane1.setViewportView(editorTable);
         if (editorTable.getColumnModel().getColumnCount() > 0) {
-            editorTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            editorTable.getColumnModel().getColumn(1).setPreferredWidth(20);
         }
 
         editorSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -106,6 +120,7 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        editorClearFields.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         editorClearFields.setText("Clear list");
         editorClearFields.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +128,7 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        editorEditList.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         editorEditList.setText("Edit list");
         editorEditList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +136,7 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        editorPanelAddButton.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         editorPanelAddButton.setText("Add to list");
         editorPanelAddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +144,7 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        showFullListButton.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         showFullListButton.setText("Show full list");
         showFullListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,87 +152,106 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel1.setText("Editor Name:");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel2.setText("Editor Contact:");
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel3.setText("Editor Interested In:");
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel4.setText("Publisher Name:");
+
+        jLabel5.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
+        jLabel5.setText("Editors");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(editorSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(editorSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(showFullListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(editorClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(editorEditList, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtInterestedIn)
-                                    .addComponent(txtContact)
-                                    .addComponent(txtPublisherName, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(editorSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(editorSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(showFullListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(editorClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(editorEditList, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(37, 37, 37))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(136, 136, 136))
+                                .addComponent(txtPublisherName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(12, 12, 12))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))
+                                        .addGap(17, 17, 17)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtInterestedIn, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(99, 99, 99)
+                        .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(61, 61, 61)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editorSearchButton)
-                    .addComponent(editorClearFields)
-                    .addComponent(editorEditList)
                     .addComponent(editorSearchField)
-                    .addComponent(showFullListButton))
-                .addGap(22, 22, 22)
+                    .addComponent(editorSearchButton)
+                    .addComponent(showFullListButton)
+                    .addComponent(editorClearFields)
+                    .addComponent(editorEditList))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtInterestedIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
+                            .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtPublisherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 65, 65))))
+                            .addComponent(txtInterestedIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPublisherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -226,7 +263,8 @@ public class EditorPanel extends javax.swing.JPanel {
 
         if (editorSearchString.equals("")) {
             editorQueryString = 
-                    "SELECT editors.Editor_Name, "
+                    "SELECT editors.Editor_Id, "
+                    + "editors.Editor_Name, "
                     + "editors.Editor_Contact, "
                     + "editors.Editor_Interested_In, "
                     + "publishers.Publisher_Name "
@@ -234,7 +272,8 @@ public class EditorPanel extends javax.swing.JPanel {
   
 
         } else {
-            editorQueryString = "SELECT editors.Editor_Name, "
+            editorQueryString = "SELECT editors.Editor_Id, "
+                    + "editors.Editor_Name, "
                     + "editors.Editor_Contact, "
                     + "editors.Editor_Interested_In, "
                     + "publishers.Publisher_Name "
@@ -288,6 +327,13 @@ public class EditorPanel extends javax.swing.JPanel {
 
     private void editorEditListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorEditListActionPerformed
 
+        DefaultTableModel tblModel = (DefaultTableModel) editorTable.getModel();
+        
+       
+        String tblName = tblModel.getValueAt(editorTable.getSelectedRow(), 1).toString();
+        String tblContact = tblModel.getValueAt(editorTable.getSelectedRow(), 2).toString();
+        String tblInterestedIn = tblModel.getValueAt(editorTable.getSelectedRow(), 3).toString();
+        
         
         String editorName = txtName.getText();
         String editorContact = txtContact.getText();
@@ -303,15 +349,15 @@ public class EditorPanel extends javax.swing.JPanel {
             String value = editorTable.getValueAt(row, 0).toString();
             int idnr = Integer.parseInt(value);
             
-            String sql = "UPDATE clients SET "
+            String sql = "UPDATE editors SET "
                     + "Editor_Id = '"+idnr+"', "
-                    + "Editor_Name = '"+editorName+"', "
-                    + "Editor_Contact = '"+editorContact+"', "
-                    + "Editor_Interested_In = '"+editorInterestedIn+"' "
-                    + "Publisher_Name = '"+publisherName+"' "
+                    + "Editor_Name = '"+tblName+"', "
+                    + "Editor_Contact = '"+tblContact+"', "
+                    + "Editor_Interested_In = '"+tblInterestedIn+"' "
+                    //+ "Publisher_Name = '"+publisherName+"' "
                     + "WHERE Editor_Id = '"+idnr+"'";
             
-            if (editorName.isEmpty()){
+            if (tblName.isEmpty()){
                 JOptionPane.showMessageDialog(null, "You need to enter a name");
             }
             
@@ -339,14 +385,17 @@ public class EditorPanel extends javax.swing.JPanel {
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
              editorQueryString = 
-                     "SELECT editors.Editor_Name, "
+                    "SELECT editors.Editor_Id,"
+                    + "editors.Editor_Name, "
                     + "editors.Editor_Contact, "
                     + "editors.Editor_Interested_In, "
                     + "publishers.Publisher_Name "
                     + "FROM (editors INNER JOIN publishers ON publishers.Publisher_Id = editors.Editor_Id)";
         
         } if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
-            editorQueryString = "SELECT editors.Editor_Name, "
+            editorQueryString = 
+                    "SELECT editors.Editor_Id,"
+                    + "editors.Editor_Name, "
                     + "editors.Editor_Contact, "
                     + "editors.Editor_Interested_In, "
                     + "publishers.Publisher_Name "
@@ -395,7 +444,8 @@ public class EditorPanel extends javax.swing.JPanel {
         String editorQueryString = null;
         
          editorQueryString = 
-                     "SELECT editors.Editor_Name, "
+                     "SELECT editors.Editor_Id, "
+                    + "editors.Editor_Name, "
                     + "editors.Editor_Contact, "
                     + "editors.Editor_Interested_In, "
                     + "publishers.Publisher_Name "
@@ -433,10 +483,12 @@ public class EditorPanel extends javax.swing.JPanel {
         String editorInterestedIn = txtInterestedIn.getText();
         String publisherName = txtPublisherName.getText();
         
+        int publisherId = 1;
+        
         try{
             Connection con = Coagent.getConnection();
             Statement stm = con.createStatement();
-            String sql = "INSERT INTO clients(Clients_Name, Clients_Contact, Clients_Email) VALUES('"+editorName+"', '"+editorContact+"', '"+editorInterestedIn+"')";
+            String sql = "INSERT INTO editors(Editor_Name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id) VALUES('"+editorName+"', '"+editorContact+"', '"+editorInterestedIn+"', '"+publisherId+"')";
             
             // vill inte ha ett namn som är en tom sträng
             if (editorName.isEmpty()){
@@ -447,7 +499,7 @@ public class EditorPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Editor is added");
             }    
 
-        } catch (Exception e){System.out.println("e");}
+        } catch (Exception e){System.out.println("Error!");}
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -461,6 +513,7 @@ public class EditorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton showFullListButton;
     private javax.swing.JTextField txtContact;
