@@ -152,6 +152,9 @@
                 <Property name="text" type="java.lang.String" value="Submissions"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                  <Insets value="[0, 0, 0, 0]"/>
+                </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[96, 22]"/>
                 </Property>
@@ -179,6 +182,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Contracts"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                  <Insets value="[0, 0, 0, 0]"/>
+                </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[96, 22]"/>
                 </Property>
