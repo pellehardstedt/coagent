@@ -65,7 +65,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 comboBookTitle.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
                 comboPublisher.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 1).toString());
                 comboReplyGrade.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 3).toString()); 
-                System.out.println(tableSearchSub.getRowCount());
                 }
             }
          });
