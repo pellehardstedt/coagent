@@ -12,33 +12,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-import static sun.jvm.hotspot.HelloWorld.e;
 
 /**
  *
  * @author miche
  */
 public class EditorPanel extends javax.swing.JPanel {
-
-    String[] dbTables = {
-        "editors",
-        "publishers",};
-    String[] dbColumns = {
-        "Editor_Name",
-        "Publisher_Name",
-        "Editor_Contact",
-        "Editor_Interested_In",};
-
-    String[] dbIds = {};
-
+    
     /**
      * Creates new form randomJPanel
      * @throws java.lang.Exception
@@ -46,18 +32,19 @@ public class EditorPanel extends javax.swing.JPanel {
     public EditorPanel() throws Exception {
         initComponents();
         
+        //Gör Id kolumnem i min JTable osynlig men jag behöver id-numret sparat någonstans för att kunna referera till editors id-nummer när man tar 
+        //bort någon eller ändrar en editor.
+        //Anledningen till att jag gör det osynligt för att jag tycker det är onödigt för en användare att få se den informationen.
         editorTable.getColumnModel().getColumn(0).setMinWidth(0);
         editorTable.getColumnModel().getColumn(0).setMaxWidth(0);
         
-        Font headerFont = new Font("Verdana", Font.PLAIN, 13);
-
-        //headerAdd.setFont(headerFont);
-        
+        //Sätter färgen på min Jtable
         JTableHeader headerSearch = editorTable.getTableHeader();
         headerSearch.setBackground( new Color(190, 227, 219) );
         headerSearch.setForeground( new Color(85, 91, 110) );
         
-        //addComboBoxItems();
+        addComboBox();
+        addComboBoxTable();
     }
 
     /**
@@ -86,6 +73,7 @@ public class EditorPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jComboBoxAdd = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(190, 227, 219));
         setPreferredSize(new java.awt.Dimension(714, 543));
@@ -152,6 +140,13 @@ public class EditorPanel extends javax.swing.JPanel {
             }
         });
 
+        txtPublisherName.setText("New Publisher");
+        txtPublisherName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPublisherNameActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
         jLabel1.setText("Editor Name:");
 
@@ -193,15 +188,19 @@ public class EditorPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtInterestedIn)
-                                    .addComponent(txtContact)
-                                    .addComponent(txtPublisherName, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                                    .addComponent(txtInterestedIn, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                    .addComponent(txtContact))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(136, 136, 136)))))
+                                .addGap(136, 136, 136))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBoxAdd, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPublisherName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(243, 243, 243))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,20 +236,25 @@ public class EditorPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(txtInterestedIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editorPanelAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtPublisherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txtPublisherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //Nedan följer kod för att ge användaren möjligheten att kunna söka efter Editors i vår Editor tabell i coagent databasen.
+    
     private void editorSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorSearchButtonActionPerformed
         String editorSearchString = editorSearchField.getText();
         String editorQueryString;
 
         String publisherQueryString;
 
+        //En QueryString som hämtar all info från databasen om sökfältet (editorSearchField) lämnas tomt.
+        
         if (editorSearchString.equals("")) {
             editorQueryString = 
                     "SELECT editors.Editor_Id, "
@@ -260,7 +264,9 @@ public class EditorPanel extends javax.swing.JPanel {
                     + "publishers.Publisher_Name "
                     + "FROM (editors INNER JOIN publishers ON publishers.Publisher_Id = editors.Publisher_Publisher_Id)";
   
-
+        //En QueryString som hämtar den info som användaren matar in i sökfältet från databasen
+        //Exempelvis kan det vara ett specifikt namn på en editor.
+        
         } else {
             editorQueryString = "SELECT editors.Editor_Id, "
                     + "editors.Editor_Name, "
@@ -278,10 +284,13 @@ public class EditorPanel extends javax.swing.JPanel {
                     + "Publisher_Name LIKE '" + editorSearchString + "%'"
                     + ");";
             
+            
             editorSearchField.setText("");
             
         }
-
+        
+        // Skickar en förfrågan till databas om en connection och vad som skall göras, i detta fall skickas editorQueryString in.
+        
         try {
             Connection con = Coagent.getConnection();
             PreparedStatement query = con.prepareStatement(editorQueryString);
@@ -291,7 +300,7 @@ public class EditorPanel extends javax.swing.JPanel {
                 ((DefaultTableModel) editorTable.getModel()).removeRow(0);
             }
 
-            //Creating Object []rowData for jTable's Table Model
+            //Fyller min JTable med data från databasen.
             int columns = result.getMetaData().getColumnCount();
             while (result.next()) {
                 Object[] row = new Object[columns];
@@ -306,7 +315,9 @@ public class EditorPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editorSearchButtonActionPerformed
 
-
+    //Denna kod gör att knappen Clear fields kan radera all data från min JTable om användaren skulle vilja
+    //göra en ny sökning.
+    
     private void editorClearFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorClearFieldsActionPerformed
 
         DefaultTableModel dm = (DefaultTableModel) editorTable.getModel();
@@ -314,12 +325,15 @@ public class EditorPanel extends javax.swing.JPanel {
             dm.removeRow(0);
         }
     }//GEN-LAST:event_editorClearFieldsActionPerformed
-
+    
+    //Nedan följer kod för knappen Edit list som ger användaren möjligheten att kunna redigera fälten i mitt JTable
+    //för att sedan kunna uppdatera informationen som ändrats, ändringarna skickas till databasen som sedan kan presentera det
+    //på nytt i JTable.
+    
     private void editorEditListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorEditListActionPerformed
 
         DefaultTableModel tblModel = (DefaultTableModel) editorTable.getModel();
         
-       
         String tblName = tblModel.getValueAt(editorTable.getSelectedRow(), 1).toString();
         String tblContact = tblModel.getValueAt(editorTable.getSelectedRow(), 2).toString();
         String tblInterestedIn = tblModel.getValueAt(editorTable.getSelectedRow(), 3).toString();
@@ -328,7 +342,8 @@ public class EditorPanel extends javax.swing.JPanel {
         String editorName = txtName.getText();
         String editorContact = txtContact.getText();
         String editorInterestedIn = txtInterestedIn.getText();
-        String publisherName = txtPublisherName.getText();
+        String publisherName = tblModel.getValueAt(editorTable.getSelectedRow(), 4).toString();
+        Integer publisherId = 0;
     
         try {
             
@@ -339,34 +354,52 @@ public class EditorPanel extends javax.swing.JPanel {
             String value = editorTable.getValueAt(row, 0).toString();
             int idnr = Integer.parseInt(value);
             
+            PreparedStatement query = con.prepareStatement("SELECT Publisher_Id FROM publishers WHERE Publisher_Name = '" + publisherName + "';" );
+            ResultSet result = query.executeQuery();
+            if(result.next()) {
+                publisherId = result.getInt(1);
+            }
             String sql = "UPDATE editors SET "
-                    + "Editor_Id = '"+idnr+"', "
-                    + "Editor_Name = '"+tblName+"', "
-                    + "Editor_Contact = '"+tblContact+"', "
-                    + "Editor_Interested_In = '"+tblInterestedIn+"' "
-                    //+ "Publisher_Name = '"+publisherName+"' "
-                    + "WHERE Editor_Id = '"+idnr+"'";
+            + "Editor_Id = "+idnr+", "
+            + "Editor_Name = '"+tblName+"', "
+            + "Editor_Interested_In = '"+tblInterestedIn+"', "
+            + "Publisher_Publisher_Id = "+publisherId+" "
+            + "WHERE Editor_Id = "+idnr+"";
+            if(editorContact.equals("")) {
+                sql = "UPDATE editors SET "
+                + "Editor_Id = "+idnr+", "
+                + "Editor_Name = '"+tblName+"', "
+                + "Editor_Contact = '"+tblContact+"', "
+                + "Editor_Interested_In = '"+tblInterestedIn+"', "
+                + "Publisher_Publisher_Id = "+publisherId+" "
+                + "WHERE Editor_Id = "+idnr+"";
+            }
             
+            System.out.println(sql);
             if (tblName.isEmpty()){
                 JOptionPane.showMessageDialog(null, "You need to enter a name");
             }
             
             else {
                 stm.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Update succesfully");
+                JOptionPane.showMessageDialog(null, "Edit succesfull");
             }
 
             
-        }catch (Exception e){System.out.println("Error!");} 
+        }catch (Exception e){System.out.println(e);} 
         
+        editorTable.clearSelection();
     
     }//GEN-LAST:event_editorEditListActionPerformed
 
+    //Knappen Add editor kallas på en metod som heter addEditor(); som finns dokumenterad utförligare längre ner i detta projekt.
     private void editorPanelAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorPanelAddButtonActionPerformed
-
         addEditor();               
     }//GEN-LAST:event_editorPanelAddButtonActionPerformed
         
+    //Följande kod ger användaren möjlighet att kunna använda sig av knappen ENTER i sina sökningar. Koden är likadan som i
+    //editorSearchButton förrutom raden med KeyEvent.VK_ENTER som då är tillför att programmet ska reagera på knappen ENTER.
+    
     private void editorSearchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editorSearchFieldKeyPressed
         
         String editorSearchString = editorSearchField.getText();
@@ -412,7 +445,6 @@ public class EditorPanel extends javax.swing.JPanel {
                 ((DefaultTableModel) editorTable.getModel()).removeRow(0);
             }
 
-            //Creating Object []rowData for jTable's Table Model
             int columns = result.getMetaData().getColumnCount();
             while (result.next()) {
                 Object[] row = new Object[columns];
@@ -425,10 +457,10 @@ public class EditorPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println(e);
         }
-        
-        
     }//GEN-LAST:event_editorSearchFieldKeyPressed
 
+    //Ger användaren möjligheten att med ett knapptryck hämta all data från databasen. Återigen är det väldigt likt koden som ligger under
+    //editorSearchButton bara att den ligger under show FullListButton
     private void showFullListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFullListButtonActionPerformed
         
         String editorQueryString = null;
@@ -449,7 +481,6 @@ public class EditorPanel extends javax.swing.JPanel {
                 ((DefaultTableModel) editorTable.getModel()).removeRow(0);
             }
 
-            //Creating Object []rowData for jTable's Table Model
             int columns = result.getMetaData().getColumnCount();
             while (result.next()) {
                 Object[] row = new Object[columns];
@@ -464,23 +495,44 @@ public class EditorPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_showFullListButtonActionPerformed
+
+    private void txtPublisherNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPublisherNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPublisherNameActionPerformed
     @SuppressWarnings("unchecked")
     
-        
+    //Ger användaren möjligheten att kunna lägga till nya editors till databasen via programmet. 
     public void addEditor(){
+        
+        //Hämtar värdet som användaren har fyllt i fälten för att sedan kunna använda detta i en förfrågan som skickas till databasen.
         String editorName = txtName.getText();
         String editorContact = txtContact.getText();
         String editorInterestedIn = txtInterestedIn.getText();
-        String publisherName = txtPublisherName.getText();
-        
-        int publisherId = 1;
+        String publisherName;
+        int publisherId = 0;
         
         try{
             Connection con = Coagent.getConnection();
+            if(!txtPublisherName.getText().equals("New Publisher")) {
+                publisherName = txtPublisherName.getText();
+
+                PreparedStatement query = con.prepareStatement("INSERT INTO publishers (Publishers_Name) VALUES('" + publisherName + "');");
+                int result = query.executeUpdate();
+            } else {
+                publisherName = String.valueOf(jComboBoxAdd.getSelectedItem());
+            }
+            PreparedStatement query = con.prepareStatement("SELECT Publisher_Id FROM publishers WHERE Publisher_Name = '" + publisherName + "';" );
+            ResultSet result = query.executeQuery();
+            if(result.next()) {
+                publisherId = result.getInt(1);
+            }
+
+            //En förfrågan till databasen med en Sträng som säger att värdet från de ifyllda fälten matas in i tabellens olika kolumner
+
             Statement stm = con.createStatement();
             String sql = "INSERT INTO editors(Editor_Name, Editor_Contact, Editor_Interested_In, Publisher_Publisher_Id) VALUES('"+editorName+"', '"+editorContact+"', '"+editorInterestedIn+"', '"+publisherId+"')";
             
-            // vill inte ha ett namn som är en tom sträng
+            //Vill inte ha ett namn som är en tom sträng
             if (editorName.isEmpty()){
                 JOptionPane.showMessageDialog(null, "You need to enter a name");
             }
@@ -499,6 +551,7 @@ public class EditorPanel extends javax.swing.JPanel {
     private javax.swing.JButton editorSearchButton;
     private javax.swing.JTextField editorSearchField;
     private javax.swing.JTable editorTable;
+    private javax.swing.JComboBox<String> jComboBoxAdd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -511,4 +564,31 @@ public class EditorPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPublisherName;
     // End of variables declaration//GEN-END:variables
+
+    @SuppressWarnings("unchecked")
+    private void addComboBox() throws Exception{
+
+        Connection con = Coagent.getConnection();
+        PreparedStatement query = con.prepareStatement("SELECT Publisher_Name FROM publishers;");
+        ResultSet result = query.executeQuery();
+
+        while(result.next()){
+            jComboBoxAdd.addItem(result.getString(1));
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void addComboBoxTable() throws Exception{
+        TableColumn column = editorTable.getColumnModel().getColumn(4);
+        JComboBox comboBox = new JComboBox();
+        Connection con = Coagent.getConnection();
+        PreparedStatement query = con.prepareStatement("SELECT Publisher_Name FROM publishers;");
+        ResultSet result = query.executeQuery();
+
+        while(result.next()){
+            comboBox.addItem(result.getString(1));
+        }
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+    }
 }
+

@@ -43,7 +43,6 @@ public class BooksPanel extends javax.swing.JPanel {
             "Clients_Name",
         };
 
-
         String[] dbSearchIds = {
             "Books_Id",
             "Authors_Id",
@@ -81,19 +80,15 @@ public class BooksPanel extends javax.swing.JPanel {
         initComponents();
         this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         
-        
         addComboBoxItems("authors", "Authors_Name", jComboBox1);
         addComboBoxItems("clients", "Clients_Name", jComboBox2);
         addComboBoxItems("agents", "Agent_Username", jComboBox3);
-
-        
 
         JTableHeader headerSearch = tableSearch.getTableHeader();
         headerSearch.setBackground( new Color(190, 227, 219) );
         headerSearch.setForeground( new Color(85, 91, 110) );
 
         //hide ID columns
-        
         TableColumn sBookId = tableSearch.getColumnModel().getColumn(0);
         sBookId.setMinWidth(0);
         sBookId.setMaxWidth(0);
@@ -108,8 +103,6 @@ public class BooksPanel extends javax.swing.JPanel {
         sClientId.setMinWidth(0);
         sClientId.setMaxWidth(0);
         sClientId.setPreferredWidth(0);
-        
-
     }
 
     /**
@@ -364,19 +357,18 @@ public class BooksPanel extends javax.swing.JPanel {
             String title = jTextField1.getText();
             selected.add(title);
             String author;  
-            if(jTextField2.getText().equals("New author")) {
-                author = String.valueOf(jComboBox1.getSelectedItem());
-            } else {
+            if(!jTextField2.getText().equals("New author")) {
                 author = jTextField1.getText(); 
                 PreparedStatement query = con.prepareStatement("INSERT INTO authors(Authors_Name, Clients_Clients_Id) VALUES('" + author + "', (SELECT Clients_Id FROM clients WHERE Clients_Name = '" + String.valueOf(jComboBox2.getSelectedItem()) + "'));");
                 int result = query.executeUpdate();
+            } else {
+                author = String.valueOf(jComboBox1.getSelectedItem());
             }
             selected.add(author);
             String client = String.valueOf(jComboBox2.getSelectedItem());
             selected.add(client);
             String agent = String.valueOf(jComboBox3.getSelectedItem());
             selected.add(agent);
-            
             
             for(int i = 1; i < 4; i++){
 
@@ -470,7 +462,6 @@ public class BooksPanel extends javax.swing.JPanel {
         while(result.next()){
             comboBox.addItem(result.getString(1));
         }
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewContract;
