@@ -390,6 +390,7 @@ public class PublishersPanel extends javax.swing.JPanel {
     private void publisherDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherDeleteBtnActionPerformed
         // Performs deleteRow method
         deleteRow();
+        editPublisherPanel.setVisible(false);
     }//GEN-LAST:event_publisherDeleteBtnActionPerformed
 
 
