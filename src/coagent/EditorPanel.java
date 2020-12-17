@@ -362,18 +362,20 @@ public class EditorPanel extends javax.swing.JPanel {
             String sql = "UPDATE editors SET "
             + "Editor_Id = "+idnr+", "
             + "Editor_Name = '"+tblName+"', "
+            + "Editor_Contact = '"+tblContact+"', "
             + "Editor_Interested_In = '"+tblInterestedIn+"', "
             + "Publisher_Publisher_Id = "+publisherId+" "
             + "WHERE Editor_Id = "+idnr+"";
+            /*
             if(editorContact.equals("")) {
                 sql = "UPDATE editors SET "
                 + "Editor_Id = "+idnr+", "
                 + "Editor_Name = '"+tblName+"', "
-                + "Editor_Contact = '"+tblContact+"', "
                 + "Editor_Interested_In = '"+tblInterestedIn+"', "
                 + "Publisher_Publisher_Id = "+publisherId+" "
                 + "WHERE Editor_Id = "+idnr+"";
             }
+*/
             
             System.out.println(sql);
             if (tblName.isEmpty()){
