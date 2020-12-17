@@ -56,15 +56,19 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         Font headerFont = new Font("Verdana", Font.PLAIN, 13);
         headerAdd.setFont(headerFont);
       
+        
+
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                if (tableSearchSub.getSelectedRow() > -1 ){
                 comboBookTitle.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
                 comboPublisher.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 1).toString());
-                comboReplyGrade.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 3).toString());
-              
-        }
-    });
+                comboReplyGrade.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 3).toString()); 
+                System.out.println(tableSearchSub.getRowCount());
+                }
+            }
+         });
         
         
     }
@@ -457,9 +461,11 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
     private void ClearSearch() {
         try {
+            tableSearchSub.clearSelection();
             DefaultTableModel model = (DefaultTableModel) tableSearchSub.getModel();
-            model.setRowCount(0);
-   
+              while (tableSearchSub.getRowCount() > 0) {
+                ((DefaultTableModel) tableSearchSub.getModel()).removeRow(0);
+              }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
