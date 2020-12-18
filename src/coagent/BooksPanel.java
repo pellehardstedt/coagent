@@ -26,30 +26,6 @@ import javax.swing.table.TableModel;
  * @author lenovo
  */
 public class BooksPanel extends javax.swing.JPanel {
-        String[] dbSearchTables = {
-            "books",
-            "books",
-            "authors",
-            "authors",
-            "clients",
-            "clients"
-        };
-        String[] dbSearchColumns = {
-            "Books_Id",
-            "Books_Title",
-            "Authors_Id",
-            "Authors_Name",
-            "Clients_Id",
-            "Clients_Name",
-        };
-
-        String[] dbSearchIds = {
-            "Books_Id",
-            "Authors_Id",
-            "Editor_Id",
-            "Clients_Id",
-        };
-
         String[] dbAddTables = {
             "books",
             "authors",
@@ -71,15 +47,14 @@ public class BooksPanel extends javax.swing.JPanel {
         
         Object bookIdFromEdit;
         int selectedRowIndex;
-        Boolean editable;
     /**
      * Creates new form ContractPanel
      */
     public BooksPanel() throws Exception {
-        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
+
         initComponents();
-        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         
+        //version of the contract addComboBox function
         addComboBoxItems("authors", "Authors_Name", jComboBox1);
         addComboBoxItems("clients", "Clients_Name", jComboBox2);
         addComboBoxItems("agents", "Agent_Username", jComboBox3);
@@ -503,12 +478,10 @@ public class BooksPanel extends javax.swing.JPanel {
             PreparedStatement query = con.prepareStatement(queryString);
             ResultSet result = query.executeQuery();
 
-            // Removing Previous Data
             while (tableSearch.getRowCount() > 0) {
                 ((DefaultTableModel) tableSearch.getModel()).removeRow(0);
             }
 
-            //Creating Object []rowData for jTable's Table Model
             int columns = result.getMetaData().getColumnCount();
             while (result.next())
             {
@@ -520,7 +493,6 @@ public class BooksPanel extends javax.swing.JPanel {
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
 
-            //jTableContracts1.setValueAt("AAA", 0, 0);
         } catch (Exception e) {
             System.out.println(e);
         }
