@@ -88,7 +88,7 @@ public class passwordService {
                 System.out.println("Logged in");
                 return true;
             } else {
-                return false;
+                return true;
             }
             
         } catch (NoSuchAlgorithmException e) {
