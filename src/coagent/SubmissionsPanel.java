@@ -365,7 +365,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             public void itemStateChanged(ItemEvent arg0) {
                 //first check if anything is selected
                 if (comboPublisher.getSelectedItem() == null){
-                    return;
+                    //do nothing
                 } else {    
                     String s = comboPublisher.getSelectedItem().toString(); 
                     String statement = "SELECT publishers.Publisher_Id, publishers.Publisher_Name, editors.Editor_Name FROM publishers, editors WHERE Publisher_name =\"" + s + "\" and editors.Publisher_Publisher_Id = publishers.Publisher_Id";
@@ -395,7 +395,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         comboOptions.add("Making an offer");
         comboOptions.add("Making a preempt");
         comboOptions.add("Requested title before submission");
-                
+        //add arraylist to combobox        
         for (int i = 0; i < comboOptions.size(); i++)
             comboReplyGrade.addItem(comboOptions.get(i));
     }    
@@ -427,6 +427,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         
             stm = con.createStatement();
             String sql = "INSERT INTO submissions (Books_Books_Id, Editor_Editor_Id, Reply_Grade) VALUES (" + result1.getString(1) + ", " + result2.getString(1) + ", '" + reply + "');";
+            //check if user wants to save changes
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to save these changes into the database?", "Warning", dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
@@ -451,6 +452,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     //method for clearing table of all search items
     private void ClearSearch() {
         try {
+            //first unselect row in table
             tableSearchSub.clearSelection();
             DefaultTableModel model = (DefaultTableModel) tableSearchSub.getModel();
                 while (tableSearchSub.getRowCount() > 0) {
@@ -487,7 +489,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         
             stm = con.createStatement();
             String sql = "UPDATE submissions SET Reply_Grade = '" + reply + "' WHERE Books_Books_Id = " + result1.getString(1) + " AND Editor_Editor_Id = " + result2.getString(1) + ";";
-            System.out.println(sql);
+            //check to see if user wants to save changes in database
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like update this submission?", "Warning", dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
@@ -495,19 +497,20 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                      if (updateresult == 1) {
                      JOptionPane.showMessageDialog(null, "Submission updated");
                      }
+                     //if submission doesn't exist then don't allow update and ask user to create new submission first
                      else {
                      JOptionPane.showMessageDialog(null, "This submission doesn't exist. Please create it first to update the reply.");
                      }
                 }
                 else {
                 }
-        
         } catch (Exception e) {
                JOptionPane.showMessageDialog(null, "Submission doesn't exist yet");
                System.out.println(e);
              }
     }
 
+    //method for searching database for submissions
     private void SearchSubmission() {
         String searchString = txtfieldSubSearch.getText();
         String queryString;
@@ -571,11 +574,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     private javax.swing.JTable tableSearchSub;
     private javax.swing.JTextPane txtfieldSubSearch;
     // End of variables declaration//GEN-END:variables
-
-
-
-
-
 
 
 }
