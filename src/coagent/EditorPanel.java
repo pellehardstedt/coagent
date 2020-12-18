@@ -366,6 +366,7 @@ public class EditorPanel extends javax.swing.JPanel {
             + "Editor_Interested_In = '"+tblInterestedIn+"', "
             + "Publisher_Publisher_Id = "+publisherId+" "
             + "WHERE Editor_Id = "+idnr+"";
+            
             /*
             if(editorContact.equals("")) {
                 sql = "UPDATE editors SET "
@@ -375,9 +376,8 @@ public class EditorPanel extends javax.swing.JPanel {
                 + "Publisher_Publisher_Id = "+publisherId+" "
                 + "WHERE Editor_Id = "+idnr+"";
             }
-*/
-            
-            System.out.println(sql);
+            */
+           
             if (tblName.isEmpty()){
                 JOptionPane.showMessageDialog(null, "You need to enter a name");
             }

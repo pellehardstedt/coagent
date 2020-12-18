@@ -54,7 +54,7 @@ public class passwordService {
             System.out.println(e);
         }
     }
-    
+
     public static Boolean comparePassword(String username, String inputPassword) throws Exception {
         int id = getUserId(username);
         if(id == 0){
@@ -74,7 +74,7 @@ public class passwordService {
             md = MessageDigest.getInstance("SHA-256");
             md.update(salt);
             byte[] hashedInputPassword = md.digest(inputPassword.getBytes(StandardCharsets.UTF_8));
-            
+
             StringBuilder hashInputBuild = new StringBuilder();
             for(byte b : hashedInputPassword)
                 hashInputBuild.append(String.format("%02x", b));
@@ -82,8 +82,9 @@ public class passwordService {
             StringBuilder hashDBbuild = new StringBuilder();
             for(byte b : hashedInputPassword)
                 hashDBbuild.append(String.format("%02x", b));
-
-            if( hashInputBuild.toString().equals(hashDBbuild.toString()) ){
+          
+            //not working properly
+            if(hashInputBuild.equals(hashDBbuild)){
                 System.out.println("Logged in");
                 return true;
             } else {
