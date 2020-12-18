@@ -33,10 +33,8 @@ public class SubmissionsPanel extends javax.swing.JPanel {
     public SubmissionsPanel() {
         
         initComponents();
-        panelSub.setMinimumSize(new java.awt.Dimension(250, 250));
-        tableSearchSub.setShowGrid(false);
         
-        
+        //populate comboboxes and set their default value as blank
         PopulateComboBookTitle();
         comboBookTitle.setSelectedItem(null);
 
@@ -49,27 +47,27 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         PopulateComboReplyGrade();
         comboReplyGrade.setSelectedItem(null);
 
-
+        //formatting for JTable
+        tableSearchSub.setShowGrid(false);
         JTableHeader headerAdd = tableSearchSub.getTableHeader();
         headerAdd.setBackground( new Color(190, 227, 219) );
         headerAdd.setForeground( new Color(85, 91, 110) );
         Font headerFont = new Font("Verdana", Font.PLAIN, 13);
         headerAdd.setFont(headerFont);
-      
         
-
+        //add List Selection Listener so that row selected can populate comboboxes, allowing for easy editing
         tableSearchSub.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                //to ensure no array out of bounds when clearing table of search results
                 if (tableSearchSub.getSelectedRow() > -1 ){
+                //collecting data from row and populating comboboxes with this information    
                 comboBookTitle.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 0).toString());
                 comboPublisher.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 1).toString());
                 comboReplyGrade.setSelectedItem(tableSearchSub.getValueAt(tableSearchSub.getSelectedRow(), 3).toString()); 
                 }
             }
          });
-        
-        
     }
 
     /**
@@ -324,8 +322,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         ClearSearch();
     }//GEN-LAST:event_btnClearSearchActionPerformed
 
-
-    
+    //method for populating Book Title combobox using SQL query
     private void PopulateComboBookTitle(){
         String comboBoxQuery = "SELECT Books_Title FROM books";
         ResultSet rs;
@@ -342,10 +339,8 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             System.out.println(e.toString());
             }
     }
-    
-    
-    
-    
+
+    //method for populating Publisher Name combobox using SQL query
     private void PopulateComboPublisher() {
             String comboBoxQuery = "SELECT Publisher_Name FROM publishers";
             ResultSet rs;
@@ -361,14 +356,14 @@ public class SubmissionsPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println(e.toString());
             }
-    
-    
     }
-    
+
+    //method for populating Editor Name combobox by listening to Publisher Name and then performing SQL query based on this info
     private void PopulateComboEditor() {
         comboPublisher.addItemListener(new ItemListener() {
         @Override
             public void itemStateChanged(ItemEvent arg0) {
+                //first check if anything is selected
                 if (comboPublisher.getSelectedItem() == null){
                     return;
                 } else {    
@@ -384,16 +379,14 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                         }
                 } catch (Exception e) {
                     System.out.println(e.toString());
-                        }
                     }
+                }
             }
         });
     }
     
-    
-        
+    //method for populating Reply combo box with fixed list of options   
     private void PopulateComboReplyGrade () {
-            
         ArrayList<String> comboOptions = new ArrayList<String>();
         comboOptions.add("No reply yet");
         comboOptions.add("Not interested in this genre");
@@ -407,7 +400,7 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             comboReplyGrade.addItem(comboOptions.get(i));
     }    
      
-    
+    //method for taking items selected and creating a new submission entry in the database
     private void AddSubmission() {
         String book = String.valueOf(comboBookTitle.getSelectedItem());
         String editor = String.valueOf(comboEditor.getSelectedItem());
@@ -442,36 +435,33 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 }
                 else {
                 }
-        
-           } catch (Exception e) {
+         } catch (Exception e) {
                 System.out.println(e);
-             }
-                    
+           }          
     }
     
-    
+    //method for clearing all the combo boxes 
     private void CreateNewSub() {
         comboBookTitle.setSelectedItem(null);
         comboReplyGrade.setSelectedItem(null);
         comboEditor.setSelectedItem(null);
         comboPublisher.setSelectedItem(null);
-    
     }
-
+    
+    //method for clearing table of all search items
     private void ClearSearch() {
         try {
             tableSearchSub.clearSelection();
             DefaultTableModel model = (DefaultTableModel) tableSearchSub.getModel();
-              while (tableSearchSub.getRowCount() > 0) {
+                while (tableSearchSub.getRowCount() > 0) {
                 ((DefaultTableModel) tableSearchSub.getModel()).removeRow(0);
-              }
+                }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
-        }
-    
+          }
     }
     
-    
+    //method for updating information from Reply combo box to an existing submission in the database
     private void UpdateReply() {
         String book = String.valueOf(comboBookTitle.getSelectedItem());
         String editor = String.valueOf(comboEditor.getSelectedItem());
@@ -489,7 +479,6 @@ public class SubmissionsPanel extends javax.swing.JPanel {
             result1 = query1.executeQuery();
             //.next() shifts the cursor to the next (the first) row of the result set
             result1.next();
-            
             //Get Editor_ID from database
             PreparedStatement query2 = con.prepareStatement(queryString2);
             result2 = query2.executeQuery();
@@ -513,11 +502,10 @@ public class SubmissionsPanel extends javax.swing.JPanel {
                 else {
                 }
         
-           } catch (Exception e) {
+        } catch (Exception e) {
                JOptionPane.showMessageDialog(null, "Submission doesn't exist yet");
                System.out.println(e);
              }
-    
     }
 
     private void SearchSubmission() {
@@ -550,25 +538,17 @@ public class SubmissionsPanel extends javax.swing.JPanel {
 
             //Creating Object []rowData for jTable's Table Model
             int columns = result.getMetaData().getColumnCount();
-            while (result.next())
-            {
+            while (result.next()) {
                 Object[] row = new Object[columns];
-                for (int i = 1; i <= columns; i++)
-                {
+                for (int i = 1; i <= columns; i++) {
                     row[i - 1] = result.getObject(i); // 1
                 }
                 ((DefaultTableModel) tableSearchSub.getModel()).insertRow(result.getRow() - 1,row);
             }
-
-            } catch (Exception e) {
+        } catch (Exception e) {
                 System.out.println(e);
-            }
-
-    
-    
+          }
     }
-    
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClearSearch;
