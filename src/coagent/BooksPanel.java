@@ -26,31 +26,6 @@ import javax.swing.table.TableModel;
  * @author lenovo
  */
 public class BooksPanel extends javax.swing.JPanel {
-        String[] dbSearchTables = {
-            "books",
-            "books",
-            "authors",
-            "authors",
-            "clients",
-            "clients"
-        };
-        String[] dbSearchColumns = {
-            "Books_Id",
-            "Books_Title",
-            "Authors_Id",
-            "Authors_Name",
-            "Clients_Id",
-            "Clients_Name",
-        };
-
-
-        String[] dbSearchIds = {
-            "Books_Id",
-            "Authors_Id",
-            "Editor_Id",
-            "Clients_Id",
-        };
-
         String[] dbAddTables = {
             "books",
             "authors",
@@ -72,28 +47,23 @@ public class BooksPanel extends javax.swing.JPanel {
         
         Object bookIdFromEdit;
         int selectedRowIndex;
-        Boolean editable;
     /**
      * Creates new form ContractPanel
      */
     public BooksPanel() throws Exception {
-        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
+
         initComponents();
-        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         
-        
+        //version of the contract addComboBox function
         addComboBoxItems("authors", "Authors_Name", jComboBox1);
         addComboBoxItems("clients", "Clients_Name", jComboBox2);
         addComboBoxItems("agents", "Agent_Username", jComboBox3);
-
-        
 
         JTableHeader headerSearch = tableSearch.getTableHeader();
         headerSearch.setBackground( new Color(190, 227, 219) );
         headerSearch.setForeground( new Color(85, 91, 110) );
 
         //hide ID columns
-        
         TableColumn sBookId = tableSearch.getColumnModel().getColumn(0);
         sBookId.setMinWidth(0);
         sBookId.setMaxWidth(0);
@@ -108,8 +78,6 @@ public class BooksPanel extends javax.swing.JPanel {
         sClientId.setMinWidth(0);
         sClientId.setMaxWidth(0);
         sClientId.setPreferredWidth(0);
-        
-
     }
 
     /**
@@ -364,19 +332,18 @@ public class BooksPanel extends javax.swing.JPanel {
             String title = jTextField1.getText();
             selected.add(title);
             String author;  
-            if(jTextField2.getText().equals("New author") || jTextField2.getText().equals("")) {
-                author = String.valueOf(jComboBox1.getSelectedItem());
-            } else {
-                author = jTextField2.getText(); 
+            if(!jTextField2.getText().equals("New author")) {
+                author = jTextField1.getText(); 
                 PreparedStatement query = con.prepareStatement("INSERT INTO authors(Authors_Name, Clients_Clients_Id) VALUES('" + author + "', (SELECT Clients_Id FROM clients WHERE Clients_Name = '" + String.valueOf(jComboBox2.getSelectedItem()) + "'));");
                 int result = query.executeUpdate();
+            } else {
+                author = String.valueOf(jComboBox1.getSelectedItem());
             }
             selected.add(author);
             String client = String.valueOf(jComboBox2.getSelectedItem());
             selected.add(client);
             String agent = String.valueOf(jComboBox3.getSelectedItem());
             selected.add(agent);
-            
             
             for(int i = 1; i < 4; i++){
 
@@ -470,7 +437,6 @@ public class BooksPanel extends javax.swing.JPanel {
         while(result.next()){
             comboBox.addItem(result.getString(1));
         }
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewContract;
@@ -512,12 +478,10 @@ public class BooksPanel extends javax.swing.JPanel {
             PreparedStatement query = con.prepareStatement(queryString);
             ResultSet result = query.executeQuery();
 
-            // Removing Previous Data
             while (tableSearch.getRowCount() > 0) {
                 ((DefaultTableModel) tableSearch.getModel()).removeRow(0);
             }
 
-            //Creating Object []rowData for jTable's Table Model
             int columns = result.getMetaData().getColumnCount();
             while (result.next())
             {
@@ -529,7 +493,6 @@ public class BooksPanel extends javax.swing.JPanel {
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
 
-            //jTableContracts1.setValueAt("AAA", 0, 0);
         } catch (Exception e) {
             System.out.println(e);
         }

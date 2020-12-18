@@ -26,36 +26,6 @@ import javax.swing.table.TableModel;
  * @author lenovo
  */
 public class ContractPanel extends javax.swing.JPanel {
-        String[] dbSearchTables = {
-            "contracts",
-            "books",
-            "authors",
-            "clients",
-            "editors",
-            "publishers",
-            "agents"
-        };
-        String[] dbSearchColumns = {
-            "Contract_Id",
-            "Books_title",
-            "Authors_Name",
-            "Clients_Name",
-            "Editor_Name",
-            "Publisher_Name",
-            "Agent_Username"
-        };
-
-
-        String[] dbSearchIds = {
-            "Contract_Id",
-            "Books_Id",
-            "Authors_Id",
-            "Clients_Dd",
-            "Editor_Id",
-            "Publisher_Id",
-            "Agent_Id"
-        };
-
         String[] dbAddTables = {
             "contracts",
             "books",
@@ -76,23 +46,19 @@ public class ContractPanel extends javax.swing.JPanel {
             "Publisher_Id"
         };
         int selectedRowIndex;
-        Boolean editable;
-    /**
-     * Creates new form ContractPanel
-     */
-    public ContractPanel() throws Exception {
-        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
-        initComponents();
-        this.setFont(new java.awt.Font("Avenir Next", 0, 13));
         
+        
+    public ContractPanel() throws Exception {
+        
+        initComponents();
+        
+        //populate the comboboxen in the add / save changes table
         for (int i = 1; i < dbAddTables.length; i++) {
             addComboBoxItems(dbAddTables[i], dbAddColumns[i], i, tableAdd);
         }
-
-        for (int i = 1; i < dbSearchTables.length; i++) {
-            addComboBoxItems(dbSearchTables[i], dbSearchColumns[i], i, tableSearch);
-        }
+        
         Font headerFont = new Font("Verdana", Font.PLAIN, 13);
+        //setting the header colors and fonts
         JTableHeader headerAdd = tableAdd.getTableHeader();
         headerAdd.setBackground( new Color(190, 227, 219) );
         headerAdd.setForeground( new Color(85, 91, 110) );
@@ -306,8 +272,8 @@ public class ContractPanel extends javax.swing.JPanel {
         ArrayList<String> selected = new ArrayList<String>();
         selected.add("empty");
         ArrayList<Integer> ids = new ArrayList<Integer>();
+        //get the ids from the names in the comboboxes
         for(int i = 1; i < 4; i++){
-
             selected.add(String.valueOf(tableAdd.getModel().getValueAt(0, i)));
             try {
                 Connection con = Coagent.getConnection();
@@ -325,7 +291,7 @@ public class ContractPanel extends javax.swing.JPanel {
         try {
             Connection con = Coagent.getConnection();
             PreparedStatement query = query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
-
+            //if this is an update
             if (addNewContract.getText().equals("Save changes")){
                 Object id = tableAdd.getModel().getValueAt(0, 0);
                 query = con.prepareStatement(""
@@ -335,10 +301,12 @@ public class ContractPanel extends javax.swing.JPanel {
                         + "Publisher_Publisher_Id = '" + ids.get(2)+ "' "
                         + "WHERE Contract_Id = " + id + ";" );
             } else {
+                //else this is a insert
                 query = con.prepareStatement("INSERT INTO contracts(Books_Books_Id, Editor_Editor_Id, Publisher_Publisher_Id) VALUES(" + ids.get(0) + ", " + ids.get(1) + ", " + ids.get(2) + ");");
             }
             int result = query.executeUpdate();
-            //remove previous selection after INSERT
+            
+            //remove the selection
             TableModel tableAddModel = tableAdd.getModel();
             for(int i = 0; i < 4; i++) {
                 tableAddModel.setValueAt("", 0, i);
@@ -355,14 +323,15 @@ public class ContractPanel extends javax.swing.JPanel {
     private void tableSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchMousePressed
 
     }//GEN-LAST:event_tableSearchMousePressed
-
+    //enable edit buttons and save the selected row index
     @SuppressWarnings("unchecked")
     private void tableSearchMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchMouseReleased
         jButtonEditContracts.setEnabled(true);
         jButtonDeleteContracts1.setEnabled(true);
         selectedRowIndex = tableSearch.rowAtPoint(evt.getPoint());
     }//GEN-LAST:event_tableSearchMouseReleased
-
+    
+    //when "edit" is clicked, loop over the row and populate the add / save changes table
     private void jButtonEditContractsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditContractsActionPerformed
         addNewContract.setText("Save changes");
         Integer[] columnIndexes = {0,1,4,5};
@@ -370,10 +339,9 @@ public class ContractPanel extends javax.swing.JPanel {
             Object value = tableSearch.getModel().getValueAt(selectedRowIndex, columnIndexes[i]);
             tableAdd.getModel().setValueAt(value, 0, i);
         }
-
-
     }//GEN-LAST:event_jButtonEditContractsActionPerformed
-
+    
+    //use the selected row index to delete entry
     private void jButtonDeleteContracts1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteContracts1ActionPerformed
             try {
                 Connection con = Coagent.getConnection();
@@ -395,6 +363,7 @@ public class ContractPanel extends javax.swing.JPanel {
         while(result.next()){
             comboBox.addItem(result.getString(1));
         }
+        //set the combobox we just created as the Cell Editor of the column
         column.setCellEditor(new DefaultCellEditor(comboBox));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -436,24 +405,24 @@ public class ContractPanel extends javax.swing.JPanel {
             PreparedStatement query = con.prepareStatement(queryString);
             ResultSet result = query.executeQuery();
 
-            // Removing Previous Data
+            //remove rows from search table
             while (tableSearch.getRowCount() > 0) {
                 ((DefaultTableModel) tableSearch.getModel()).removeRow(0);
             }
-
-            //Creating Object []rowData for jTable's Table Model
+            
+            //loop over the column count
             int columns = result.getMetaData().getColumnCount();
+            //as long as there is results
             while (result.next())
             {
                 Object[] row = new Object[columns];
                 for (int i = 1; i <= columns; i++)
                 {
+                    //insert the results into them
                     row[i - 1] = result.getObject(i); // 1
                 }
                 ((DefaultTableModel) tableSearch.getModel()).insertRow(result.getRow() - 1,row);
             }
-            
-            //jTableContracts1.setValueAt("AAA", 0, 0);
         } catch (Exception e) {
             System.out.println(e);
         }
